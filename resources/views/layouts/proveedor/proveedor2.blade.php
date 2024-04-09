@@ -41,6 +41,7 @@
                 <div class="titulo">
                     <h2>Crear Menu</h2>
                 </div>
+                <hr />
                 <div class="cantidadMenu">
                     <div class="menosMenu">
                         <button class="menos">
@@ -64,6 +65,7 @@
                 <div class="titulo">
                     <h2>Entregar Menu</h2>
                 </div>
+                <hr />
                 <div class="selectRider">
                     <label for="opciones">Select Rider:</label>
                     <select id="opciones" name="opciones">
@@ -86,11 +88,21 @@
                 <div class="titulo">
                     <h2>Stok</h2>
                 </div>
+                <hr />
+                <div class="stokDiv">
+                    <div class="selectMenu container-fluid">
+                        @yield('contenidoMenu')
+                    </div>
+                    <div class="selectHistorico container-fluid">
+                        @yield('contenidoHistorico')
+                    </div>
+                </div>
             </div>
             <div class="mapa col-lg-5">
                 <div class="titulo">
                     <h2>Mapa</h2>
                 </div>
+                <hr />
                 <div class="divVolver">
                     <a class="aVolver" id="aVolver" href="{{ route('proveedor1') }}">
                         <button class="btnVolver">
@@ -100,10 +112,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="container-fluid">
-        @yield('contenido')
     </div>
 </body>
 
