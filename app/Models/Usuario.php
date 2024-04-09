@@ -32,4 +32,24 @@ class Usuario extends Authenticatable
     //public $incrementing=false; //solo se pone cuando la clave primaria no es autoincremental.
     //protected $keyType="string"; //solo se pone cuando la clave primaria no es entero.
     public $timestamps=false;
+
+    public function tiposDeUsuario()
+    {
+        return $this->belongsTo(TipoDeUsuario::class,"tipo");
+    }
+
+    public function administradores()
+    {
+        return $this->hasMany(Administrador::class,"id");
+    }
+
+    public function riders()
+    {
+        return $this->hasMany(Rider::class,"id");
+    }
+
+    public function proveedores()
+    {
+        return $this->hasMany(Proveedor::class,"id");
+    }
 }

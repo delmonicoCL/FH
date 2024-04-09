@@ -7,7 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Proveedor2</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/c7334dda94.js" crossorigin="anonymous"></script>
 
     <link rel="icon" type="image/png" href="{{ asset('img/logo-02.png') }}">
     <link rel="stylesheet" href="{{ asset('css/proveedor2.css') }}">
@@ -41,11 +43,15 @@
                 </div>
                 <div class="cantidadMenu">
                     <div class="menosMenu">
-                        <button class="menos"> - </button>
+                        <button class="menos">
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
                     </div>
                     <div class="cantMenu"> 3 </div>
                     <div class="masMenu">
-                        <button class="mas"> + </button>
+                        <button class="mas">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="btnCrear">
@@ -69,7 +75,7 @@
                 </div>
                 <div class="btnConfirm">
                     <button class="confirm">
-                        confirmar
+                        Confirmar
                     </button>
                 </div>
             </div>
@@ -85,6 +91,13 @@
                 <div class="titulo">
                     <h2>Mapa</h2>
                 </div>
+                <div class="divVolver">
+                    <a class="aVolver" id="aVolver" href="{{ route('proveedor1') }}">
+                        <button class="btnVolver">
+                            <i class="fa-solid fa-circle-chevron-right"></i>
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -94,7 +107,8 @@
     </div>
 </body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
 </script>
 
 </html>

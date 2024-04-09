@@ -14,4 +14,9 @@ class Administrador extends Model
     public $incrementing=false; //solo se pone cuando la clave primaria no es autoincremental.
     //protected $keyType="string"; //solo se pone cuando la clave primaria no es entero.
     public $timestamps=false;
+
+    public function usuarios()
+    {
+        return $this->belongsTo(Usuario::class,"id");
+    }
 }
