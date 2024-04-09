@@ -161,24 +161,49 @@ document.addEventListener('DOMContentLoaded', function () {
     map.on('mouseleave', function () {
         map.getCanvas().style.cursor = '';
     });
-
-    // Al cargar la página, obtener las PUAs almacenadas en la base de datos
-    fetch('/api/puas')
+    
+    // Obtener la lista de Riders desde la base de datos y llenar el select
+    fetch('/api/riders')
         .then(response => response.json())
         .then(data => {
-            data.forEach(pua => {
-                // Crear marcador en el mapa para cada PUA
-                var description = `<h3>${pua.localizacion}</h3>` +
-                    `<p>Número de personas: ${pua.cantidad_de_personas}</p>`;
-                
-                new mapboxgl.Marker({
-                    color: "#fcba03",
-                    draggable: false
-                })
-                .setLngLat([pua.lng, pua.lat])
-                .setPopup(new mapboxgl.Popup().setHTML(description))
-                .addTo(map);
+            const selectRider = document.getElementById('rider');
+            data.forEach(rider => {
+                const option = document.createElement('option');
+                option.value = rider.id;
+                option.text = rider.nombre; // Suponiendo que 'nombre' es el campo que contiene el nombre del Rider
+                selectRider.appendChild(option);
             });
         })
-        .catch(error => console.error('Error fetching PUAs:', error));
+        .catch(error => console.error('Error fetching Riders:', error));
+
+    // Escuchar el evento de clic en el botón de envío del formulario
+    document.getElementById('submitForm').addEventListener('click', function () {
+        const riderId = document.getElementById('rider').value;
+        const numpersonas = document.getElementById('numpersonas').value;
+
+        // Crear la Pua en la base de datos usando los datos del formulario
+        fetch('/api/puas/store-from-form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                rider_id: riderId,
+                cantidad_de_personas: numpersonas
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                // La Pua se creó correctamente
+                console.log('Pua creada exitosamente.');
+                // Aquí podrías realizar alguna acción adicional, como cerrar el modal o actualizar la lista de PUAs en el mapa
+            } else {
+                // Hubo un error al crear la Pua
+                console.error('Error al crear la Pua:', response.statusText);
+            }
+        })
+        .catch(error => console.error('Error en la solicitud fetch:', error));
+    });
+
+
 });
