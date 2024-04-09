@@ -18,4 +18,14 @@ class Entrega extends Model
     {
         return $this->belongsTo(Rider::class,"rider");
     }
+
+    public function puas()
+    {
+        return $this->belongsTo(Pua::class,"pua");
+    }
+
+    public function estadosEntrega()
+    {
+        return $this->belongsTo(EstadoEntrega::class,"estado");
+    }
 }

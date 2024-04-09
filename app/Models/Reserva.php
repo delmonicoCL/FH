@@ -18,4 +18,14 @@ class Reserva extends Model
     {
         return $this->belongsTo(Rider::class,"rider");
     }
+
+    public function estadosReserva()
+    {
+        return $this->belongsTo(EstadoReserva::class,"estado");
+    }
+
+    public function proveedores()
+    {
+        return $this->belongsTo(Proveedor::class,"proveedor");
+    }
 }

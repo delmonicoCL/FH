@@ -30,4 +30,9 @@ class Pua extends Model
     {
         return $this->belongsTo(EstadoPua::class,"estado");
     }
+
+    public function entregas()
+    {
+        return $this->hasMany(Entrega::class,"pua");
+    }
 }

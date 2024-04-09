@@ -19,4 +19,9 @@ class Proveedor extends Model
     {
         return $this->belongsTo(Usuario::class,"id");
     }
+
+    public function reservas()
+    {
+        return $this->hasMany(Reserva::class,"proveedor");
+    }
 }
