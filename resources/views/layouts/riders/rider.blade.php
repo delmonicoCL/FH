@@ -18,15 +18,19 @@
             <div class="modal-content-pua">
                 <span class="close" id="closeButton">&times;</span>
                 <h2>Crear Pua</h2>
-                <form id="puaForm" action="puas.php" method="post">
-                    <label for="nombrePua">Nombre del Rider:</label><br>
-                    <input type="text" id="nombrePua" name="nombrePua"><br><br>
+                <form id="puaForm">
+                    <input type="hidden" id="lng" name="lng">
+                    <input type="hidden" id="lat" name="lat">
+                    <label for="rider">Seleccionar Rider:</label><br>
+                    <select id="rider" name="rider">
+                        <!-- Opciones de Riders cargadas dinámicamente desde la base de datos -->
+                    </select><br><br>
                     <label for="numpersonas">Cuantas personas hay?:</label><br>
                     <input type="number" id="numpersonas" name="numpersonas"><br><br>
                     <button type="button" id="submitForm">Crear Pua</button>
                 </form>
             </div>
-        </div>
+        </div>        
 
          <!-- Navbar Inferior -->
         <nav class="navbar-bottom">
