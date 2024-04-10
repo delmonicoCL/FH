@@ -27,6 +27,7 @@ html {
     text-align: center;
 }
 
+
 .button {
     background-color: #4caf50;
     border: none;
@@ -342,6 +343,15 @@ label {
 
 
 /* Nav-Bar */
+
+#logout{
+    position: fixed;
+    text-align: right;
+    width: 100%;
+    float: right;
+    padding: 0px 0;
+    z-index: 100 !important;
+}
 
 .navbar-bottom {
     position: fixed;

@@ -17,14 +17,12 @@ class PuaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'localizacion' => 'required|string',
             'cantidad_de_personas' => 'required|integer',
             'lng' => 'required|numeric',
             'lat' => 'required|numeric',
         ]);
 
         $pua = new Pua();
-        $pua->localizacion = $request->localizacion;
         $pua->cantidad_de_personas = $request->cantidad_de_personas;
         $pua->lng = $request->lng;
         $pua->lat = $request->lat;
@@ -37,15 +35,13 @@ class PuaController extends Controller
     public function storeFromForm(Request $request)
     {
         $request->validate([
-            'nombrePua' => 'required|string',
-            'numpersonas' => 'required|integer',
+            'cantidad_de_personas' => 'required|integer',
             'lng' => 'required|numeric',
             'lat' => 'required|numeric',
         ]);
 
         $pua = new Pua();
-        $pua->localizacion = $request->nombrePua;
-        $pua->cantidad_de_personas = $request->numpersonas;
+        $pua->cantidad_de_personas = $request->cantidad_de_personas;
         $pua->lng = $request->lng;
         $pua->lat = $request->lat;
         $pua->save();
@@ -61,13 +57,11 @@ class PuaController extends Controller
     public function update(Request $request, Pua $pua)
     {
         $request->validate([
-            'localizacion' => 'required|string',
             'cantidad_de_personas' => 'required|integer',
             'lng' => 'required|numeric',
             'lat' => 'required|numeric',
         ]);
 
-        $pua->localizacion = $request->localizacion;
         $pua->cantidad_de_personas = $request->cantidad_de_personas;
         $pua->lng = $request->lng;
         $pua->lat = $request->lat;
