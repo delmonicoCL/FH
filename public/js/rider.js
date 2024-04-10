@@ -48,9 +48,46 @@ document.addEventListener('DOMContentLoaded', function () {
                 var latitud = e.lngLat.lat;
                 var longitud = e.lngLat.lng;
                 createPua(latitud, longitud, numpersonas);
+                modoPua = false;
                 modal.style.display = "none";
             };
         }
+    });
+
+    var modalPerfil = document.getElementById("modal-perfil");
+    var boton_perfil = document.getElementById('boton-perfil');
+
+    boton_perfil.addEventListener('click', function (){
+        modalPerfil.style.display = "block";
+        var closeButtonReservas = document.getElementById('closeButtonPerfil');
+
+        closeButtonPerfil.addEventListener('click', function() {
+            modalPerfil.style.display = "none";
+        });
+    });
+
+    var modalReservas = document.getElementById("modal-reservas");
+    var boton_reservas = document.getElementById('boton-reservas');
+
+    boton_reservas.addEventListener('click', function (){
+        modalReservas.style.display = "block";
+        var closeButtonReservas = document.getElementById('closeButtonReservas');
+
+        closeButtonReservas.addEventListener('click', function() {
+            modalReservas.style.display = "none";
+        });
+    });
+    
+    var modalHistorial = document.getElementById("modal-historial");
+    var boton_historial = document.getElementById('boton-historial');
+
+    boton_historial.addEventListener('click', function (){
+        modalHistorial.style.display = "block";
+        var closeButtonHistorial = document.getElementById('closeButtonHistorial');
+
+        closeButtonHistorial.addEventListener('click', function() {
+            modalHistorial.style.display = "none";
+        });
     });
 
     function updateButtonStyle() {
@@ -113,6 +150,8 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
             if (response.ok) {
                 console.log('Pua creada exitosamente.');
+                // Desactivar el modo Pua
+                modoPua = false;
                 // Actualizar los marcadores en el mapa después de crear una nueva pua
                 loadMarkers();
             } else {
@@ -121,4 +160,5 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error en la solicitud fetch:', error));
     }
+    
 });
