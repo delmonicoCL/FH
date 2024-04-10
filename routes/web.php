@@ -44,7 +44,7 @@ Route::middleware(["auth"])->group(function(){
                 break;
             default:
                 $rider=Rider::where("id","=",$id)->first();
-                $response=view("home",compact("user","rider"));
+                $response=view("riders/rider",compact("user","rider"));
                 break;
         }
         return $response;
@@ -59,9 +59,6 @@ Route::get('/registros/administrador', function () {
     return view('registros.administrador');
 });
 
-Route::get('/rider', function () {
-    return view('rider');
-});
 
 Route::resource("usuarios",UsuarioController::class);
 
