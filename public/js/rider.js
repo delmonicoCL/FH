@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     mapboxgl.accessToken = 'pk.eyJ1IjoiZG5lcml6IiwiYSI6ImNsdHJrN3ppZjAxYmsya3BqcWRsYzdkam8ifQ.gjTWrYyirEhh94V_agnuhQ';
     var modoPua = false;
-    var markersData = []; // Array para almacenar datos de las marcas
-    var puaNames = {}; // Objeto para almacenar los nombres de las puas
 
     var removeAttributionControl = function () {
         var attribControl = document.querySelector('.mapboxgl-ctrl-attrib');
@@ -20,18 +18,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     map.on('load', function () {
         removeAttributionControl();
+        loadMarkers();
     });
 
     var createMarkerButton = document.getElementById('createMarkerButton');
-
     createMarkerButton.addEventListener('click', function () {
-        // Cambiar el estado del modoPua
         modoPua = !modoPua;
-
-        // Actualizar el estilo del botón
         updateButtonStyle();
-
-        // Cambiar el cursor del mapa según el estado de modoPua
         if (modoPua) {
             map.getCanvas().style.cursor = 'pointer';
         } else {
@@ -39,113 +32,65 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
     map.on('click', function (e) {
         if (modoPua) {
-            // Mostrar modal para preguntas
             var modal = document.getElementById("myModal");
             modal.style.display = "block";
             document.getElementById("puaForm").reset();
             var closeButton = document.getElementById("closeButton");
-            
             closeButton.onclick = function() {
                 modal.style.display = "none";
             }
-            // Obtener elementos del modal
-            var nombrePuaInput = document.getElementById("nombrePua");
             var numpersonasInput = document.getElementById("numpersonas");
             var submitButton = document.getElementById("submitForm");
-
-            // Definir evento de clic para el botón de envío del formulario
             submitButton.onclick = function () {
-                var nombrePua = nombrePuaInput.value;
                 var numpersonas = numpersonasInput.value;
-
-                // Validar que el nombre de la pua no esté vacío
-                if (nombrePua.trim() === '') {
-                    alert("El nombre de la pua no puede estar vacío.");
-                    return;
-                }
-
-                // Crear la pua en el mapa
-                const nuevaPuaId = markersData.length + 1;
-
-                // Guardar los datos de la pua para su uso posterior
-                markersData.push({
-                    id: nuevaPuaId,
-                    coordinates: e.lngLat,
-                    nombre: nombrePua,
-                    numpersonas: numpersonas,
-                });
-
-                // Actualizar el mapa con el nuevo popup de la pua
-                var description = "<h3>" + nombrePua + "</h3>" +
-                    "<p>Numero de personas: " + numpersonas + "</p>";
-
-                new mapboxgl.Marker({
-                    color: "#fcba03",
-                    draggable: false
-                })
-                .setLngLat(e.lngLat)
-                .setPopup(new mapboxgl.Popup().setHTML(description))
-                .addTo(map);
-
-                // Reiniciar el modoPua
+                var latitud = e.lngLat.lat;
+                var longitud = e.lngLat.lng;
+                createPua(latitud, longitud, numpersonas);
                 modoPua = false;
-                updateButtonStyle();
-                map.getCanvas().style.cursor = '';
-
-                // Cerrar el modal
                 modal.style.display = "none";
             };
         }
     });
 
-    var modalPerfil = document.getElementById("modal-perfil"); // Agregamos la referencia al modal de reservas
+    var modalPerfil = document.getElementById("modal-perfil");
     var boton_perfil = document.getElementById('boton-perfil');
 
     boton_perfil.addEventListener('click', function (){
         modalPerfil.style.display = "block";
         var closeButtonReservas = document.getElementById('closeButtonPerfil');
 
-        // Agrega un evento de clic al botón de cierre
         closeButtonPerfil.addEventListener('click', function() {
-            // Oculta el modal de reservas
             modalPerfil.style.display = "none";
         });
     });
 
-
-    var modalReservas = document.getElementById("modal-reservas"); // Agregamos la referencia al modal de reservas
+    var modalReservas = document.getElementById("modal-reservas");
     var boton_reservas = document.getElementById('boton-reservas');
 
     boton_reservas.addEventListener('click', function (){
         modalReservas.style.display = "block";
         var closeButtonReservas = document.getElementById('closeButtonReservas');
 
-        // Agrega un evento de clic al botón de cierre
         closeButtonReservas.addEventListener('click', function() {
-            // Oculta el modal de reservas
             modalReservas.style.display = "none";
         });
     });
     
-    var modalHistorial = document.getElementById("modal-historial"); // Agregamos la referencia al modal de reservas
+    var modalHistorial = document.getElementById("modal-historial");
     var boton_historial = document.getElementById('boton-historial');
 
     boton_historial.addEventListener('click', function (){
         modalHistorial.style.display = "block";
         var closeButtonHistorial = document.getElementById('closeButtonHistorial');
 
-        // Agrega un evento de clic al botón de cierre
         closeButtonHistorial.addEventListener('click', function() {
-            // Oculta el modal de reservas
             modalHistorial.style.display = "none";
         });
     });
 
     function updateButtonStyle() {
-        // Actualizar el estilo del botón según el estado de modoPua
         if (modoPua) {
             createMarkerButton.classList.add('active');
         } else {
@@ -153,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Cambiar el cursor al pasar sobre una pua
     map.on('mouseenter', function () {
         map.getCanvas().style.cursor = 'pointer';
     });
@@ -162,23 +106,59 @@ document.addEventListener('DOMContentLoaded', function () {
         map.getCanvas().style.cursor = '';
     });
 
-    // Al cargar la página, obtener las PUAs almacenadas en la base de datos
-    fetch('/api/puas')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(pua => {
-                // Crear marcador en el mapa para cada PUA
-                var description = `<h3>${pua.localizacion}</h3>` +
-                    `<p>Número de personas: ${pua.cantidad_de_personas}</p>`;
-                
-                new mapboxgl.Marker({
-                    color: "#fcba03",
-                    draggable: false
-                })
-                .setLngLat([pua.lng, pua.lat])
-                .setPopup(new mapboxgl.Popup().setHTML(description))
-                .addTo(map);
-            });
+    function loadMarkers() {
+        fetch('/FH/public/api/puas')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(pua => {
+                    addMarkerToMap(pua);
+                });
+            })
+            .catch(error => console.error('Error fetching PUAs:', error));
+    }
+
+    function addMarkerToMap(pua) {
+        var lngLat = [pua.lng, pua.lat];
+        var marker = new mapboxgl.Marker({
+            color: "#fcba03",
+            draggable: false
         })
-        .catch(error => console.error('Error fetching PUAs:', error));
+        .setLngLat(lngLat)
+        .addTo(map);
+
+        var description = "<h3>" + pua.nombre + "</h3>" +
+            "<p>Numero de personas: " + pua.cantidad_de_personas + "</p>";
+
+        var popup = new mapboxgl.Popup()
+            .setHTML(description);
+
+        marker.setPopup(popup);
+    }
+
+    function createPua(latitud, longitud, numpersonas) {
+        fetch('/FH/public/api/puas', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                numpersonas: numpersonas,
+                lat: latitud,
+                lng: longitud
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Pua creada exitosamente.');
+                // Desactivar el modo Pua
+                modoPua = false;
+                // Actualizar los marcadores en el mapa después de crear una nueva pua
+                loadMarkers();
+            } else {
+                console.error('Error al crear la Pua:', response.statusText);
+            }
+        })
+        .catch(error => console.error('Error en la solicitud fetch:', error));
+    }
+    
 });

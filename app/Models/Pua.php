@@ -1,5 +1,5 @@
 <?php
-
+// models/Pua.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,11 +14,7 @@ class Pua extends Model
     public $timestamps = false; // Se desactiva la gestión de los timestamps
     
     protected $fillable = [ // Se especifican los campos que se pueden llenar
-        'localizacion',
         'cantidad_de_personas',
-        'ultima_entrega',
-        'rider_creador',
-        'estado',
     ];
 
     public function riders()

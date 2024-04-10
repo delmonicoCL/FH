@@ -210,9 +210,6 @@ document.addEventListener
                 longitudMaxima=longitudMaxima+1;
                 let longitudMuyCorta=elementoInput.value.length < longitudMinima;
                 let longitudMuyLarga=elementoInput.value.length >= longitudMaxima;
-                console.log("Longitud muy corta: "+longitudMuyCorta);
-                console.log("Longitud muy larga: "+longitudMuyLarga);
-                console.log(" ");
 
                 // Si la longitud del campo nombre es mayor o igual a 35, muestra un mensaje de error
                 if(longitudMuyCorta||longitudMuyLarga)
@@ -307,9 +304,6 @@ document.addEventListener
             {
                 let valorElementoInputUno=elementoInputUno.value;
                 let valorElementoInputDos=elementoInputDos.value;
-                /*console.log("Dentro de la funcion verificarQueLosCamposCoincidan");
-                console.log("Valor contraseña "+valorElementoInputDos);
-                console.log("Valor verificar contraseña "+valorElementoInputUno);*/
                 if (valorElementoInputUno!==valorElementoInputDos)
                 {
                     // Muestra un mensaje de error
