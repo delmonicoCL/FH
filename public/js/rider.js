@@ -23,15 +23,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     var createMarkerButton = document.getElementById('createMarkerButton');
-    createMarkerButton.addEventListener('click', function () {
-        modoPua = !modoPua;
-        updateButtonStyle();
-        if (modoPua) {
-            map.getCanvas().style.cursor = 'pointer';
-        } else {
-            map.getCanvas().style.cursor = '';
-        }
-    });
+    if (createMarkerButton) {
+        createMarkerButton.addEventListener('click', function () {
+            modoPua = !modoPua;
+            updateButtonStyle();
+            if (modoPua) {
+                map.getCanvas().style.cursor = 'pointer';
+            } else {
+                map.getCanvas().style.cursor = '';
+            }
+        });
+    }
 
     map.on('click', function (e) {
         if (modoPua) {
@@ -60,25 +62,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     boton_perfil.addEventListener('click', function (){
         modalPerfil.style.display = "block";
-        var closeButtonReservas = document.getElementById('closeButtonPerfil');
+        var closeButtonPerfil = document.getElementById('closeButtonPerfil');
 
         closeButtonPerfil.addEventListener('click', function() {
             modalPerfil.style.display = "none";
         });
     });
 
-    var modalReservas = document.getElementById("modal-reservas");
-    var boton_reservas = document.getElementById('boton-reservas');
 
-    boton_reservas.addEventListener('click', function (){
-        modalReservas.style.display = "block";
-        var closeButtonReservas = document.getElementById('closeButtonReservas');
-
-        closeButtonReservas.addEventListener('click', function() {
-            modalReservas.style.display = "none";
-        });
-    });
-    
     var modalHistorial = document.getElementById("modal-historial");
     var boton_historial = document.getElementById('boton-historial');
 
@@ -147,8 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
         marker.setPopup(popup);
     }
 
-    function addMarkerToMapProveedores(proveedor)
-    {
+    function addMarkerToMapProveedores(proveedor) {
         var lngLat = [proveedor.lng, proveedor.lat];
         var marker = new mapboxgl.Marker({
             color: "red",
@@ -156,16 +146,29 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .setLngLat(lngLat)
         .addTo(map);
-
+    
         var description = "<h2>" + proveedor.logo + "</h2>" +
-            "<h2><p>Stock proveedor: " + proveedor.stock_proveedor+ "</p></h2>";
+            "<h2><p>Stock proveedor: " + proveedor.stock_proveedor + "</p></h2>" +
+            "<button id='boton-reservar'>Reservar</button>"; // Aquí agregamos el botón directamente a la descripción
+        
+        var botonReservar = document.getElementById('boton-reservar');
+        var modalReservar = document.getElementById("modal-reservar");
+    
+        botonReservar.addEventListener('click', function (){
+            modalReservar.style.display = "block";
+            var closeButtonReservar = document.getElementById('closeButtonReservar');
+    
+            closeButtonReservar.addEventListener('click', function() {
+                modalReservar.style.display = "none";
+            });
+        });
 
         var popup = new mapboxgl.Popup()
             .setHTML(description);
-
-        marker.setPopup(popup);
+    
+        marker.setPopup(popup,botonReservar,modalReservar,closeButtonReservar);
     }
-
+    
     function createPua(latitud, longitud, cantidad_de_personas) {
         fetch('/FH/public/api/puas', {
             method: 'POST',
@@ -185,12 +188,9 @@ document.addEventListener('DOMContentLoaded', function () {
             // Desactivar el modo Pua
             document.getElementById('createMarkerButton').classList.remove('active');
     
-            // Actualizar los marcadores en el mapa después de crear una nueva pua
-            loadMarkers();
+            // Actualizar los marcadores en el mapa
+            updateButtonStyle();
         })
-        .catch(error => console.error('Error en la solicitud fetch:', error));
+        .catch(error => console.error('Error creating PUA:', error));
     }
-    
-    
-    
 });
