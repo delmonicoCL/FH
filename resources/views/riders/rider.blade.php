@@ -21,8 +21,8 @@
                 <form id="puaForm">
                     <input type="hidden" id="lng" name="lng">
                     <input type="hidden" id="lat" name="lat">
-                    <label for="numpersonas">Cuantas personas hay?:</label><br>
-                    <input type="number" id="numpersonas" name="numpersonas"><br><br>
+                    <label for="cantidad_de_personas">Cuantas personas hay?:</label><br>
+                    <input type="number" id="cantidad_de_personas" name="cantidad_de_personas"><br><br>
                     <!-- Agregar el div para mostrar el nombre del Rider seleccionado -->
                     <div id="riderName"></div><br>
                     <button type="button" id="submitForm">Crear Pua</button>
