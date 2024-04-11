@@ -53,8 +53,8 @@ class ProveedorController extends Controller
         $proveedor->cp=$cp;
         $proveedor->ciudad=$ciudad;
         $proveedor->logo=$logo;
-        $proveedor->latitud=$latitud;
-        $proveedor->longitud=$longitud;
+        $proveedor->lt=$latitud;
+        $proveedor->lng=$longitud;
 
 
         try
