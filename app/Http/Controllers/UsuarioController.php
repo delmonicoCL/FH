@@ -129,7 +129,7 @@ class UsuarioController extends Controller
             $avatar=$request->input("Avatar");
         }
 
-        //Crear un objeto de la clase que representa una consulta a la tabla
+        //Crear un objeto de la clase que representa un registro a la tabla
         $usuario=new Usuario();
         //Asignar los valores del formulario a su respectivo campo
         if($tipo==="proveedor")

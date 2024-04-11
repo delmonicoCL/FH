@@ -35,7 +35,7 @@ class AdministradorController extends Controller
         $id=$request->input("Id");
         $apellidos=$request->input("Apellidos");
 
-        //Crear un objeto de la clase que representa una consulta a la tabla
+        //Crear un objeto de la clase que representa un registro a la tabla
         $administrador=new Administrador();
         //Asignar los valores del formulario a su respectivo campo
         $administrador->id=$id;

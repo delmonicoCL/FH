@@ -5,7 +5,7 @@ html {
   padding: 0;
   height: 100%;
   font-family: "Luckiest Guy", sans-serif;
-background: #833e3e;
+  background-color: #dc3545
 }
 
 
@@ -15,7 +15,7 @@ background: #833e3e;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
+  background-color: #dc3545
 }
 
 .contenedor-seccion {
@@ -72,10 +72,6 @@ font-size: 30px;
 color: azure;
 }
 
-.parrafo {
-  display: none;
-
-}
 
 .barra {
 height: 120px;
@@ -94,9 +90,13 @@ background-position: center;
 background-repeat: no-repeat;
 }
 
-/* Estilos adicionales según sea necesario para dispositivos más pequeños */
-@media screen and (max-width: 768px) {
-  .contenedor-seccion {
-    width: 90%;
-  }
+.parrafo {
+  display: none;
+
+}
+
+
+.livechat-launcher {
+  width: 200px; /* Ajusta el ancho del botón según tus preferencias */
+  height: 200px; /* Ajusta la altura del botón según tus preferencias */
 }

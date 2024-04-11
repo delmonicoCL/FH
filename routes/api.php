@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PuaController;
+use App\Http\Controllers\Api\ProveedorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/api/puas', 'App\Http\Controllers\Api\PuaController@storeFromForm')->name('puas.storeFromForm');
 
 Route::apiResource('puas', PuaController::class);
+
+Route::apiResource("proveedores",ProveedorController::class);

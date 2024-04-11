@@ -8,27 +8,29 @@
     @else
         @include("partials.mensajes")
         <div id="contenedorPrincipal">
-            <div class="modal fade" tabindex="-1" id="modalCambiarAvatar">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header" style="display:flex; justify-content: center;">
-                            <div class="row" style="text-align: center;">
-                                <h5 class="modal-title" id="tituloModalMostrarFollowing" style="font-weight: bold;">Elige un avatar</h5>
+            @if($tipo==="rider")
+                <div class="modal fade" tabindex="-1" id="modalCambiarAvatar">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header" style="display:flex; justify-content: center;">
+                                <div class="row" style="text-align: center;">
+                                    <h5 class="modal-title" id="tituloModalMostrarFollowing" style="font-weight: bold;">Elige un avatar</h5>
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-body" style="height: 350px; overflow-y: auto;">
-                            <div class="row" id="contenedorAvatares"></div>
-                            <!--<p class="col text-center">Username</p>
-                            <div class="col text-center">
-                                <button class="btn btn-danger btn-sm">Dejar de seguir</button>
-                            </div>-->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+                            <div class="modal-body" style="height: 350px; overflow-y: auto;">
+                                <div class="row" id="contenedorAvatares"></div>
+                                <!--<p class="col text-center">Username</p>
+                                <div class="col text-center">
+                                    <button class="btn btn-danger btn-sm">Dejar de seguir</button>
+                                </div>-->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
             <div class="container">
                 <div class="card mt-2">
                     <div class="card-header text-center">

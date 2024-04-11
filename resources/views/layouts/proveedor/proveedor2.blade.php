@@ -91,9 +91,11 @@
                 <hr />
                 <div class="stokDiv">
                     <div class="selectMenu container-fluid">
+                        <span>Menus del dia:</span>
                         @yield('contenidoMenu')
                     </div>
                     <div class="selectHistorico container-fluid">
+                        <span>Historial Menus:</span>
                         @yield('contenidoHistorico')
                     </div>
                 </div>

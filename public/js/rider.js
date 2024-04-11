@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     map.on('load', function () {
         removeAttributionControl();
         loadMarkers();
+        loadMarkersProveedores();
     });
 
     var createMarkerButton = document.getElementById('createMarkerButton');
@@ -117,6 +118,18 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Error fetching PUAs:', error));
     }
 
+    function loadMarkersProveedores()
+    {
+        fetch('/FH/public/api/proveedores')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(proveedor =>{
+                addMarkerToMapProveedores(proveedor);
+            });
+        })
+        .catch(error => console.error('Error fetching Proveedores:', error));   
+    }
+
     function addMarkerToMap(pua) {
         var lngLat = [pua.lng, pua.lat];
         var marker = new mapboxgl.Marker({
@@ -128,6 +141,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var description = "<h3>" + pua.nombre + "</h3>" +
             "<p>Numero de personas: " + pua.cantidad_de_personas + "</p>";
+
+        var popup = new mapboxgl.Popup()
+            .setHTML(description);
+
+        marker.setPopup(popup);
+    }
+
+    function addMarkerToMapProveedores(proveedor)
+    {
+        var lngLat = [proveedor.lng, proveedor.lat];
+        var marker = new mapboxgl.Marker({
+            color: "red",
+            draggable: false
+        })
+        .setLngLat(lngLat)
+        .addTo(map);
+
+        var description = "<h3>" + proveedor.logo + "</h3>" +
+            "<p>Stock proveedor: " + proveedor.stock_proveedor+ "</p>";
 
         var popup = new mapboxgl.Popup()
             .setHTML(description);
