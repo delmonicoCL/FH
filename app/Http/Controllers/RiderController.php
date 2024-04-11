@@ -38,7 +38,7 @@ class RiderController extends Controller
         $nickname=$request->input("Nickname");
         $avatar=$request->input("Avatar");
 
-        //Crear un objeto de la clase que representa una consulta a la tabla
+        //Crear un objeto de la clase que representa un registro a la tabla
         $rider=new Rider();
         //Asignar los valores del formulario a su respectivo campo
         $rider["id"]=$id;

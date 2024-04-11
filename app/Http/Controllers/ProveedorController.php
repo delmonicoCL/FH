@@ -41,18 +41,20 @@ class ProveedorController extends Controller
         $cp=$request->input("Cp");
         $ciudad=$request->input("Ciudad");
         $logo=$request->input("Logo");
+        $latitud=$request->input("Latitud");
+        $longitud=$request->input("Longitud");
 
-        //Crear un objeto de la clase que representa una consulta a la tabla
+        //Crear un objeto de la clase que representa un registro a la tabla
         $proveedor=new Proveedor();
         //Asignar los valores del formulario a su respectivo campo
         $proveedor->id=$id;
-
         $proveedor->calle=$calle;
-        $proveedor["numero"]=$numero;
-        $proveedor["cp"]=$cp;
-        $proveedor["ciudad"]=$ciudad;
-        $proveedor["logo"]=$logo;
-        $proveedor["lat"]=$latitud;
+        $proveedor->numero=$numero;
+        $proveedor->cp=$cp;
+        $proveedor->ciudad=$ciudad;
+        $proveedor->logo=$logo;
+        $proveedor->latitud=$latitud;
+        $proveedor->longitud=$longitud;
 
 
         try
