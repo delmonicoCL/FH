@@ -26,7 +26,19 @@ class PuaController extends Controller
         $pua->cantidad_de_personas = $request->cantidad_de_personas;
         $pua->lng = $request->lng;
         $pua->lat = $request->lat;
-        $pua->save();
+
+        try
+        {
+            //Hacer el insert en la tabla
+            $pua->save();
+            $request->session()->flash("mensaje","Pua creada correctamente.");
+        }
+        catch(QueryException $ex)
+        {
+            $mensaje=Utilidad::errorMessage($ex);
+            $request->session()->flash("error",$mensaje);
+            $response=redirect("/login");
+        }
 
         return response()->json($pua, 201);
     }
