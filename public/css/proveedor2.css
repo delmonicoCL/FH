@@ -25,7 +25,7 @@ body {
 .stok,
 .mapa {
     border: solid 1px black;
-    height: 280px;
+    height: 300px;
     margin: 2%;
     background-color: #fdfefe;
 }
@@ -39,6 +39,36 @@ div.titulo {
 
 h2 {
     margin: 0px;
+}
+
+div.row1,
+div.row2,
+div.row3 {
+    height: calc(80% / 3);
+    width: 100%;
+    display: flex;
+}
+
+div.nombre,
+div.calle,
+div.email,
+div.ciudad,
+div.telefono,
+div.icono {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h4 {
+    margin: 0px;
+}
+
+p {
+    margin: 0px;
+    font-size: 20px;
 }
 
 div.cantidadMenu {
@@ -106,21 +136,18 @@ div.selectRider {
 }
 
 div.stokDiv {
-    background-color: purple;
     height: 80%;
     width: 100%;
     display: flex;
 }
 
 div.selectMenu {
-    background-color: green;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 div.selectHistorico {
-    background-color: orange;
     display: flex;
     align-items: center;
     justify-content: center;
