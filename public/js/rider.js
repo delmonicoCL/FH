@@ -42,13 +42,13 @@ document.addEventListener('DOMContentLoaded', function () {
             closeButton.onclick = function() {
                 modal.style.display = "none";
             }
-            var numpersonasInput = document.getElementById("numpersonas");
+            var cantidad_de_personasInput = document.getElementById("cantidad_de_personas");
             var submitButton = document.getElementById("submitForm");
             submitButton.onclick = function () {
-                var numpersonas = numpersonasInput.value;
+                var cantidad_de_personas = cantidad_de_personasInput.value;
                 var latitud = e.lngLat.lat;
                 var longitud = e.lngLat.lng;
-                createPua(latitud, longitud, numpersonas);
+                createPua(latitud, longitud, cantidad_de_personas);
                 modoPua = false;
                 modal.style.display = "none";
             };
@@ -139,8 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .setLngLat(lngLat)
         .addTo(map);
 
-        var description = "<h3>" + pua.nombre + "</h3>" +
-            "<p>Numero de personas: " + pua.cantidad_de_personas + "</p>";
+        var description = "<h2><p>Numero de personas: " + pua.cantidad_de_personas + "</p></h2>";
 
         var popup = new mapboxgl.Popup()
             .setHTML(description);
@@ -158,8 +157,8 @@ document.addEventListener('DOMContentLoaded', function () {
         .setLngLat(lngLat)
         .addTo(map);
 
-        var description = "<h3>" + proveedor.logo + "</h3>" +
-            "<p>Stock proveedor: " + proveedor.stock_proveedor+ "</p>";
+        var description = "<h2>" + proveedor.logo + "</h2>" +
+            "<h2><p>Stock proveedor: " + proveedor.stock_proveedor+ "</p></h2>";
 
         var popup = new mapboxgl.Popup()
             .setHTML(description);
@@ -167,30 +166,31 @@ document.addEventListener('DOMContentLoaded', function () {
         marker.setPopup(popup);
     }
 
-    function createPua(latitud, longitud, numpersonas) {
+    function createPua(latitud, longitud, cantidad_de_personas) {
         fetch('/FH/public/api/puas', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                numpersonas: numpersonas,
+                cantidad_de_personas: cantidad_de_personas,
                 lat: latitud,
                 lng: longitud
-            })
+            }) 
         })
         .then(response => {
-            if (response.ok) {
-                console.log('Pua creada exitosamente.');
-                // Desactivar el modo Pua
-                modoPua = false;
-                // Actualizar los marcadores en el mapa después de crear una nueva pua
-                loadMarkers();
-            } else {
-                console.error('Error al crear la Pua:', response.statusText);
-            }
+            loadMarkers();
+            modoPua = false;
+    
+            // Desactivar el modo Pua
+            document.getElementById('createMarkerButton').classList.remove('active');
+    
+            // Actualizar los marcadores en el mapa después de crear una nueva pua
+            loadMarkers();
         })
         .catch(error => console.error('Error en la solicitud fetch:', error));
     }
+    
+    
     
 });
