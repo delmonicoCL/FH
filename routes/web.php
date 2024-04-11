@@ -24,31 +24,47 @@ Route::get('/', function () {
     return view('landing');
 });
 
-Route::get("/login",[UsuarioController::class,"showLogin"])->name("login");
-Route::post("/login",[UsuarioController::class,"login"]);
-Route::get("/logout",[UsuarioController::class,"logout"]);
+Route::get("/login", [UsuarioController::class, "showLogin"])->name("login");
+Route::post("/login", [UsuarioController::class, "login"]);
+Route::get("/logout", [UsuarioController::class, "logout"]);
 
-Route::middleware(["auth"])->group(function(){
-    Route::get("/home",function(){
-        $user=Auth::user();
-        $id=$user["id"];
-        switch($user["tipo"])
-        {
+Route::middleware(["auth"])->group(function () {
+    Route::get("/home", function () {
+        $user = Auth::user();
+        $id = $user["id"];
+        switch ($user["tipo"]) {
             case "administrador":
-                $administrador=Administrador::where("id","=",$id)->first();
-                $response=view("home",compact("user","administrador"));
+                $administrador = Administrador::where("id", "=", $id)->first();
+                $response = view("home", compact("user", "administrador"));
                 break;
             case "proveedor":
-                $proveedor=Proveedor::where("id","=",$id)->first();
-                $response=view("proveedor/proveedor1",compact("user","proveedor"));
+                $proveedor = Proveedor::where("id", "=", $id)->first();
+                $response = view("proveedor/proveedor1", compact("user", "proveedor"));
                 break;
             default:
-                $rider=Rider::where("id","=",$id)->first();
-                $response=view("riders/rider",compact("user","rider"));
+                $rider = Rider::where("id", "=", $id)->first();
+                $response = view("riders/rider", compact("user", "rider"));
                 break;
         }
         return $response;
     });
+    Route::get('/proveedor1', function () {
+        $user = Auth::user();
+        if ($user["tipo"] === "proveedor") {
+            return view('proveedor/proveedor1');
+        } else {
+            return view('auth.login');
+        }
+    })->name('proveedor1');
+    
+    Route::get('/proveedor2', function () {
+        $user = Auth::user();
+        if ($user["tipo"] === "proveedor") {
+            return view('proveedor/proveedor2');
+        } else {
+            return view('auth.login');
+        }
+    })->name('proveedor2');
 });
 
 Route::get('/registros/index', function () {
@@ -60,18 +76,10 @@ Route::get('/registros/administrador', function () {
 });
 
 
-Route::resource("usuarios",UsuarioController::class);
+Route::resource("usuarios", UsuarioController::class);
 
-Route::resource("administradores",AdministradorController::class);
+Route::resource("administradores", AdministradorController::class);
 
-Route::resource("proveedores",ProveedorController::class);
+Route::resource("proveedores", ProveedorController::class);
 
-Route::resource("riders",RiderController::class);
-
-Route::get('/proveedor1', function () {
-    return view('proveedor/proveedor1');
-})->name('proveedor1');
-
-Route::get('/proveedor2', function () {
-    return view('proveedor/proveedor2');
-})->name('proveedor2');
+Route::resource("riders", RiderController::class);

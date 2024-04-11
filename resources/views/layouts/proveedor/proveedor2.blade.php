@@ -99,7 +99,6 @@
                         @yield('contenidoHistorico')
                     </div>
                 </div>
-            </div>
             <div class="mapa col-lg-5">
                 <div class="titulo">
                     <h2>Mapa</h2>
