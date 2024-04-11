@@ -59,8 +59,10 @@ Route::middleware(["auth"])->group(function () {
     
     Route::get('/proveedor2', function () {
         $user = Auth::user();
+        $id = $user["id"];
+        $proveedor = Proveedor::where("id", "=", $id)->first();
         if ($user["tipo"] === "proveedor") {
-            return view('proveedor/proveedor2');
+            return view('proveedor/proveedor2',compact("user", "proveedor"));
         } else {
             return view('auth.login');
         }
