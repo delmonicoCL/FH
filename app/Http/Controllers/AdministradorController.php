@@ -19,9 +19,11 @@ class AdministradorController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view("usuarios.administrador");
+        $id=$request["id"];
+        $apellidos=$request["apellidos"];
+        return view("usuarios.administrador",compact("id","apellidos"));
     }
 
     /**
@@ -30,10 +32,10 @@ class AdministradorController extends Controller
     public function store(Request $request)
     {
         //Recuperar los datos del formulario
-        $apellidos=$request->input("Apellidos");
         $id=$request->input("Id");
+        $apellidos=$request->input("Apellidos");
 
-        //Crear un objeto de la clase que representa una consulta a la tabla
+        //Crear un objeto de la clase que representa un registro a la tabla
         $administrador=new Administrador();
         //Asignar los valores del formulario a su respectivo campo
         $administrador->id=$id;

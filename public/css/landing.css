@@ -1,0 +1,102 @@
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Luckiest Guy", sans-serif;
+  background-color: #dc3545
+}
+
+
+.container-fluid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #dc3545
+}
+
+.contenedor-seccion {
+  width: 80%;
+  max-width: 1350px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+}
+
+.contenedor-imagen {
+  width: 100%;
+  max-width: 100%;
+}
+
+.contenedor-imagen img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.navbar-nav {
+  margin: 0 auto; /* Centra los elementos del navbar */
+}
+
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.navbar ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.navbar ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.logo-barra {
+width: 75px;
+}
+
+.nav-link {
+font-size: 30px;
+color: azure;
+}
+
+
+.barra {
+height: 120px;
+width: 65%;
+color: white;
+text-align: center;
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+margin: 0 auto;
+background-image: url('https://raw.githubusercontent.com/delmonicoCL/FH-Landing/main/assets/img/navbar.png');
+/* width: -webkit-fill-available; */
+background-size: contain;
+background-position: center;
+background-repeat: no-repeat;
+}
+
+.parrafo {
+  display: none;
+
+}
+
+
+.livechat-launcher {
+  width: 200px; /* Ajusta el ancho del botón según tus preferencias */
+  height: 200px; /* Ajusta la altura del botón según tus preferencias */
+}

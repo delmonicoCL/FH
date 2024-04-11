@@ -14,20 +14,24 @@ html {
     position: relative;
 }
 
-.popup-buttons {
+/* .popup-buttons {
     text-align: center;
-}
+} */
 
-.button {
-    background-color: #4caf50;
-    border: none;
+.mover {
+    border: 1px solid black;
+    border-radius: 15px;
+    position: absolute;
+    bottom: 100px;
+    right: 100px;
+    z-index: 1;
+    background-color: purple;
     color: white;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
 }
 
@@ -78,21 +82,4 @@ html {
 #createMarkerButton.active {
     transition: 0.2s;
     background-color: #008cba;
-}
-
-.mover {
-    border: 1px solid black;
-    border-radius: 15px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1;
-    background-color: #4caf50;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
 }

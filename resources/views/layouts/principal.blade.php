@@ -31,7 +31,7 @@
                             @if (Auth::check())
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {{Auth::user()["nombre"]}} {{$administrador["apellidos"]}}
+                                        @if(Auth::user()["tipo"]==="rider") {{$rider["nickname"]}} @else {{Auth::user()["nombre"]}} @if (Auth::check()&&Auth::user()["tipo"]==="administrador") {{$administrador["apellidos"]}} @endif @endif
                                     </a>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{url('/logout')}}">Cerrar sesion</a>

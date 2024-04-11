@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\RiderController;
 use App\Models\Administrador;
+use App\Models\Proveedor;
+use App\Models\Rider;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +21,7 @@ use App\Models\Administrador;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('landing');
 });
 
 Route::get("/login",[UsuarioController::class,"showLogin"])->name("login");
@@ -35,9 +39,12 @@ Route::middleware(["auth"])->group(function(){
                 $response=view("home",compact("user","administrador"));
                 break;
             case "proveedor":
+                $proveedor=Proveedor::where("id","=",$id)->first();
+                $response=view("proveedor/proveedor1",compact("user","proveedor"));
                 break;
             default:
-                # code...
+                $rider=Rider::where("id","=",$id)->first();
+                $response=view("riders/rider",compact("user","rider"));
                 break;
         }
         return $response;
@@ -52,13 +59,14 @@ Route::get('/registros/administrador', function () {
     return view('registros.administrador');
 });
 
-Route::get('/rider', function () {
-    return view('rider');
-});
 
 Route::resource("usuarios",UsuarioController::class);
 
 Route::resource("administradores",AdministradorController::class);
+
+Route::resource("proveedores",ProveedorController::class);
+
+Route::resource("riders",RiderController::class);
 
 Route::get('/proveedor1', function () {
     return view('proveedor/proveedor1');

@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     mapboxgl.accessToken = 'pk.eyJ1IjoiZG5lcml6IiwiYSI6ImNsdHJrN3ppZjAxYmsya3BqcWRsYzdkam8ifQ.gjTWrYyirEhh94V_agnuhQ';
     var modoPua = false;
-    var markers = []; // Array para almacenar las marcas creadas
 
     var removeAttributionControl = function () {
         var attribControl = document.querySelector('.mapboxgl-ctrl-attrib');
@@ -12,29 +11,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11', 
+        style: 'mapbox://styles/mapbox/streets-v11',
         center: [2.1734, 41.3851],
-        zoom: 13 
+        zoom: 13
     });
 
     map.on('load', function () {
         removeAttributionControl();
-        // Agregar popups a cada marca
-        markers.forEach(function(marker) {
-            var coordinates = marker.getLngLat().toArray();
-            var description = "<h3>Información personalizada</h3>"; // Aquí puedes agregar información específica para cada marca
-
-            new mapboxgl.Popup()
-                .setLngLat(coordinates)
-                .setHTML(description)
-                .addTo(marker);
-        });
+        loadMarkers();
+        loadMarkersProveedores();
     });
 
-    document.getElementById('createMarkerButton').addEventListener('click', function () {
+    var createMarkerButton = document.getElementById('createMarkerButton');
+    createMarkerButton.addEventListener('click', function () {
         modoPua = !modoPua;
         updateButtonStyle();
-
         if (modoPua) {
             map.getCanvas().style.cursor = 'pointer';
         } else {
@@ -44,49 +35,162 @@ document.addEventListener('DOMContentLoaded', function () {
 
     map.on('click', function (e) {
         if (modoPua) {
-            const marker = new mapboxgl.Marker({
-                color: "#FFFFFF",
-                draggable: false
-            }).setLngLat(e.lngLat)
-                .addTo(map);
-            
-            markers.push(marker); // Agrega la marca al array de marcas
-
-            console.log("Marca creada en: " + e.lngLat);
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            document.getElementById("puaForm").reset();
+            var closeButton = document.getElementById("closeButton");
+            closeButton.onclick = function() {
+                modal.style.display = "none";
+            }
+            var cantidad_de_personasInput = document.getElementById("cantidad_de_personas");
+            var submitButton = document.getElementById("submitForm");
+            submitButton.onclick = function () {
+                var cantidad_de_personas = cantidad_de_personasInput.value;
+                var latitud = e.lngLat.lat;
+                var longitud = e.lngLat.lng;
+                createPua(latitud, longitud, cantidad_de_personas);
+                modoPua = false;
+                modal.style.display = "none";
+            };
         }
+    });
+
+    var modalPerfil = document.getElementById("modal-perfil");
+    var boton_perfil = document.getElementById('boton-perfil');
+
+    boton_perfil.addEventListener('click', function (){
+        modalPerfil.style.display = "block";
+        var closeButtonReservas = document.getElementById('closeButtonPerfil');
+
+        closeButtonPerfil.addEventListener('click', function() {
+            modalPerfil.style.display = "none";
+        });
+    });
+
+    var modalReservas = document.getElementById("modal-reservas");
+    var boton_reservas = document.getElementById('boton-reservas');
+
+    boton_reservas.addEventListener('click', function (){
+        modalReservas.style.display = "block";
+        var closeButtonReservas = document.getElementById('closeButtonReservas');
+
+        closeButtonReservas.addEventListener('click', function() {
+            modalReservas.style.display = "none";
+        });
+    });
+    
+    var modalHistorial = document.getElementById("modal-historial");
+    var boton_historial = document.getElementById('boton-historial');
+
+    boton_historial.addEventListener('click', function (){
+        modalHistorial.style.display = "block";
+        var closeButtonHistorial = document.getElementById('closeButtonHistorial');
+
+        closeButtonHistorial.addEventListener('click', function() {
+            modalHistorial.style.display = "none";
+        });
     });
 
     function updateButtonStyle() {
-        var button = document.getElementById('createMarkerButton');
         if (modoPua) {
-            button.classList.add('active');
+            createMarkerButton.classList.add('active');
         } else {
-            button.classList.remove('active');
+            createMarkerButton.classList.remove('active');
         }
     }
 
-    // Agregar popups cuando se hace clic en marcas existentes
-    map.on('click', 'markers', function (e) {
-        if (!modoPua) {
-            var coordinates = e.features[0].geometry.coordinates.slice();
-            var description = "<h3>Información personalizada</h3>"; // Aquí puedes agregar información específica para cada marca
-
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            }
-
-            new mapboxgl.Popup()
-                .setLngLat(coordinates)
-                .setHTML(description)
-                .addTo(map);
-        }
-    });
-
-    map.on('mouseenter', 'markers', function () {
+    map.on('mouseenter', function () {
         map.getCanvas().style.cursor = 'pointer';
     });
 
-    map.on('mouseleave', 'markers', function () {
+    map.on('mouseleave', function () {
         map.getCanvas().style.cursor = '';
     });
+
+    function loadMarkers() {
+        fetch('/FH/public/api/puas')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(pua => {
+                    addMarkerToMap(pua);
+                });
+            })
+            .catch(error => console.error('Error fetching PUAs:', error));
+    }
+
+    function loadMarkersProveedores()
+    {
+        fetch('/FH/public/api/proveedores')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(proveedor =>{
+                addMarkerToMapProveedores(proveedor);
+            });
+        })
+        .catch(error => console.error('Error fetching Proveedores:', error));   
+    }
+
+    function addMarkerToMap(pua) {
+        var lngLat = [pua.lng, pua.lat];
+        var marker = new mapboxgl.Marker({
+            color: "#fcba03",
+            draggable: false
+        })
+        .setLngLat(lngLat)
+        .addTo(map);
+
+        var description = "<h2><p>Numero de personas: " + pua.cantidad_de_personas + "</p></h2>";
+
+        var popup = new mapboxgl.Popup()
+            .setHTML(description);
+
+        marker.setPopup(popup);
+    }
+
+    function addMarkerToMapProveedores(proveedor)
+    {
+        var lngLat = [proveedor.lng, proveedor.lat];
+        var marker = new mapboxgl.Marker({
+            color: "red",
+            draggable: false
+        })
+        .setLngLat(lngLat)
+        .addTo(map);
+
+        var description = "<h2>" + proveedor.logo + "</h2>" +
+            "<h2><p>Stock proveedor: " + proveedor.stock_proveedor+ "</p></h2>";
+
+        var popup = new mapboxgl.Popup()
+            .setHTML(description);
+
+        marker.setPopup(popup);
+    }
+
+    function createPua(latitud, longitud, cantidad_de_personas) {
+        fetch('/FH/public/api/puas', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                cantidad_de_personas: cantidad_de_personas,
+                lat: latitud,
+                lng: longitud
+            }) 
+        })
+        .then(response => {
+            loadMarkers();
+            modoPua = false;
+    
+            // Desactivar el modo Pua
+            document.getElementById('createMarkerButton').classList.remove('active');
+    
+            // Actualizar los marcadores en el mapa después de crear una nueva pua
+            loadMarkers();
+        })
+        .catch(error => console.error('Error en la solicitud fetch:', error));
+    }
+    
+    
+    
 });

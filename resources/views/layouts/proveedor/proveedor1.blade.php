@@ -11,6 +11,7 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css' rel='stylesheet' />
 
+    <link rel="icon" type="image/png" href="{{ asset('img/logo-02.png') }}">
     <link rel="stylesheet" href="{{ asset('css/proveedor1.css') }}" />
 </head>
 
@@ -18,7 +19,7 @@
     @yield('contenido')
     <div id="map">
         <a href="{{ route('proveedor2') }}">
-            <button class="mover" id="mover">Ir pagina 2</button>
+            <button class="mover" id="mover">Gestionar Proveedor</button>
         </a>
     </div>
     <script src="{{ asset('js/rider.js') }}"></script>

@@ -8,20 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
+use App\Models\AvatarRider;
 
 class UsuarioController extends Controller
 {
     public function showLogin()
     {
-        //$usuario=new Usuario();
-
-        //$usuario->nombre_de_usuario="oarriaza";
-        //$usuario->contrasenia=\bcrypt("contra1");
-        //$usuario->correo="oarriazag2223@politecnics.barcelona";
-        //$usuario->nombre="Oscar Armando";
-        //$usuario->apellidos="Arriaza Guzmán";
-        //$usuario->roles_id=1;
-        //$usuario->save();
         return view("auth.login");
     }
 
@@ -62,9 +54,24 @@ class UsuarioController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view("usuarios.usuario");
+        $tipo=$request["tipo"];
+        if($tipo==="rider")
+        {
+            $avataresRider=AvatarRider::all();
+            $listaAvatares=[];
+            for ($i=0; $i <count($avataresRider); $i++)
+            {
+                array_push($listaAvatares,$avataresRider[$i]["avatar"]);
+            }
+            $response=view("usuarios.usuario",compact("tipo","listaAvatares"));
+        }
+        else
+        {
+            $response=view("usuarios.usuario",compact("tipo"));
+        }
+        return $response;
     }
 
     /**
@@ -73,21 +80,66 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         //Recuperar los datos del formulario
-        $nombre=$request->input("Nombre");
+        $tipo=$request->input("Tipo");
+
+        if($tipo==="proveedor")
+        {
+            $nombreEmpresa=$request->input("NombreEmpresa");
+        }
+        else
+        {
+            $nombre=$request->input("Nombre");
+        }
         $contrasenia=$request->input("Contrasenia");
         $email=$request->input("Email");
-        $tipo=$request->input("Tipo");
         $telefono=$request->input("Telefono");
 
-        if($tipo==="administrador")
+        if($tipo==="administrador"||$tipo==="rider")
         {
             $apellidos=$request->input("Apellidos");
         }
+        if($tipo==="proveedor")
+        {
+            $calle=$request->input("Calle");
+            $numero=$request->input("Numero");
+            $cp=$request->input("Cp");
+            $ciudad=$request->input("Ciudad");
+            $logo=$request->file("Logo");
+            $nombreDelArchivoDelLogo=$nombreEmpresa.".".$logo->getClientOriginalExtension();
+            $logo->storeAs('storage/logos',$nombreDelArchivoDelLogo);
 
-        //Crear un objeto de la clase que representa una consulta a la tabla
+            // $file = $request->file('nombre_campo');
+
+            // // Acceder a información del archivo
+            // $nombre = $file->getClientOriginalName();
+            // $extension = $file->getClientOriginalExtension();
+            // $tipo = $file->getClientMimeType();
+            // $tamanio = $file->getSize();
+
+            // //modificar la informacion del archivo
+            // $name = $file->hashName(); // Generate a unique, random name...
+            // $extension = $file->extension(); // Determine the file's extension based on the file's MIME type...
+
+            // // Almacenar el archivo
+            // $file->store('carpeta_destino');
+        }
+        if($tipo==="rider")
+        {
+            $nickname=$request->input("Nickname");
+            $avatar=$request->input("Avatar");
+        }
+
+        //Crear un objeto de la clase que representa un registro a la tabla
         $usuario=new Usuario();
         //Asignar los valores del formulario a su respectivo campo
-        $usuario->nombre=$nombre;
+        if($tipo==="proveedor")
+        {
+            $usuario->nombre=$nombreEmpresa;
+        }
+        else
+        {
+            $usuario->nombre=$nombre;
+        }
         $usuario->contrasenia=\bcrypt($contrasenia);
         $usuario->email=$email;
         $usuario->tipo=$tipo;
@@ -97,26 +149,19 @@ class UsuarioController extends Controller
         {
             //Hacer el insert en la tabla
             $usuario->save();
-            
+            $id=$usuario["id"];
             if($tipo==="administrador")
             {
-                //$response=redirect()->action([AdministradorController::class,"store"],['apellidos'=>$apellidos]);
-                //return view("ciclos.index",compact("ciclos"));
-                //$response=route('administradores.store', ['apellido' =>$apellidos]);
-                //$response=redirect("administradores/store", ['apellido' =>$apellidos]);
-                //$response=redirect()->action([AdministradorController::class,"store"],['apellidos'=>$apellidos]);
-                //$response=redirect([App\Http\Controllers\AdministradorController::class,'store'],['apellido' =>$apellidos]);
-                $id=$usuario["id"];
-                $response=view("registros.administrador",compact("apellidos","id"));
-                //$response=redirect()->action([UsuarioController::class,"index"],["apellidos"=>$apellidos,"email"=>$email]);
-                
-
-                /*$request->session()->flash("mensaje","Usuario inscrito correctamente.");
-                $response=redirect("/login");*/
-                
+                $response=redirect()->route('administradores.create',compact('apellidos', 'id'));
             }
-            /*$request->session()->flash("mensaje","Usuario inscrito correctamente.");
-            $response=redirect("/login");*/
+            else if($tipo==="proveedor")
+            {
+                $response=redirect()->route('proveedores.create',compact("id",'calle',"numero","cp","ciudad",'nombreDelArchivoDelLogo'));
+            }
+            else if($tipo==="rider")
+            {
+                $response=redirect()->route('riders.create',compact("id",'apellidos',"nickname","avatar"));
+            }
         }
         catch(QueryException $ex)
         {

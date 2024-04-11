@@ -28,8 +28,28 @@ class Usuario extends Authenticatable
     // }
 
     protected $table="usuarios";
-    protected $primaryKey="id"; //solo se pone cuando la clave primaria no se llama id.
-    //public $incrementing=false; //solo se pone cuando la clave primaria es autoincremental.
+    //protected $primaryKey="nombreDeLaClavePrimaria"; //solo se pone cuando la clave primaria no se llama id.
+    //public $incrementing=false; //solo se pone cuando la clave primaria no es autoincremental.
     //protected $keyType="string"; //solo se pone cuando la clave primaria no es entero.
     public $timestamps=false;
+
+    public function tiposDeUsuario()
+    {
+        return $this->belongsTo(TipoDeUsuario::class,"tipo");
+    }
+
+    public function administradores()
+    {
+        return $this->hasMany(Administrador::class,"id");
+    }
+
+    public function riders()
+    {
+        return $this->hasMany(Rider::class,"id");
+    }
+
+    public function proveedores()
+    {
+        return $this->hasMany(Proveedor::class,"id");
+    }
 }
