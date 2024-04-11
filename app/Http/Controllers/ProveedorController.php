@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class ProveedorController extends Controller
 {
@@ -87,7 +88,8 @@ class ProveedorController extends Controller
      */
     public function edit(Proveedor $proveedor)
     {
-        //
+        echo $proveedor;
+        //return view("proveedor/formProveedor",compact("proveedor"));
     }
 
     /**

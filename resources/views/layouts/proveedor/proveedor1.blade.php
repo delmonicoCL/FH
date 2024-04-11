@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    <img src="{{ asset('img/superhero.png') }}" alt="" id="super">
     @yield('contenido')
     <div id="map">
         <a href="{{ route('proveedor2') }}">
