@@ -28,9 +28,13 @@
                     <p> {{ $user['telefono'] }}</p>
                 </div>
                 <div class="icono">
-                    <button class="btnVolver">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </button>
+                    <form
+                        action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor['id']]) }}"
+                        method="GET">
+                        <button type="submit" class="btnVolver" id="btnVolver">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -96,12 +100,14 @@
             <hr />
             <div class="stokDiv">
                 <div class="selectMenu container-fluid">
-                    <span>Menus del dia:</span>
                     @yield('contenidoMenu')
+                    <h4>Stok actual: </h4>
+                    <p> {{ $proveedor['stock_proveedor'] }}</p>
                 </div>
                 <div class="selectHistorico container-fluid">
-                    <span>Historial Menus:</span>
                     @yield('contenidoHistorico')
+                    <h4>Historial Menus:</h4>
+                    <p>{{ $proveedor['stock_proveedor'] }}</p>
                 </div>
             </div>
         </div>

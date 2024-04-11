@@ -68,7 +68,7 @@ h4 {
 
 p {
     margin: 0px;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 div.cantidadMenu {
@@ -145,12 +145,14 @@ div.selectMenu {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 div.selectHistorico {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 div.divVolver {

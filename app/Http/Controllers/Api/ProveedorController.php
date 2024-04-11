@@ -37,11 +37,7 @@ class ProveedorController extends Controller
 
     public function show(Proveedor $proveedor)
     {
-        $usuarios = Usuario::
 
-        $proveedor
-
-        return response()->json($usuario, $proveedor);
     }
 
 
