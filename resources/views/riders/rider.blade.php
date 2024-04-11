@@ -74,7 +74,22 @@
                 </div>
             </div>
         </nav>
-      
+        <button id="boton-reservar">Reservar</button>
+        <!-- Modal de reserva -->
+        <div id="modal-reservar" class="modal-reservar">
+            <div class="modal-content-reservar modal-lg">
+                <span class="close" id="closeButtonReservar">&times;</span>
+                <h2>Reservar Comida</h2>
+                <form id="reservar-form">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre"><br><br>
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono"><br><br>
+                    <button type="submit">Enviar Reserva</button>
+                </form>
+            </div>
+        </div>
+
         <div id="modal-perfil" class="modal-perfil">
             <div class="modal-content-perfil modal-lg">
                 <div class="modal-content">
