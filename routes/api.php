@@ -25,3 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('puas', PuaController::class);
 
 Route::apiResource("proveedores",ProveedorController::class);
+

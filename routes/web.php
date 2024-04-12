@@ -5,9 +5,11 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RiderController;
+use App\Http\Controllers\ReservaController;
 use App\Models\Administrador;
 use App\Models\Proveedor;
 use App\Models\Rider;
+use App\Models\Reserva;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +45,8 @@ Route::middleware(["auth"])->group(function () {
                 break;
             default:
                 $rider = Rider::where("id", "=", $id)->first();
-                $response = view("riders/rider", compact("user", "rider"));
+                $reservas = Reserva::all();
+                $response = view("riders/rider", compact("user", "rider","reservas"));
                 break;
         }
         return $response;
@@ -83,3 +86,5 @@ Route::resource("administradores", AdministradorController::class);
 Route::resource("proveedores", ProveedorController::class);
 
 Route::resource("riders", RiderController::class);
+
+Route::resource("reservas", ReservaController::class);

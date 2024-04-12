@@ -49,43 +49,45 @@
         </form>
     </div>          
 
-         <!-- Navbar Inferior -->
-        <nav class="navbar-bottom">
-            <div class="container text-center d-flex ">
-                <div class="navbar-item">
-                    <button id="boton-perfil">
-                        <img src="{{ asset('img/perfil.png') }}" alt="Perfil" class="img-fluid" />
-                    </button>
-                </div>
-                <div class="navbar-item">
-                    <button id="createMarkerButton">
-                        <img src="{{ asset('img/crear_pua.png') }}"alt="Crear Pua" class="img-fluid" />
-                    </button>
-                </div>
-                <div class="navbar-item">
-                    <button id="boton-reservas">
-                        <img src="{{ asset('img/reservas.png') }}" alt="Reservar" class="img-fluid" />
-                    </button>
-                </div>
-                <div class="navbar-item">
-                    <button id="boton-historial">
-                        <img src="{{ asset('img/historial.png') }}"alt="Historial" class="img-fluid" />
-                    </button>
-                </div>
+    <!-- Navbar Inferior -->
+    <nav class="navbar-bottom">
+        <div class="container text-center d-flex ">
+            <div class="navbar-item">
+                <button id="boton-perfil">
+                    <img src="{{ asset('img/perfil.png') }}" alt="Perfil" class="img-fluid" />
+                </button>
             </div>
-        </nav>
+            <div class="navbar-item">
+                <button id="createMarkerButton">
+                    <img src="{{ asset('img/crear_pua.png') }}"alt="Crear Pua" class="img-fluid" />
+                </button>
+            </div>
+            <div class="navbar-item">
+                <button id="boton-reservas">
+                    <img src="{{ asset('img/reservas.png') }}" alt="Reservar" class="img-fluid" />
+                </button>
+            </div>
+            <div class="navbar-item">
+                <button id="boton-historial">
+                    <img src="{{ asset('img/historial.png') }}"alt="Historial" class="img-fluid" />
+                </button>
+            </div>
+        </div>
+    </nav>
         <button id="boton-reservar">Reservar</button>
         <!-- Modal de reserva -->
         <div id="modal-reservar" class="modal-reservar">
             <div class="modal-content-reservar modal-lg">
                 <span class="close" id="closeButtonReservar">&times;</span>
                 <h2>Reservar Comida</h2>
-                <form id="reservar-form">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre"><br><br>
-                    <label for="telefono">Teléfono:</label>
-                    <input type="tel" id="telefono" name="telefono"><br><br>
-                    <button type="submit">Enviar Reserva</button>
+                <form id="reservar-form" action="{{action([App\Http\Controllers\ReservaController::class,'store'])}}" method="POST">
+                    @csrf
+                    <label for="cantidad">Cuantos quieres reservar?:</label>
+                    <input type="number" id="cantidad" name="cantidad"><br><br>
+                    <input type="text" id="proveedor" name="proveedor" value="" hidden>
+                    <input type="text" id="rider" name="rider" value={{$rider["id"]}} hidden>
+                    <input type="text" id="estado" name="estado" value="en_curso" hidden>
+                    <button type="submit" id="enviarReserva" class="enviarReserva">Enviar Reserva</button>
                 </form>
             </div>
         </div>
@@ -110,7 +112,7 @@
                                 <tbody>
                             
                                     <tr>
-                                        <td>Pizzeria Rebebba</td>
+                                        <td>{{$rider["nickname"]}}</td>
                                         <td>4</td>
                                         <td>18:00 a 22:00</td>
                                     </tr>
@@ -139,37 +141,27 @@
             <div class="modal-content-reservas modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">RESERVAS</h5>
+                        <h2 class="modal-title">RESERVAS</h2>
                         <span class="close" id="closeButtonReservas">&times;</span>
                     </div>
                     <div class="modal-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive" style="display: flex; justify-content: center !important; align-items: center !important;">
+                            <!-- raider.blade.php -->
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>PROVEEDOR</th>
                                         <th>RESERVAS</th>
-                                        <th>HORARIOS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                            
-                                    <tr>
-                                        <td>Pizzeria Rebebba</td>
-                                        <td>4</td>
-                                        <td>18:00 a 22:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>BurgerKing</td>
-                                        <td>2</td>
-                                        <td>20:00 a 20:30</td>
-                                    </tr>
-                                    <tr>
-                                        <td>365</td>
-                                        <td>2</td>
-                                        <td>12:00 a 24:00</td>
-                                    </tr>
-                                
+                                    @foreach ($reservas as $reserva)
+                                        <!-- Mostrar cada reserva en una fila de la tabla -->
+                                        <tr>
+                                            <td>{{ $reserva->proveedor }}</td>
+                                            <td>{{ $reserva->cantidad }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -178,7 +170,8 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
+            
         <div class="modal-historial" id="modal-historial">
             <div class="modal-content-historial modal-lg mt-3">
                 <div class="modal-content px-5 pt-3 pb-3">
