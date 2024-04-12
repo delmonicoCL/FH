@@ -86,10 +86,9 @@ class ProveedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Proveedor $proveedor)
+    public function edit(Proveedor $proveedore)
     {
-        echo $proveedor;
-        //return view("proveedor/formProveedor",compact("proveedor"));
+        return view("proveedor/formProveedor",compact("proveedore"));
     }
 
     /**

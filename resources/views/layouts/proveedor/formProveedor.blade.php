@@ -10,7 +10,7 @@
 
 <body>
     <form
-        action="{{ action([App\Http\Controllers\ProveedorController::class, 'update'], ['proveedore' => $proveedor]) }}"
+        action="{{ action([App\Http\Controllers\ProveedorController::class, 'update'], ['proveedore' => $proveedore]) }}"
         method="POST">
         @csrf
         @method('PUT')
