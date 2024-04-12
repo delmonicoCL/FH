@@ -1,19 +1,23 @@
 <?php
-
+// ReservaController
 namespace App\Http\Controllers;
 
-use App\Models\Reserva;
 use Illuminate\Http\Request;
+use App\Models\Reserva;
 
 class ReservaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        // Obtener todas las reservas
+        $reservas = Reserva::all();
+        
+        // Pasar los datos a la vista raider.blade.php
+        // return view('raiders', ['reservas' => $reservas]);
+        return view("riders.rider",compact("reservas"));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +32,15 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reserva = new Reserva();
+        $reserva->cantidad = $request->cantidad;
+        $reserva->proveedor = $request->proveedor; // Aquí se guarda el ID del proveedor
+        $reserva->rider = $request->rider;
+        $reserva->estado = $request->estado;
+        $reserva->save();
+
+        // Puedes retornar una respuesta o redirigir a alguna página después de guardar la reserva
+        return redirect()->back()->with('success', 'Reserva creada exitosamente');
     }
 
     /**

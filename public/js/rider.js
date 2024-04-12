@@ -69,6 +69,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    var modalReservas = document.getElementById("modal-reservas");
+    var boton_reservas = document.getElementById('boton-reservas');
+
+    boton_reservas.addEventListener('click', function (){
+        modalReservas.style.display = "block";
+        var closeButtonReservas = document.getElementById('closeButtonReservas');
+
+        closeButtonReservas.addEventListener('click', function() {
+            modalReservas.style.display = "none";
+        });
+    });
+
 
     var modalHistorial = document.getElementById("modal-historial");
     var boton_historial = document.getElementById('boton-historial');
@@ -149,24 +161,52 @@ document.addEventListener('DOMContentLoaded', function () {
     
         var description = "<h2>" + proveedor.logo + "</h2>" +
             "<h2><p>Stock proveedor: " + proveedor.stock_proveedor + "</p></h2>" +
-            "<button id='boton-reservar'>Reservar</button>"; // Aquí agregamos el botón directamente a la descripción
-        
-        var botonReservar = document.getElementById('boton-reservar');
-        var modalReservar = document.getElementById("modal-reservar");
+            "<button class='boton-reservar'>Reservar</button>";
     
-        botonReservar.addEventListener('click', function (){
-            modalReservar.style.display = "block";
+        var popup = new mapboxgl.Popup()
+            .setHTML(description);
+    
+        marker.setPopup(popup);
+    
+        popup.on('open', function() {
+            var botonReservar = document.querySelector('.boton-reservar');
+            var modalReservar = document.getElementById("modal-reservar");
+    
+            botonReservar.addEventListener('click', function (){
+                modalReservar.style.display = "block";
+                document.getElementById('proveedor').value = proveedor.id;
+    
+                // // Agrega un evento clic al botón "Enviar Reserva"
+                // document.getElementById('enviarReserva').addEventListener('click', function() {
+                //     enviarReserva();
+                // });
+    
+                // function enviarReserva() {
+                //     var formData = new FormData(document.getElementById('reservar-form'));
+    
+                //     fetch('/FH/public/reservas', {
+                //         method: 'POST',
+                //         body: formData
+                //     })
+                //     .then(response => {
+                //         if (response.ok) {
+                //             console.log('Reserva enviada con éxito');
+                //         } else {
+                //             console.error('Error al enviar la reserva');
+                //         }
+                //     })
+                //     .catch(error => {
+                //         console.error('Error al enviar la reserva:', error);
+                //     });
+                // }
+            });
+    
             var closeButtonReservar = document.getElementById('closeButtonReservar');
     
             closeButtonReservar.addEventListener('click', function() {
                 modalReservar.style.display = "none";
             });
         });
-
-        var popup = new mapboxgl.Popup()
-            .setHTML(description);
-    
-        marker.setPopup(popup,botonReservar,modalReservar,closeButtonReservar);
     }
     
     function createPua(latitud, longitud, cantidad_de_personas) {
@@ -193,4 +233,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error creating PUA:', error));
     }
+
+
 });
