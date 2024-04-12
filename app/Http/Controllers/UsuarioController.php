@@ -48,7 +48,11 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-
+        $usuarios = Usuario::all();
+        // echo "<pre>";
+        //     print_r($usuarios);
+        // echo "<pre>";
+        return redirect()->route('riders.index', compact("usuarios"));
     }
 
     /**
@@ -203,6 +207,8 @@ class UsuarioController extends Controller
      */
     public function destroy(Usuario $usuario)
     {
-        //
+        $usuario->delete();
+
+        return redirect()->action([UsuarioController::class, 'index']);
     }
 }
