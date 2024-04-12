@@ -35,7 +35,7 @@ Route::middleware(["auth"])->group(function () {
         switch ($user["tipo"]) {
             case "administrador":
                 $administrador = Administrador::where("id", "=", $id)->first();
-                $response = view("home", compact("user", "administrador"));
+                $response = view("administradores/administrador", compact("user", "administrador"));
                 break;
             case "proveedor":
                 $proveedor = Proveedor::where("id", "=", $id)->first();

@@ -18,10 +18,17 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         @if (Auth::check()&&Auth::user()["tipo"]==="administrador")
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Datos maestros</a>
+                                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Edicion USERS</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="">Roles</a>
-                                    <a class="dropdown-item" href="">Usuarios</a>
+                                    <a class="dropdown-item" href="{{ url("riders")}}">RIDERS</a>
+                                    <a class="dropdown-item" href="">PROVEEDORES</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Estadisticas</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="">RIDERS-Estadisticas</a>
+                                    <a class="dropdown-item" href="">PROVEEDORES-Estadisticas</a>
                                 </div>
                             </li>
                         @endif

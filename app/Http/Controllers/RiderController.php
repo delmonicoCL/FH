@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Clases\Utilidad;
 use App\Models\Rider;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class RiderController extends Controller
 {
@@ -12,8 +14,16 @@ class RiderController extends Controller
      */
     public function index()
     {
-        //
-    }
+                        
+            $riders = Rider::paginate(5);
+            return view("rider.index", compact("rider"));
+
+        }
+
+        
+
+
+        
 
     /**
      * Show the form for creating a new resource.
