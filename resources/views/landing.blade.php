@@ -18,120 +18,29 @@
 
   <div class="container-fluid">
 
-    {{-- <div class="d-flex align-items-center">
-      <div class="col-12">
-        <div class="row">
-          <nav class="barra navbar navbar-expand-lg">
-            <a href="#">
-              <img class="logo-barra" src="{{ asset('img/logo-02.png') }}" alt="Food Hero" />
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse gap-3" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#home">Home</a>
-                </li>
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#nosotros">Nosotros</a>
-                </li>
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#raider">Raider</a>
-                </li>
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#proveedor">Proveedor</a>
-                </li>
-                <ul class="navbar-nav">
-                  <li class="nav-item mx-4">
-                      <a class="nav-link" href="#footer">Unete</a>
-                  </li>
-                  
-                  <li class="nav-item mx-4 ms-5">
-                      <a class="nav-link" href="{{ route('login') }}" style="color: black;">Ir al APP</a>
-                  </li>
-              </ul>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      </div>
-    </div> --}}
 
-    {{-- <div class="d-flex align-items-center">
-      <div class="col-12">
-        <div class="row">
-          <nav class="barra navbar navbar-expand-lg">
-            <a href="#">
-              <img class="logo-barra" src="{{ asset('img/logo-02.png') }}" alt="Food Hero" />
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse gap-3" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#home">Home</a>
-                </li>
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#nosotros">Nosotros</a>
-                </li>
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#raider">Raider</a>
-                </li>
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#proveedor">Proveedor</a>
-                </li>
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#footer">Unete</a>
-                </li>
-                <li class="nav-item mx-4 ms-5">
-                  <a class="nav-link" href="{{ route('login') }}" style="color: black;">Ir al APP</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
+    <nav class="navbar navbar-expand-lg barra">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img class="logo-barra" src="{{ asset('img/logo-02.png') }}" alt="Food Hero" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" href="#home">Home</a>
+            <a class="nav-link" href="#nosotros">Nosotros</a>
+            <a class="nav-link" href="#raider">Raider</a>
+            <a class="nav-link" href="#proveedor">Proveedor</a>
+            <a class="nav-link" href="#footer">Unete</a>
+            <a class="nav-link"  href="{{ route('login') }}" style="color: black;">Ir al APP</a>
+          </div>
         </div>
       </div>
-    </div> --}}
+    </nav>
 
-    <div class="d-flex align-items-center">
-      <div class="col-12">
-        <div class="row">
-          <nav class="barra navbar navbar-expand-lg">
-            <a href="#">
-              <img class="logo-barra" src="{{ asset('img/logo-02.png') }}" alt="Food Hero" />
-            </a>
-            <!-- Eliminamos el botón del toggler -->
-            <div class="collapse navbar-collapse gap-3" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#home">Home</a>
-                </li>
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#nosotros">Nosotros</a>
-                </li>
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#raider">Raider</a>
-                </li>
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#proveedor">Proveedor</a>
-                </li>
-                <!-- Eliminamos la lista <ul> anidada -->
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="#footer">Unete</a>
-                </li>
-                <li class="nav-item mx-4 ms-5">
-                  <a class="nav-link" href="{{ route('login') }}" style="color: black;">Ir al APP</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      </div>
-    </div>
+
     
     <section id="home" class="contenedor-seccion">
       <div class="contenedor-imagen">
@@ -177,17 +86,10 @@
         </p>
       </div>
     </section>
-  </div>
+  </div> --}}
 
 
-  <style>
-    /* Estilos para el contenedor frame-content */
-    .frame-content {
-        width: 500px !important; /* Ancho deseado */
-        height: 500px !important; /* Altura deseada */
-        /* Otros estilos, si es necesario */
-    }
-</style>
+ 
 
 <!-- Script para cargar Landbot -->
 <script>
