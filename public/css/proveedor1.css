@@ -8,15 +8,20 @@ html {
     position: relative;
 }
 
+#super {
+    width: 80px;
+    height: 120px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+}
+
 #map {
     width: 100%;
     height: 100%;
     position: relative;
 }
-
-/* .popup-buttons {
-    text-align: center;
-} */
 
 .mover {
     border: 1px solid black;
@@ -82,4 +87,21 @@ html {
 #createMarkerButton.active {
     transition: 0.2s;
     background-color: #008cba;
+}
+
+#logout {
+    border: 1px solid black;
+    border-radius: 15px;
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    z-index: 1;
+    background-color: purple;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
 }

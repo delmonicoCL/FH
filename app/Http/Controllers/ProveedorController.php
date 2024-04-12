@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class ProveedorController extends Controller
 {
@@ -85,9 +86,9 @@ class ProveedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Proveedor $proveedor)
+    public function edit(Proveedor $proveedore)
     {
-        //
+        return view("proveedor/formProveedor",compact("proveedore"));
     }
 
     /**
