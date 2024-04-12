@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Clases\Utilidad;
 use App\Models\Rider;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 
@@ -12,18 +13,17 @@ class RiderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-                        
-            $riders = Rider::paginate(5);
-            return view("rider.index", compact("rider"));
-
-        }
-
+       
         
+        $usuarios = Usuario::where("tipo", "=", "rider")->get();
 
 
-        
+        $riders = Rider::all();
+        return view("administradores.gestionRaider", compact("usuarios", "riders"));
+
+    }
 
     /**
      * Show the form for creating a new resource.
