@@ -1,3 +1,8 @@
+<pre>
+    @php
+        print_r($reservas)
+    @endphp
+</pre>
 <div class="contenedor col-lg-12">
     <div class="fila1 col-lg-12">
         <div class="infoProveedor col-lg-7 col-sm-12">
@@ -28,7 +33,9 @@
                     <p> {{ $user['telefono'] }}</p>
                 </div>
                 <div class="icono">
-                    <form action="{{action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore'=>$proveedor['id']])}}" method="GET">
+                    <form
+                        action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor['id'], 'user' => $user['id']]) }}"
+                        method="GET">
                         <button type="submit" class="btnVolver" id="btnVolver">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
@@ -40,6 +47,7 @@
             <div class="titulo">
                 <h2>Estadisticas</h2>
             </div>
+            <hr />
         </div>
     </div>
 
@@ -76,10 +84,13 @@
             <div class="selectRider">
                 <label for="opciones">Select Rider:</label>
                 <select id="opciones" name="opciones">
-                    <option value="opcion4">-- Select --</option>
-                    <option value="opcion1">Opción 1</option>
-                    <option value="opcion2">Opción 2</option>
-                    <option value="opcion3">Opción 3</option>
+                    
+                    <option value="opcion">-- Select --</option>
+                    @foreach ($reservas as $reserva)
+                    <option value="option">{{ $reserva->id }}</option>
+                        {{-- <option value="opcion">{{ $reserva->id }} - {{ $reserva->rider->nickname }}</option> --}}
+                    @endforeach
+
                 </select>
             </div>
             <div class="btnConfirm">

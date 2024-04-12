@@ -1,8 +1,12 @@
 <?php
 
+use App\Models\Rider;
+use App\Models\Reserva;
+use App\Models\Proveedor;
+use App\Models\Administrador;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RiderController;
 use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\ReservaController;
@@ -10,6 +14,7 @@ use App\Models\Administrador;
 use App\Models\Proveedor;
 use App\Models\Rider;
 use App\Models\Reserva;
+use App\Http\Controllers\AdministradorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +42,7 @@ Route::middleware(["auth"])->group(function () {
         switch ($user["tipo"]) {
             case "administrador":
                 $administrador = Administrador::where("id", "=", $id)->first();
-                $response = view("home", compact("user", "administrador"));
+                $response = view("administradores/administrador", compact("user", "administrador"));
                 break;
             case "proveedor":
                 $proveedor = Proveedor::where("id", "=", $id)->first();
@@ -59,13 +64,14 @@ Route::middleware(["auth"])->group(function () {
             return view('auth.login');
         }
     })->name('proveedor1');
-    
+
     Route::get('/proveedor2', function () {
         $user = Auth::user();
         $id = $user["id"];
         $proveedor = Proveedor::where("id", "=", $id)->first();
+        $reservas = Reserva::where("proveedor", $id)->get();
         if ($user["tipo"] === "proveedor") {
-            return view('proveedor/proveedor2',compact("user", "proveedor"));
+            return view('proveedor/proveedor2',compact("user", "proveedor","reservas"));
         } else {
             return view('auth.login');
         }
@@ -76,7 +82,7 @@ Route::middleware(["auth"])->group(function () {
         $id = $user["id"];
         $proveedor = Proveedor::where("id", "=", $id)->first();
         if ($user["tipo"] === "proveedor") {
-            return view('proveedor/formProveedor',compact("user", "proveedor"));
+            return view('proveedor/formProveedor', compact("user", "proveedor"));
         } else {
             return view('auth.login');
         }
