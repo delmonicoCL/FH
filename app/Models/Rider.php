@@ -24,12 +24,7 @@ class Rider extends Model
     {
         return $this->belongsTo(AvatarRider::class,"avatar");
     }
-
-    public function puas()
-    {
-        return $this->hasMany(Pua::class,"rider_creador");
-    }
-
+    
     public function entregas()
     {
         return $this->hasMany(Entrega::class,"rider");
