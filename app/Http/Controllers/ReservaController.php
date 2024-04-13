@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reserva;
+use App\Clases\Utilidad;
+use Illuminate\Database\QueryException;
 
 class ReservaController extends Controller
 {
