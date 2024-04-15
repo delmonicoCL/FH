@@ -23,7 +23,6 @@
                     <input type="hidden" id="lat" name="lat">
                     <label for="cantidad_de_personas">Cuantas personas hay?:</label><br>
                     <input type="number" id="cantidad_de_personas" name="cantidad_de_personas"><br><br>
-                    <!-- Agregar el div para mostrar el nombre del Rider seleccionado -->
                     <div id="riderName"></div><br>
                     <button type="button" id="submitForm">Crear Pua</button>
                 </form>
@@ -75,7 +74,7 @@
         </div>
     </nav>
         <button id="boton-reservar">Reservar</button>
-        <!-- Modal de reserva -->
+        <!-- Modal de reservar -->
         <div id="modal-reservar" class="modal-reservar">
             <div class="modal-content-reservar modal-lg">
                 <span class="close" id="closeButtonReservar">&times;</span>
@@ -92,50 +91,56 @@
             </div>
         </div>
 
-        <div id="modal-perfil" class="modal-perfil">
-            <div class="modal-content-perfil modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">PERFIL</h5>
-                        <span class="close" id="closeButtonPerfil">&times;</span>
-                    </div>
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>PROVEEDOR</th>
-                                        <th>RESERVAS</th>
-                                        <th>HORARIOS</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                            
-                                    <tr>
-                                        <td>{{$rider["nickname"]}}</td>
-                                        <td>4</td>
-                                        <td>18:00 a 22:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>BurgerKing</td>
-                                        <td>2</td>
-                                        <td>20:00 a 20:30</td>
-                                    </tr>
-                                    <tr>
-                                        <td>365</td>
-                                        <td>2</td>
-                                        <td>12:00 a 24:00</td>
-                                    </tr>
-                                
-                                </tbody>
-                            </table>
+        <div class="modal-perfil" id="modal-perfil">
+            <div class="modal-content-perfil modal-lg mt-3">
+                <div class="modal-content px-5 pt-3 pb-3">
+                    <div class="row">
+                        <div class="col-lg-12 contact-form">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <div class="text-end">
+                                        <span class="close" id="closeButtonPerfil">&times;</span>
+                                    </div>
+                                    <div class="card-title text-center pb-3">
+                                        <h3>PERFIL</h3>
+                                        <p class="lead text-muted fw-light">Información de usuario.</p>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <div class="text-center">
+                                                <h4>Nombre</h4>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <p class="lead m-0">{{ $user->nombre }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="text-center">
+                                                <h4>Correo</h4>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <p class="lead m-0">{{ $user->email }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <div class="text-center">
+                                                <h4>Teléfono</h4>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <p class="lead m-0">{{ $user->telefono }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
+            
             <!-- Modal Reservas -->
         <div id="modal-reservas" class="modal-reservas">
             <div class="modal-content-reservas modal-lg">
@@ -146,7 +151,6 @@
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive" style="display: flex; justify-content: center !important; align-items: center !important;">
-                            <!-- raider.blade.php -->
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -156,14 +160,21 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($reservas as $reserva)
-                                        <!-- Mostrar cada reserva en una fila de la tabla -->
                                         <tr>
                                             <td>{{ $reserva->proveedor }}</td>
                                             <td>{{ $reserva->cantidad }}</td>
+                                            <td>
+                                                <form action="{{ route('reservas.update', $reserva->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="estado" value="finalizada">
+                                                    <button type="submit" class="btn btn-success" id="boton-entregar">Entregar</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            </table>
+                            </table> 
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -209,7 +220,7 @@
                                             <div class="text-center">
                                                 <h4>RESERVAS ACTUALES</h4>
                                                 <div class="d-flex justify-content-center align-items-center">
-                                                    <p class="lead m-0">3</p>
+                                                    {{-- <p class="lead m-0">{{ $num_reservas_activas }}</p> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -221,7 +232,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div>
                         </div>
@@ -230,7 +241,6 @@
             </div>
         </div> 
     </div> 
-    <!-- Enlace al archivo JavaScript -->
     <script src="{{ asset('js/rider.js') }}"></script>
 </body>
 </html>

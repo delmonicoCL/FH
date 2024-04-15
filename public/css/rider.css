@@ -164,6 +164,7 @@ html {
 
 /* PERFIL */
 
+/* Estilos para el modal de perfil */
 .modal-perfil {
     font-size: 20px;
     display: none;
@@ -171,19 +172,19 @@ html {
     z-index: 1;
     left: 0;
     top: 0;
-    width: 100%;    
+    width: 100%;
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Contenido del modal */
+/* Contenido del modal de perfil */
 .modal-content-perfil {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border-radius: 10px;
-    width: 40%; /* Ancho del modal */
+    width: 60%; /* Ancho del modal */
     max-width: 400px; /* Ancho máximo */
     text-align: center; /* Alineación centrada */
     position: absolute;
@@ -192,6 +193,7 @@ html {
     transform: translate(-50%, -50%);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 
 /* PUA */
 
@@ -393,13 +395,21 @@ label {
 }
 /* Nav-Bar */
 
-#logout{
-    position: fixed;
-    text-align: right;
-    width: 100%;
-    float: right;
-    padding: 0px 0;
-    z-index: 100 !important;
+#logout {
+    border: 1px solid black;
+    border-radius: 15px;
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    z-index: 1;
+    background-color: purple;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .navbar-bottom {
@@ -435,3 +445,17 @@ label {
     background-color: #decd62;
 }
 
+
+.btn-success {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}

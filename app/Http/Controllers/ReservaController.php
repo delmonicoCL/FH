@@ -10,14 +10,20 @@ use Illuminate\Database\QueryException;
 class ReservaController extends Controller
 {
     public function index()
-    {
-        // Obtener todas las reservas
-        $reservas = Reserva::all();
-        
-        // Pasar los datos a la vista raider.blade.php
-        // return view('raiders', ['reservas' => $reservas]);
-        return view("riders.rider",compact("reservas"));
-    }
+{
+    // Obtener el ID del rider actual
+    $rider_id = auth()->user()->id;
+
+    // Consulta SQL para obtener el número de reservas activas del rider actual
+    $num_reservas_activas = Reserva::where('rider', $rider_id)->where('estado', 'finalizada')->count();
+
+    // Obtener todas las reservas que no están finalizadas
+    $reservas = Reserva::where('estado', '!=', 'finalizada')->get();
+    
+    // Pasar los datos a la vista raider.blade.php
+    return view("riders.rider", compact("reservas", "num_reservas_activas"));
+}
+
 
 
 
@@ -66,8 +72,11 @@ class ReservaController extends Controller
      */
     public function update(Request $request, Reserva $reserva)
     {
-        //
+        $reserva->estado = $request->estado;
+        $reserva->save();
+        return redirect()->back()->with('success', 'Reserva marcada como entregada correctamente');
     }
+    
 
     /**
      * Remove the specified resource from storage.

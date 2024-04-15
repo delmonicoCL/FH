@@ -45,7 +45,7 @@ Route::middleware(["auth"])->group(function () {
                 break;
             default:
                 $rider = Rider::where("id", "=", $id)->first();
-                $reservas = Reserva::where("rider","=",$id)->get();
+                $reservas = Reserva::where("rider","=",$id)->where("estado","!=","finalizada")->get(); // Aquí se filtran las reservas finalizadas
                 $response = view("riders/rider", compact("user", "rider","reservas"));
                 break;
         }
@@ -91,7 +91,6 @@ Route::get('/registros/index', function () {
 Route::get('/registros/administrador', function () {
     return view('registros.administrador');
 });
-
 
 Route::resource("usuarios", UsuarioController::class);
 
