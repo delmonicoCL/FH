@@ -21,6 +21,7 @@
             <th scope="col">Apellido</th>
             <th scope="col">Email</th>
             <th scope="col">Telefono</th>
+            <th scope="col">Avatar</th>
             <th scope="col">Stock</th>
             <th scope="col">Borrar</th>
             <th scope="col">Editar</th>
@@ -39,6 +40,7 @@
                 <td>{{ $riders[$i]->apellidos }}</td>
                 <td>{{ $usuarios[$i]->email }}</td>
                 <td>{{ $usuarios[$i]->telefono }}</td>
+                <td>{{ $riders[$i]->avatar }}</td>
                 <td>{{ $riders[$i]->stock_rider }}</td>
                 
               <td>
@@ -57,18 +59,11 @@
               </td>  
               <td>
 
-               <form action="{{ route('usuarios.edit', $usuarios[$i]->id) }}" method="GET" class="float-right">
-    <button type="submit" class="btn btn-sm btn-warning">
-        <i class="fa fa-edit" aria-hidden="true"></i> Editar
-    </button>
-</form>
-
-
-    {{-- <form action="{{ route('editarUsuario', $usuarios[$i]->id) }}" method="GET" class="float-right">
-        <button type="submit" class="btn btn-sm btn-warning">
-            <i class="fa fa-edit" aria-hidden="true"></i> Editar
-        </button>
-    </form> --}}
+               <form action="{{action([App\Http\Controllers\UsuarioController::class,'edit'],['usuario'=>$usuarios[$i]['id']])}}" method="GET" class="float-right">
+                    <button type="submit" class="btn btn-sm btn-warning">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                    </button>
+                </form>
 
 
               </td>

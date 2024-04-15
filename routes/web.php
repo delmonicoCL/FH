@@ -114,4 +114,3 @@ Route::resource("proveedores", ProveedorController::class);
 Route::resource("riders", RiderController::class);
 
 Route::resource("reservas", ReservaController::class);
-

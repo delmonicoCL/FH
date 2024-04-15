@@ -12,18 +12,18 @@
 <div class="container mt-4">
 
     <div class="card-body" style="">
-<form action="" method="POST">
+    <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=>$usuario])}}" id="formularioinscripcion" method="POST">
         @csrf
         @method('PUT')
 
             <div class="form-group mt-2">
             <label for="nombre">ID:</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $usuario->id }}" readonly>
+            <input type="text" class="form-control" id="id" name="id" value="{{ $usuario->id }}" readonly>
             </div>
 
             <div class="form-group mt-2">
-            <label for="nombre">NickName:</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" value="">
+            <label for="nickname">NickName:</label>
+            <input type="text" class="form-control" id="nickname" name="nickname" value="{{ $rider->nickname }}">
             </div>
         
             <div class="form-group mt-2">
@@ -32,24 +32,29 @@
             </div>
 
             <div class="form-group mt-2">
-            <label for="nombre">Apellido:</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" value="">
+            <label for="apellido">Apellido:</label>
+            <input type="text" class="form-control" id="apellido" name="apellido" value="{{ $rider->apellidos }}">
             </div>
+
               <div class="form-group mt-2">
             <label for="email">Email:</label>
             <input type="email" class="form-control" id="email" name="email" value="{{ $usuario->email }}">
              </div>
-                  
+            
+             <div class="form-group mt-2">
+                <label for="telefono">Telefono:</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" value="{{ $usuario->telefono }}">
+                </div>
              
-              <div class="form-group mt-2">
+            <div class="form-group mt-2">
             <label for="telefono">Avatar:</label>
-            <input type="tel" class="form-control" id="telefono" name="telefono" value="">
+            <input type="text" class="form-control" id="avatar" name="avatar" value="{{ $rider->avatar }}">
             </div>
 
-              <div class="form-group mt-2">
+              {{-- <div class="form-group mt-2">
             <label for="telefono">Contraseña:</label>
             <input type="tel" class="form-control" id="telefono" name="telefono" value="{{ $usuario->contrasenia }}">
-            </div>
+            </div> --}}
 
 </form>
     </div>

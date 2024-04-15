@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rider;
 use App\Models\Usuario;
 use App\Clases\Utilidad;
+use App\Models\AvatarRider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
-use App\Models\AvatarRider;
 
 class UsuarioController extends Controller
 {
@@ -188,18 +189,42 @@ class UsuarioController extends Controller
      */
     public function edit(Usuario $usuario)
     {
-        // return view('usuarios.editar', compact('usuario'));
-        return view('administradores.updateRIDER', compact('usuario'));
+        $rider = Rider::where("id","=",$usuario->id)->first();
+        return view('administradores.updateRIDER', compact('usuario',"rider"));
+
+
+        // $usuarios = Usuario::all();
+        // $riders = Rider::all();
+        // return view("administradores.gestionRaider", compact("usuarios", "riders"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Usuario $usuario)
-    {
-        //
-    }
 
+     public function update(Request $request, Usuario $usuario)
+     {
+         // Obtener el rider asociado con el usuario
+         $rider = $usuario->rider;
+     
+         // Actualizar los datos del usuario
+         $usuario->nombre = $request->input("nombre");
+         $usuario->email = $request->input("email");
+     
+         // Actualizar los datos del rider
+         if ($rider) {
+             $rider->apellido = $request->input("apellido");
+             $rider->telefono = $request->input("telefono");
+             $rider->avatar = $request->input("avatar");
+             $rider->save();
+         }
+     
+         // Guardar los cambios en el usuario
+         $usuario->save();
+     
+         // Redirigir a la página de inicio, o a donde necesites
+         return redirect()->action([UsuarioController::class, 'index']);
+     }
     /**
      * Remove the specified resource from storage.
      */
