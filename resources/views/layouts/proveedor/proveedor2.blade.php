@@ -91,8 +91,8 @@
                 <select id="opciones" name="opciones">
 
                     <option value="opcion">-- Select --</option>
-                    @foreach ($reservas as $reserva)
-                        <option value="option">{{ $reserva->id }}</option>
+                    @foreach ($riders as $rider)
+                        <option value="option">{{ $rider->nombre }}</option>
                         {{-- <option value="opcion">{{ $reserva->id }} - {{ $reserva->rider->nickname }}</option> --}}
                     @endforeach
 
