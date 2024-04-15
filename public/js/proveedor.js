@@ -1,7 +1,9 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function ()
+{
     let menosBtn = document.getElementById("menosBtn");
     let masBtn = document.getElementById("masBtn");
-    let crearBtn = document.getElementById("crearBtn");
+    // let crearBtn = document.getElementById("crearBtn");
+    let cant = document.getElementById("cant");
 
     menosBtn.addEventListener("click", function () {
         decrementarCantidad();
@@ -13,6 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (cantidad >= 1) {
             cantidad--;
             cantidadMenu.textContent = cantidad;
+            console.log(cantidad);
+            cant.setAttribute("value",cantidad);
+            cant.value=cantidad;
         }
     }
 
@@ -28,4 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
             cantidadMenu.textContent = cantidad;
         }
     }
+
+    
 });

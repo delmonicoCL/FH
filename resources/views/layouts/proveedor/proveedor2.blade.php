@@ -71,10 +71,14 @@
                 </div>
             </div>
             <div class="btnCrear">
-                <button class="crear" id="crearBtn" type="submit">
+                <button class="crear" id="crearBtn" type="submit" form="idForm">
                     Crear Menu(s)
                 </button>
             </div>
+            <form id="idForm">
+                <label for="cant">cant</label>
+                <input type="text" id="cant">
+            </form>
         </div>
 
         <div class="entregarMenu col-lg-7 col-sm-12">
@@ -126,6 +130,10 @@
                 <h2>Mapa</h2>
             </div>
             <hr />
+            {{-- @yield('contenido')
+            <div id="map">
+                das
+            </div> --}}
             <div class="divVolver">
                 <a class="aVolver" id="aVolver" href="{{ route('proveedor1') }}">
                     <button class="btnVolver">
