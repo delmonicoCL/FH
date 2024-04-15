@@ -49,9 +49,6 @@ class UsuarioController extends Controller
     public function index()
     {
         $usuarios = Usuario::all();
-        // echo "<pre>";
-        //     print_r($usuarios);
-        // echo "<pre>";
         return redirect()->route('riders.index', compact("usuarios"));
     }
 
@@ -191,7 +188,8 @@ class UsuarioController extends Controller
      */
     public function edit(Usuario $usuario)
     {
-        //
+        // return view('usuarios.editar', compact('usuario'));
+        return view('administradores.updateRIDER', compact('usuario'));
     }
 
     /**

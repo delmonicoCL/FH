@@ -5,7 +5,7 @@
 
 <div class="container mt-5">
 
-<H2> RIDERS </H2>
+<H2> PROVEEDORES </H2>
 
 </div>
 
@@ -16,9 +16,9 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">NickName</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
+            <th scope="col">Direccion</th>
+             <th scope="col">Numero</th>
             <th scope="col">Email</th>
             <th scope="col">Telefono</th>
             <th scope="col">Stock</th>
@@ -30,16 +30,16 @@
         
         <tbody>
 
-          @for ($i = 0; $i < count($riders); $i++)
+          @for ($i = 0; $i < count($proveedores); $i++)
 
             <tr>
                 <td>{{ $usuarios[$i]->id}}</td>
-                <td>{{ $riders[$i]->nickname }}</td>
                 <td>{{ $usuarios[$i]->nombre}}</td>
-                <td>{{ $riders[$i]->apellidos }}</td>
+                <td>{{ $proveedores[$i]->calle }}</td>
+                <td>{{ $proveedores[$i]->numero }}</td>
                 <td>{{ $usuarios[$i]->email }}</td>
                 <td>{{ $usuarios[$i]->telefono }}</td>
-                <td>{{ $riders[$i]->stock_rider }}</td>
+                <td>{{ $proveedores[$i]->stock_proveedor }}</td>
                 
               <td>
               
@@ -57,19 +57,10 @@
               </td>  
               <td>
 
-               <form action="{{ route('usuarios.edit', $usuarios[$i]->id) }}" method="GET" class="float-right">
-    <button type="submit" class="btn btn-sm btn-warning">
-        <i class="fa fa-edit" aria-hidden="true"></i> Editar
-    </button>
-</form>
-
-
-    {{-- <form action="{{ route('editarUsuario', $usuarios[$i]->id) }}" method="GET" class="float-right">
-        <button type="submit" class="btn btn-sm btn-warning">
-            <i class="fa fa-edit" aria-hidden="true"></i> Editar
-        </button>
-    </form> --}}
-
+                <form action="" class="float-right">
+                        <button type="submit" class="btn btn-sm btn-warning"> <i class="fa fa-edit" 
+                            aria-hidden="true"></i> Editar </button>
+                    </form>
 
               </td>
             </tr>
@@ -83,7 +74,7 @@
 
 <div class="container mt-4">
   <a href="{{ route('registros.index') }}" class="btn btn-primary btn-float-afegir">
-    <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Raider
+    <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Proveedor
 </a>
 </div>
 
@@ -105,7 +96,9 @@
 </div>
 
     
+  {{-- {{ $riders->links() }} --}}
 
+{{-- <a href="{{ url('cicles/create')}}" class="btn btn-primary btn-float-afegir"><i class="fa fa-plus-circle" aria-hidden="true"></i>Nuevo Ciclo</a> --}}
 
 
 @endsection

@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProveedorController;
-use App\Http\Controllers\RiderController;
+// use App\Http\Controllers\RiderController;
 use App\Http\Controllers\ReservaController;
-use App\Models\Administrador;
-use App\Models\Proveedor;
-use App\Models\Rider;
-use App\Models\Reserva;
+// use App\Models\Administrador;
+// use App\Models\Proveedor;
+// use App\Models\Rider;
+// use App\Models\Reserva;
 use App\Http\Controllers\AdministradorController;
 
 /*
@@ -91,11 +91,18 @@ Route::middleware(["auth"])->group(function () {
 
 Route::get('/registros/index', function () {
     return view('registros.index');
-});
+})->name('registros.index');
 
 Route::get('/registros/administrador', function () {
     return view('registros.administrador');
 });
+
+Route::get('/prueba', function () {
+    return view('administradores.updateRIDER');
+})->name('RutaPrueba');
+
+Route::get('/usuarios/{usuario}/edit', [UsuarioController::class, 'edit'])->name('usuarios.edit');
+
 
 
 Route::resource("usuarios", UsuarioController::class);
@@ -107,3 +114,4 @@ Route::resource("proveedores", ProveedorController::class);
 Route::resource("riders", RiderController::class);
 
 Route::resource("reservas", ReservaController::class);
+
