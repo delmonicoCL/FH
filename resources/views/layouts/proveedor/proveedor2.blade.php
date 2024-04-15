@@ -1,8 +1,8 @@
-<pre>
+{{--<pre>
     @php
         print_r($reservas)
     @endphp
-</pre>
+</pre>--}}
 <div class="contenedor col-lg-12">
     <div class="fila1 col-lg-12">
         <div class="infoProveedor col-lg-7 col-sm-12">

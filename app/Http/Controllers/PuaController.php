@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pua;
 use Illuminate\Http\Request;
+use App\Clases\Utilidad;
+use Illuminate\Database\QueryException;
 
 class PuaController extends Controller
 {

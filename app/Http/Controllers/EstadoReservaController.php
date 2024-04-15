@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\EstadoReserva;
 use Illuminate\Http\Request;
+use App\Clases\Utilidad;
+use Illuminate\Database\QueryException;
 
 class EstadoReservaController extends Controller
 {

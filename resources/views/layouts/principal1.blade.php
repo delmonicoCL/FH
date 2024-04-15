@@ -16,7 +16,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        @if (Auth::check()&&Auth::user()["tipo"]==="administrador")
+                  
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Edicion USERS</a>
                                 <div class="dropdown-menu">
@@ -31,24 +31,24 @@
                                     <a class="dropdown-item" href="">PROVEEDORES-Estadisticas</a>
                                 </div>
                             </li>
-                        @endif
+                       
                     </ul>
                     <form class="d-flex" role="search">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            @if (Auth::check())
+                             {{-- @if (Auth::check())  --}}
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        @if(Auth::user()["tipo"]==="rider") {{$rider["nickname"]}} @else {{Auth::user()["nombre"]}} @if (Auth::check()&&Auth::user()["tipo"]==="administrador") {{$administrador["apellidos"]}} @endif @endif
+                                        {{-- @if(Auth::user()["tipo"]==="rider") {{$rider["nickname"]}} @else {{Auth::user()["nombre"]}} @if (Auth::check()&&Auth::user()["tipo"]==="administrador") {{$administrador["apellidos"]}} @endif @endif  --}}
                                     </a>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{url('/logout')}}">Cerrar sesion</a>
                                     </div>
                                 </li>
-                            @else
+                     {{-- @else  --}}
                                 <li class="nav-item">
                                     <a class="nav-link text-light" href="{{url('/login')}}">Iniciar Sesion</a>
                                 </li>
-                            @endif
+                            {{-- @endif  --}}
                         </ul>
                     </form>
                 </div>

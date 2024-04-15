@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Entrega;
 use Illuminate\Http\Request;
+use App\Clases\Utilidad;
+use Illuminate\Database\QueryException;
 
 class EntregaController extends Controller
 {

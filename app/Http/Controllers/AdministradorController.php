@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Administrador;
 use App\Clases\Utilidad;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class AdministradorController extends Controller
 {
