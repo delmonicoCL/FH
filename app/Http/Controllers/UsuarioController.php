@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Proveedor;
+use App\Models\Rider;
 use App\Models\Usuario;
 use App\Clases\Utilidad;
+use App\Models\AvatarRider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
-use App\Models\AvatarRider;
 
 class UsuarioController extends Controller
 {
@@ -49,9 +51,6 @@ class UsuarioController extends Controller
     public function index()
     {
         $usuarios = Usuario::all();
-        // echo "<pre>";
-        //     print_r($usuarios);
-        // echo "<pre>";
         return redirect()->route('riders.index', compact("usuarios"));
     }
 
@@ -189,26 +188,154 @@ class UsuarioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Usuario $usuario)
+    public function edit(Request $request, Usuario $usuario)
     {
-        //
+
+
+        //     //Recuperar los datos del formulario
+            $tipo=$request->input("tipo");
+
+            if($tipo==="rider")
+        {
+              $rider = Rider::where("id","=",$usuario->id)->first();
+                return view('administradores.updateRIDER', compact('usuario',"rider"));
+            }
+            if($tipo==="proveedor")
+             {
+                 $proveedor = Proveedor::where("id","=",$usuario->id)->first();
+                 return view('administradores.updatePROVEEDOR', compact('usuario',"proveedor"));
+             }
+
+
+    //   $rider = Rider::where("id","=",$usuario->id)->first();
+    //  return view('administradores.updateRIDER', compact('usuario',"rider"));
+
+        // $proveedor = Proveedor::where("id","=",$usuario->id)->first();
+        // return view('administradores.updatePROVEEDOR', compact('usuario',"proveedor"));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Usuario $usuario)
-    {
-        //
-    }
 
+     public function update(Request $request, Usuario $usuario)
+     {
+
+
+            //Recuperar los datos del formulario
+            $tipo=$request->input("tipo");
+
+            if($tipo==="rider")
+            {
+                
+                // Obtener el rider asociado con el usuario
+                $rider = Rider::where("id","=",$usuario->id)->first();
+            
+                // Actualizar los datos del usuario
+                    $usuario->nombre = $request->input("nombre");
+                    $usuario->email = $request->input("email");
+                    $usuario->telefono = $request->input("telefono");
+            
+                // Actualizar los datos del rider si existe
+                if ($rider) {
+                    $rider->apellidos = $request->input("apellido");
+                    $rider->nickname = $request->input("nickname");
+                    $rider->avatar = $request->input("avatar");
+                    $rider->stock_rider = $request->input("stock");
+                    $rider->save();
+                }
+            
+                // Guardar los cambios en el usuario
+                $usuario->save();
+            
+                 // Redirigir a la página de inicio, o a donde necesites
+                 return redirect()->route("riders.index");
+            }
+            if($tipo==="proveedor")
+            {
+               // Obtener el rider asociado con el usuario
+               $proveedor = Proveedor::where("id","=",$usuario->id)->first();
+            
+               // Actualizar los datos del usuario
+                   $usuario->nombre = $request->input("nombre");
+                   $usuario->email = $request->input("email");
+                   $usuario->telefono = $request->input("telefono");
+           
+               // Actualizar los datos del rider si existe
+               if ($proveedor) {
+                   $proveedor->calle = $request->input("calle");
+                   $proveedor->numero = $request->input("numero");
+                   $proveedor->cp = $request->input("cp");
+                   $proveedor->ciudad = $request->input("ciudad");
+                   $proveedor->logo = $request->input("logo");
+                   $proveedor->stock_proveedor = $request->input("stock");
+                   $proveedor->save();
+               }
+           
+               // Guardar los cambios en el usuario
+               $usuario->save();
+           
+               // Redirigir a la página de inicio, o a donde necesites
+               return redirect()->route("proveedores.index");
+            }
+
+        
+
+
+
+        //  // Obtener el rider asociado con el usuario
+        //  $rider = Rider::where("id","=",$usuario->id)->first();
+     
+        //  // Actualizar los datos del usuario
+        //  $usuario->nombre = $request->input("nombre");
+        //  $usuario->email = $request->input("email");
+        //  $usuario->telefono = $request->input("telefono");
+     
+        //  // Actualizar los datos del rider si existe
+        //  if ($rider) {
+        //      $rider->apellidos = $request->input("apellido");
+        //      $rider->nickname = $request->input("nickname");
+        //      $rider->avatar = $request->input("avatar");
+        //      $rider->stock_rider = $request->input("stock");
+        //      $rider->save();
+        //  }
+     
+        //  // Guardar los cambios en el usuario
+        //  $usuario->save();
+     
+        //  // Redirigir a la página de inicio, o a donde necesites
+        //  return redirect()->action([UsuarioController::class, 'index']);
+
+
+
+
+     }
+     
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(Request $request, Usuario $usuario)
     {
-        $usuario->delete();
 
-        return redirect()->action([UsuarioController::class, 'index']);
+        //Recuperar los datos del formulario
+        $tipo=$request->input("tipo");
+
+        if($tipo==="rider")
+        {
+            $usuario->delete();
+
+            return redirect()->action([UsuarioController::class, 'index']);
+        }
+        if($tipo==="proveedor")
+        {
+            $usuario->delete();
+            return redirect()->route("proveedores.index");
+        }
+
+
+
+
+        
     }
 }

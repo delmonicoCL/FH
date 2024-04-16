@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reserva;
 use App\Models\Proveedor;
+use App\Clases\Utilidad;
 use App\Models\User;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -17,9 +18,15 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        $reservas = Reserva::with('rider')->get();
-        echo $reservas;
-        // return response()->json($reservas);
+        // $reservas = Reserva::with('rider')->get();
+        // echo $reservas;
+        // return response()->json($reservas);<
+
+        $usuarios = Usuario::where("tipo", "=", "proveedor")->get();
+        $proveedores = Proveedor::all();
+        return view("administradores.gestionProveedor", compact("usuarios", "proveedores"));
+
+
     }
 
     /**
@@ -60,9 +67,8 @@ class ProveedorController extends Controller
         $proveedor->cp = $cp;
         $proveedor->ciudad = $ciudad;
         $proveedor->logo = $logo;
-        $proveedor->lt = $latitud;
+        $proveedor->lat = $latitud;
         $proveedor->lng = $longitud;
-
 
         try {
             //Hacer el insert en la tabla
