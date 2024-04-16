@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function ()
             cantidadMenu.textContent = cantidad;
             console.log(cantidad);
             cant.setAttribute("value",cantidad);
-            cant.value=cantidad;
         }
     }
 
@@ -31,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function ()
         if (cantidad <= 9) {
             cantidad++;
             cantidadMenu.textContent = cantidad;
+            cant.setAttribute("value",cantidad);
         }
     }
 

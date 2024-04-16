@@ -66,7 +66,13 @@ Route::middleware(["auth"])->group(function () {
         $id = $user["id"];
         $proveedor = Proveedor::where("id", "=", $id)->first();
         $reservas = Reserva::where("proveedor","=",$id)->get();
-        $riders=Usuario::where("tipo","=","rider")->get();
+
+        $riders = DB::table('reservas')
+        ->join('usuarios', 'reservas.rider', '=', 'usuarios.id')
+        ->select('usuarios.nombre AS nombre')
+        ->where('reservas.proveedor',"=",$id)
+        ->get();
+
         if ($user["tipo"] === "proveedor") {
             return view('proveedor/proveedor2',compact("user", "proveedor","reservas","riders"));
         } else {
