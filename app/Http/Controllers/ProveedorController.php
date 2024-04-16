@@ -89,17 +89,42 @@ class ProveedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Proveedor $proveedore, Usuario $user)
+    public function edit(Proveedor $proveedore)
     {
-        return view("proveedor/formProveedor", compact("proveedore", "user"));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Proveedor $proveedor)
+    public function update(Request $request, Proveedor $proveedore)
     {
-        //
+        $tipoDeModificacion=$request["tipoDeModificacion"];
+        if($tipoDeModificacion==="crearMenu")
+        {
+            $cant=$request->input("Cant");
+            $proveedore->stock_proveedor=$cant;
+            try
+            {
+                //Hacer el insert en la tabla
+                $proveedore->save();
+                $request->session()->flash("mensaje","Registro modificado correctamente.");
+                $response=view("proveedor.proveedor2",compact("user","proveedor"));
+                //////////////////////////////////////////////////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////////
+            }
+            catch(QueryException $ex)
+            {
+                $mensaje=Utilidad::errorMessage($ex);
+                $request->session()->flash("error",$mensaje);
+                $response=redirect()->url('/proveedor2');
+            }  
+        }
+        return $response; 
     }
 
     /**

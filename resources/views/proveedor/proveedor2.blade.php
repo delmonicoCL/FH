@@ -3,6 +3,7 @@
         Datos del proveedor
     @endsection
     @section("contenido")
+        @include('partials.mensajes')
         {{-- <pre>
             @php
                 print_r($reservas)
@@ -80,9 +81,11 @@
                             Crear Menu(s)
                         </button>
                     </div>
-                    <form id="idForm">
+                    <form id="idForm" action="{{action([App\Http\Controllers\ProveedorController::class,'update'],['proveedore'=>$proveedor,"tipoDeModificacion"=>"crearMenu"])}}" method="POST">
+                        @csrf
+                        @method("PUT")
                         <label for="cant">cant</label>
-                        <input type="text" id="cant">
+                        <input type="text" id="cant" name="Cant">
                     </form>
                 </div>
 
