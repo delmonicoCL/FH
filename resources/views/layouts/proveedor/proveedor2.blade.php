@@ -1,8 +1,8 @@
-{{--<pre>
+{{-- <pre>
     @php
         print_r($reservas)
     @endphp
-</pre>--}}
+</pre> --}}
 <div class="contenedor col-lg-12">
     <div class="fila1 col-lg-12">
         <div class="infoProveedor col-lg-7 col-sm-12">
@@ -52,30 +52,35 @@
     </div>
 
     <div class="fila2 col-lg-12">
-        <div class="crearMenu col-lg-4 col-sm-12">
+        <div class="crearMenu col-lg-4 col-sm-12" id="menu">
             <div class="titulo">
                 <h2>Crear Menu</h2>
             </div>
             <hr />
             <div class="cantidadMenu">
                 <div class="menosMenu">
-                    <button class="menos">
+                    <button class="menos" id="menosBtn">
                         <i class="fa-solid fa-minus"></i>
                     </button>
                 </div>
-                <div class="cantMenu"> 3 </div>
+                <div class="cantMenu"> 0 </div>
                 <div class="masMenu">
-                    <button class="mas">
+                    <button class="mas" id="masBtn">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
             </div>
             <div class="btnCrear">
-                <button class="crear">
+                <button class="crear" id="crearBtn" type="submit" form="idForm">
                     Crear Menu(s)
                 </button>
             </div>
+            <form id="idForm">
+                <label for="cant">cant</label>
+                <input type="text" id="cant">
+            </form>
         </div>
+
         <div class="entregarMenu col-lg-7 col-sm-12">
             <div class="titulo">
                 <h2>Entregar Menu</h2>
@@ -84,10 +89,10 @@
             <div class="selectRider">
                 <label for="opciones">Select Rider:</label>
                 <select id="opciones" name="opciones">
-                    
+
                     <option value="opcion">-- Select --</option>
-                    @foreach ($reservas as $reserva)
-                    <option value="option">{{ $reserva->id }}</option>
+                    @foreach ($riders as $rider)
+                        <option value="option">{{ $rider->nombre }}</option>
                         {{-- <option value="opcion">{{ $reserva->id }} - {{ $reserva->rider->nickname }}</option> --}}
                     @endforeach
 
@@ -125,6 +130,10 @@
                 <h2>Mapa</h2>
             </div>
             <hr />
+            {{-- @yield('contenido')
+            <div id="map">
+                das
+            </div> --}}
             <div class="divVolver">
                 <a class="aVolver" id="aVolver" href="{{ route('proveedor1') }}">
                     <button class="btnVolver">

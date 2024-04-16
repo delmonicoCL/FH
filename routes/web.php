@@ -2,13 +2,14 @@
 
 use App\Models\Rider;
 use App\Models\Reserva;
+use App\Models\Usuario;
 use App\Models\Proveedor;
 use App\Models\Administrador;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\AdministradorController;
 
 /*
@@ -65,8 +66,9 @@ Route::middleware(["auth"])->group(function () {
         $id = $user["id"];
         $proveedor = Proveedor::where("id", "=", $id)->first();
         $reservas = Reserva::where("proveedor","=",$id)->get();
+        $riders=Usuario::where("tipo","=","rider")->get();
         if ($user["tipo"] === "proveedor") {
-            return view('proveedor/proveedor2',compact("user", "proveedor","reservas"));
+            return view('proveedor/proveedor2',compact("user", "proveedor","reservas","riders"));
         } else {
             return view('auth.login');
         }
