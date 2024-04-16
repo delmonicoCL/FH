@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
-use App\Clases\Utilidad;
+
 
 class ProveedorController extends Controller
 {
