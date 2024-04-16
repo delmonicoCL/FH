@@ -9,7 +9,7 @@
         @include('partials.mensajes')
         <div class="offset-lg-3 col-lg-6 mt-5">
             <div class="card">
-                <div class="card-header bg-secondary  text-light">Iniciar Sesion</div>
+                <div class="card-header text-light" style="background-color: #DA2427;">Iniciar Sesion</div>
                 <div class="card-body">
                     <form action="{{action([App\Http\Controllers\UsuarioController::class,'login'])}}" method="POST">
                         @csrf
