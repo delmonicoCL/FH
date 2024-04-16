@@ -41,12 +41,12 @@
                                         @if(Auth::user()["tipo"]==="rider") {{$rider["nickname"]}} @else {{Auth::user()["nombre"]}} @if (Auth::check()&&Auth::user()["tipo"]==="administrador") {{$administrador["apellidos"]}} @endif @endif
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{url('/logout')}}">Cerrar sesion</a>
+                                        <a class="dropdown-item" href="{{url('/logout')}}">Cerrar Sesión</a>
                                     </div>
                                 </li>
                             @else
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" href="{{url('/login')}}">Iniciar Sesion</a>
+                                    <a class="nav-link text-light" href="{{url('/login')}}">Iniciar Sesión</a>
                                 </li>
                             @endif
                         </ul>
