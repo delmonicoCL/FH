@@ -18,7 +18,10 @@
             <th scope="col">ID</th>
             <th scope="col">Nombre</th>
             <th scope="col">Direccion</th>
-             <th scope="col">Numero</th>
+            <th scope="col">Numero</th>
+            <th scope="col">CP</th>
+            <th scope="col">Ciudad</th>
+            <th scope="col">Logo</th>
             <th scope="col">Email</th>
             <th scope="col">Telefono</th>
             <th scope="col">Stock</th>
@@ -37,13 +40,16 @@
                 <td>{{ $usuarios[$i]->nombre}}</td>
                 <td>{{ $proveedores[$i]->calle }}</td>
                 <td>{{ $proveedores[$i]->numero }}</td>
+                <td>{{ $proveedores[$i]->cp }}</td>
+                <td>{{ $proveedores[$i]->ciudad }}</td>
+                <td>{{ $proveedores[$i]->logo }}</td>
                 <td>{{ $usuarios[$i]->email }}</td>
                 <td>{{ $usuarios[$i]->telefono }}</td>
                 <td>{{ $proveedores[$i]->stock_proveedor }}</td>
                 
               <td>
               
-             <form class="float-right ml-1" action="{{action([App\Http\Controllers\UsuarioController::class,'destroy'], ['usuario'=> $usuarios[$i]->id] )}}" method="POST" onsubmit="return confirmarBorrado()">
+             <form class="float-right ml-1" action="{{action([App\Http\Controllers\UsuarioController::class,'destroy'], ['usuario'=> $usuarios[$i]->id,'tipo'=> $usuarios[$i]->tipo] )}}" method="POST" onsubmit="return confirmarBorrado()">
                   @csrf 
                   @method('DELETE')
                   <button type="submit" class="btn btn-sm btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i> Borrar </button>
@@ -57,10 +63,14 @@
               </td>  
               <td>
 
-                <form action="" class="float-right">
-                        <button type="submit" class="btn btn-sm btn-warning"> <i class="fa fa-edit" 
-                            aria-hidden="true"></i> Editar </button>
-                    </form>
+                <form action="{{action([App\Http\Controllers\UsuarioController::class,'edit'], ['usuario'=> $usuarios[$i]->id,'tipo'=> $usuarios[$i]->tipo] )}}" method="POST" class="float-right">
+                  @method('GET')
+                  <button type="submit" class="btn btn-sm btn-warning">
+                      <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                  </button>
+              </form>
+
+              
 
               </td>
             </tr>
@@ -73,10 +83,11 @@
 </div>
 
 <div class="container mt-4">
-  <a href="{{ route('registros.index') }}" class="btn btn-primary btn-float-afegir">
+  <a href="{{route('usuarios.create', ['tipo' =>'proveedor'])}}" class="btn btn-primary">
     <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Proveedor
-</a>
+  </a>
 </div>
+
 
 <div class="container mt-5">
 

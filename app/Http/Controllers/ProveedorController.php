@@ -66,9 +66,8 @@ class ProveedorController extends Controller
         $proveedor->cp = $cp;
         $proveedor->ciudad = $ciudad;
         $proveedor->logo = $logo;
-        $proveedor->lt = $latitud;
+        $proveedor->lat = $latitud;
         $proveedor->lng = $longitud;
-
 
         try {
             //Hacer el insert en la tabla

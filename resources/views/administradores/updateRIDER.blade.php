@@ -12,9 +12,9 @@
 <div class="container mt-4">
 
     <div class="card-body" style="">
-    <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=>$usuario])}}" id="formularioinscripcion" method="POST">
-        @csrf
-        @method('PUT')
+        <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=> $usuario->id,'tipo'=> $usuario->tipo])}}" id="formularioinscripcion" method="POST">
+            @csrf
+            @method('PUT')
 
             <div class="form-group mt-2">
             <label for="nombre">ID:</label>
@@ -51,10 +51,12 @@
             <input type="text" class="form-control" id="avatar" name="avatar" value="{{ $rider->avatar }}">
             </div>
 
-              {{-- <div class="form-group mt-2">
-            <label for="telefono">Contraseña:</label>
-            <input type="tel" class="form-control" id="telefono" name="telefono" value="{{ $usuario->contrasenia }}">
-            </div> --}}
+            <div class="form-group mt-2">
+                <label for="telefono">Stock:</label>
+                <input type="text" class="form-control" id="stock" name="stock" value="{{ $rider->stock_rider }}">
+            </div>
+
+            
 
 </form>
     </div>

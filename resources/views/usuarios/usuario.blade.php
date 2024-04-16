@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.principal1')
 @section('contenido')
     @if($tipo!=="rider"&&$tipo!=="proveedor")
         @php

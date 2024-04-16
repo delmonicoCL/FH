@@ -45,7 +45,7 @@
                 
               <td>
               
-             <form class="float-right ml-1" action="{{action([App\Http\Controllers\UsuarioController::class,'destroy'], ['usuario'=> $usuarios[$i]->id] )}}" method="POST" onsubmit="return confirmarBorrado()">
+                <form class="float-right ml-1" action="{{action([App\Http\Controllers\UsuarioController::class,'destroy'], ['usuario'=> $usuarios[$i]->id,'tipo'=> $usuarios[$i]->tipo] )}}" method="POST" onsubmit="return confirmarBorrado()">
                   @csrf 
                   @method('DELETE')
                   <button type="submit" class="btn btn-sm btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i> Borrar </button>
@@ -59,12 +59,14 @@
               </td>  
               <td>
 
-               <form action="{{action([App\Http\Controllers\UsuarioController::class,'edit'],['usuario'=>$usuarios[$i]['id']])}}" method="GET" class="float-right">
-                    <button type="submit" class="btn btn-sm btn-warning">
-                        <i class="fa fa-edit" aria-hidden="true"></i> Editar
-                    </button>
-                </form>
-
+            
+                <form action="{{action([App\Http\Controllers\UsuarioController::class,'edit'], ['usuario'=> $usuarios[$i]->id,'tipo'=> $usuarios[$i]->tipo] )}}" method="POST" class="float-right">
+                  @method('GET')
+                  <button type="submit" class="btn btn-sm btn-warning">
+                      <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                  </button>
+              </form>
+              
 
               </td>
             </tr>
@@ -77,9 +79,9 @@
 </div>
 
 <div class="container mt-4">
-  <a href="{{ route('registros.index') }}" class="btn btn-primary btn-float-afegir">
+  <a href="{{route('usuarios.create', ['tipo' =>'rider'])}}" class="btn btn-primary">
     <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Raider
-</a>
+  </a>
 </div>
 
 <div class="container mt-5">
