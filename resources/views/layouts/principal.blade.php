@@ -8,7 +8,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-primary">
+        <nav class="navbar navbar-expand-lg" style="background-color: #DA2427;">
             <div class="container-fluid">
                 <a class="navbar-brand text-light" href="{{url('/')}}">FOODHERO</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,12 +41,12 @@
                                         @if(Auth::user()["tipo"]==="rider") {{$rider["nickname"]}} @else {{Auth::user()["nombre"]}} @if (Auth::check()&&Auth::user()["tipo"]==="administrador") {{$administrador["apellidos"]}} @endif @endif
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{url('/logout')}}">Cerrar sesion</a>
+                                        <a class="dropdown-item" href="{{url('/logout')}}">Cerrar Sesión</a>
                                     </div>
                                 </li>
                             @else
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" href="{{url('/login')}}">Iniciar Sesion</a>
+                                    <a class="nav-link text-light" href="{{url('/login')}}">Iniciar Sesión</a>
                                 </li>
                             @endif
                         </ul>

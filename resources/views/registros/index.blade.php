@@ -2,7 +2,7 @@
 @section('contenido')
     <div class="offset-lg-3 col-lg-6 mt-5">
         <div class="card">
-            <div class="card-header bg-secondary  text-light text-center">Inscribirse</div>
+            <div class="card-header text-light text-center" style="background-color: #DA2427;">Inscribirse</div>
             <div class="card-body">
 
                 <div class="row mb-3">
