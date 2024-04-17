@@ -33,6 +33,4 @@ document.addEventListener("DOMContentLoaded", function ()
             cant.setAttribute("value",cantidad);
         }
     }
-
-    
 });
