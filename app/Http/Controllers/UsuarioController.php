@@ -190,29 +190,25 @@ class UsuarioController extends Controller
      */
     public function edit(Request $request, Usuario $usuario)
     {
+        //Recuperar los datos del formulario
+        $tipo=$request->input("tipo");
 
-
-        //     //Recuperar los datos del formulario
-            $tipo=$request->input("tipo");
-
-            if($tipo==="rider")
+        if($tipo==="rider")
         {
-              $rider = Rider::where("id","=",$usuario->id)->first();
-                return view('administradores.updateRIDER', compact('usuario',"rider"));
-            }
-            if($tipo==="proveedor")
-             {
-                 $proveedor = Proveedor::where("id","=",$usuario->id)->first();
-                 return view('administradores.updatePROVEEDOR', compact('usuario',"proveedor"));
-             }
+            $rider = Rider::where("id","=",$usuario->id)->first();
+            return view('administradores.updateRIDER', compact('usuario',"rider"));
+        }
+        if($tipo==="proveedor")
+        {
+            $proveedor = Proveedor::where("id","=",$usuario->id)->first();
+            return view('administradores.updatePROVEEDOR', compact('usuario',"proveedor"));
+        }
 
-
-    //   $rider = Rider::where("id","=",$usuario->id)->first();
-    //  return view('administradores.updateRIDER', compact('usuario',"rider"));
+        //$rider = Rider::where("id","=",$usuario->id)->first();
+        //return view('administradores.updateRIDER', compact('usuario',"rider"));
 
         // $proveedor = Proveedor::where("id","=",$usuario->id)->first();
         // return view('administradores.updatePROVEEDOR', compact('usuario',"proveedor"));
-
     }
 
     /**
@@ -331,11 +327,6 @@ class UsuarioController extends Controller
         {
             $usuario->delete();
             return redirect()->route("proveedores.index");
-        }
-
-
-
-
-        
+        }        
     }
 }

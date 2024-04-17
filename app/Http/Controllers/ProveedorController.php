@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Reserva;
 use App\Models\Proveedor;
 use App\Clases\Utilidad;
-use App\Models\User;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -93,14 +92,22 @@ class ProveedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Usuario $user, Proveedor $proveedore)
+    public function edit(Proveedor $proveedore)
     {
-        /*echo "<pre>";
-            print_r($proveedore);
-        echo "<pre>";*/
-        echo "<pre>";
-            print_r($user);
-        echo "<pre>";
+        $usuario = Usuario::where("id","=",$proveedore->id)->first();
+        return view('proveedor.formProveedor', compact('usuario',"proveedore"));
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        //////////////////////////////////////////
     }
 
     /**
@@ -108,7 +115,7 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, Proveedor $proveedore)
     {
-        $tipoDeModificacion=$request["tipoDeModificacion"];
+        $tipoDeModificacion=$request->tipoDeModificacion;
         if($tipoDeModificacion==="crearMenu")
         {
             $cant=$request->input("Cant");
