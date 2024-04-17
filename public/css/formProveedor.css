@@ -7,18 +7,32 @@ body {
     background-color: #ff4d4d;
 }
 
-div.formulario {
-    height: auto;
-    width: 90%;
+div.titulo{
+    height: 100px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5%;
-    padding: 2%;
+    color: #fdfefe;
 }
 
-div.card {
-    height: auto;
-    width: 50%;
+div.contenidoBody {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.decoracion {
+    margin: 2%;
+}
+
+div.formulario {
+    height: 100%;
+    width: 60%;
+}
+
+div.card{
     background-color: #fdfefe;
 }
