@@ -41,7 +41,7 @@
                 @endif
             </ul>
         </form>
-    <script src="{{ asset('js/rider.js') }}"></script>
+    <script src="{{ asset('js/proveedorMapa.js') }}"></script>
 </body>
 
 </html>
