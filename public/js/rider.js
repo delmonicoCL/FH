@@ -127,7 +127,9 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(proveedor =>{
-                addMarkerToMapProveedores(proveedor);
+                if (proveedor.stock_proveedor !== 0) {
+                    addMarkerToMapProveedores(proveedor);
+                }
             });
         })
         .catch(error => console.error('Error fetching Proveedores:', error));   
@@ -142,7 +144,9 @@ document.addEventListener('DOMContentLoaded', function () {
         .setLngLat(lngLat)
         .addTo(map);
 
-        var description = "<h2><p>Numero de personas: " + pua.cantidad_de_personas + "</p></h2>";
+        var description = "<h2><p>Numero de personas: " + pua.cantidad_de_personas + "</p></h2>" +
+        "<button class='boton-entregar'>Entregar</button>";
+        
 
         var popup = new mapboxgl.Popup()
             .setHTML(description);
@@ -168,46 +172,22 @@ document.addEventListener('DOMContentLoaded', function () {
     
         marker.setPopup(popup);
     
-        popup.on('open', function() {
-            var botonReservar = document.querySelector('.boton-reservar');
-            var modalReservar = document.getElementById("modal-reservar");
-    
-            botonReservar.addEventListener('click', function (){
-                modalReservar.style.display = "block";
-                document.getElementById('proveedor').value = proveedor.id;
-    
-                // // Agrega un evento clic al botón "Enviar Reserva"
-                // document.getElementById('enviarReserva').addEventListener('click', function() {
-                //     enviarReserva();
-                // });
-    
-                // function enviarReserva() {
-                //     var formData = new FormData(document.getElementById('reservar-form'));
-    
-                //     fetch('/FH/public/reservas', {
-                //         method: 'POST',
-                //         body: formData
-                //     })
-                //     .then(response => {
-                //         if (response.ok) {
-                //             console.log('Reserva enviada con éxito');
-                //         } else {
-                //             console.error('Error al enviar la reserva');
-                //         }
-                //     })
-                //     .catch(error => {
-                //         console.error('Error al enviar la reserva:', error);
-                //     });
-                // }
-            });
-    
-            var closeButtonReservar = document.getElementById('closeButtonReservar');
-    
-            closeButtonReservar.addEventListener('click', function() {
-                modalReservar.style.display = "none";
-            });
+    popup.on('open', function() {
+        var botonReservar = document.querySelector('.boton-reservar');
+        var modalReservar = document.getElementById("modal-reservar");
+
+        botonReservar.addEventListener('click', function (){
+            modalReservar.style.display = "block";
+            document.getElementById('proveedor').value = proveedor.id;
         });
-    }
+
+        var closeButtonReservar = document.getElementById('closeButtonReservar');
+
+        closeButtonReservar.addEventListener('click', function() {
+            modalReservar.style.display = "none";
+        });
+    });
+}
     
     function createPua(latitud, longitud, cantidad_de_personas) {
         fetch('/FH/public/api/puas', {

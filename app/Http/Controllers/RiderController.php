@@ -75,7 +75,10 @@ class RiderController extends Controller
      */
     public function show(Rider $rider)
     {
-        //
+        $stockRider = $rider->stock_rider;
+
+        // Pasar el stock del rider a la vista
+        return view("riders.rider", compact("rider", "stockRider"));
     }
 
     /**

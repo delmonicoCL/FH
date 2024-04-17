@@ -48,6 +48,10 @@
         </form>
     </div>          
 
+    <div id="stockRider">
+        <h3>{{ $rider->stock_rider }} Menus</h3>    
+    </div>
+
     <!-- Navbar Inferior -->
     <nav class="navbar-bottom">
         <div class="container text-center d-flex ">
@@ -91,6 +95,21 @@
             </div>
         </div>
 
+        <div id="modal-carga" class="modal-carga">
+            <div>
+                <video src=""></video>
+            </div>
+        </div>
+        
+        {{-- <div class="container text-center d-flex ">
+            <div class="navbar-item">
+                <button id="boton-perfil">
+                    <img src="{{ asset('img/perfil.png') }}" alt="Stock" class="img-fluid" />
+                </button>
+            </div>
+        </div> --}}
+
+        
         <div class="modal-perfil" id="modal-perfil">
             <div class="modal-content-perfil modal-lg mt-3">
                 <div class="modal-content px-5 pt-3 pb-3">
@@ -159,18 +178,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{-- @for ($i = 0; $i < count($reservas); $i++)
+                                        <tr>
+                                            <td>{{ $reservas[$i]->nombre }}</td>
+                                            <td>{{ $reservas[$i]->cantidad }}</td>
+                                        </tr>
+                                    @endfor --}}
                                     @foreach ($reservas as $reserva)
                                         <tr>
-                                            <td>{{ $reserva->proveedor }}</td>
+                                            <td>{{ $reserva->nombre }}</td>
                                             <td>{{ $reserva->cantidad }}</td>
-                                            <td>
-                                                <form action="{{ route('reservas.update', $reserva->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <input type="hidden" name="estado" value="finalizada">
-                                                    <button type="submit" class="btn btn-success" id="boton-entregar">Entregar</button>
-                                                </form>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
