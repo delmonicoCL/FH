@@ -46,7 +46,13 @@ Route::middleware(["auth"])->group(function () {
                 break;
             default:
                 $rider = Rider::where("id", "=", $id)->first();
-                $reservas = Reserva::where("rider","=",$id)->where("estado","!=","finalizada")->get(); // Aquí se filtran las reservas finalizadas
+                // $reservas = Reserva::where("rider","=",$id)->where("estado","!=","finalizada")->get(); // Aquí se filtran las reservas finalizadas
+                $reservas = DB::table('reservas')
+                ->join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
+                ->where('reservas.rider', '=', $id)
+                ->select('usuarios.nombre AS nombre', 'cantidad')
+                ->get();
+
                 $response = view("riders/rider", compact("user", "rider","reservas"));
                 break;
         }
