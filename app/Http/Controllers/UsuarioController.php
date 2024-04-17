@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Proveedor;
 use App\Models\Rider;
+use App\Models\Reserva;
 use App\Models\Usuario;
 use App\Clases\Utilidad;
+use App\Models\Proveedor;
 use App\Models\AvatarRider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,11 +15,44 @@ use Illuminate\Database\QueryException;
 
 class UsuarioController extends Controller
 {
+
+    // FUNCIONES CHART.JS///
+    private $usuariosPorTipo;
+
+    public function __construct()
+    {
+        $this->usuariosPorTipo = Usuario::select('tipo', \DB::raw('count(*) as total'))
+            ->groupBy('tipo')
+            ->pluck('total', 'tipo');
+    }
+
+    public function usuariosPorTipo()
+    {
+        return view('estadisticas.usuarios_por_tipo', ['usuariosPorTipo' => $this->usuariosPorTipo]);
+    }
+
+    public function histogramaReservasPorEstado()
+    {
+        $reservasPorEstado = Reserva::select('estado', \DB::raw('count(*) as total'))
+            ->groupBy('estado')
+            ->pluck('total', 'estado');
+
+        return view('estadisticas.histograma', compact('reservasPorEstado'));
+    }
+
+
+
+
+    // FUNCIONES CHART.JS///
+
+
     public function showLogin()
     {
         return view("auth.login");
     }
 
+
+     
     public function login(Request $request)
     {
         $correoElectronico=$request->input("CorreoElectronico");

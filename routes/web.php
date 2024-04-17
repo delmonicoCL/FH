@@ -114,3 +114,12 @@ Route::resource("proveedores", ProveedorController::class);
 Route::resource("riders", RiderController::class);
 
 Route::resource("reservas", ReservaController::class);
+
+
+// ROUTES DE CHART.JS //
+
+Route::get('/1', [UsuarioController::class, 'usuariosPorTipo']);
+Route::get('/2', [ReservaController::class, 'histogramaReservasPorEstado']);
+Route::get('/3', [ReservaController::class, 'ReservasPorProveedor']);
+
+
