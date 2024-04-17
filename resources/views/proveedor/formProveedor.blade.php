@@ -4,10 +4,15 @@
     @section("contenido")
         <pre>
             @php
-                print_r($user);
+                print_r($usuario);
             @endphp
         </pre>
-        <div class="formulario">
+        <pre>
+            @php
+                print_r($proveedor);
+            @endphp
+        </pre>
+        {{--<div class="formulario">
             <div class="card text-center">
                 <div class="tituloForm">
                     <h2>Editar Proveedor</h2>
@@ -21,14 +26,14 @@
 
                     <div class="logo mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        {{-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">{{ $user['nombre'] }}</h4> --}}
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">{{ $user['nombre'] }}</h4>
                     </div>
 
 
                 </form>
 
             </div>
-        </div>
+        </div>--}}
         {{-- <form
             action="{{ action([App\Http\Controllers\ProveedorController::class, 'update'], ['proveedore' => $proveedore]) }}"
             method="POST">
