@@ -39,9 +39,8 @@
                             <p> {{ $user['telefono'] }}</p>
                         </div>
                         <div class="icono">
-                            <form
-                                action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor['id'], 'user' => $user['id']]) }}"
-                                method="GET">
+                            <form action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor, 'user' => $user]) }}" method="POST">
+                                @method('GET')
                                 <button type="submit" class="btnVolver" id="btnVolver">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>

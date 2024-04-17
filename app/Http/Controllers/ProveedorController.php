@@ -25,8 +25,6 @@ class ProveedorController extends Controller
         $usuarios = Usuario::where("tipo", "=", "proveedor")->get();
         $proveedores = Proveedor::all();
         return view("administradores.gestionProveedor", compact("usuarios", "proveedores"));
-
-
     }
 
     /**
@@ -95,9 +93,14 @@ class ProveedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Proveedor $proveedore)
+    public function edit(Usuario $user, Proveedor $proveedore)
     {
-        //
+        /*echo "<pre>";
+            print_r($proveedore);
+        echo "<pre>";*/
+        echo "<pre>";
+            print_r($user);
+        echo "<pre>";
     }
 
     /**
@@ -115,19 +118,13 @@ class ProveedorController extends Controller
                 //Hacer el insert en la tabla
                 $proveedore->save();
                 $request->session()->flash("mensaje","Registro modificado correctamente.");
-                $response=view("proveedor.proveedor2",compact("user","proveedor"));
-                //////////////////////////////////////////////////////////////////////////////
-                //////////////////////////////////////////////////////////////////////////////
-                //////////////////////////////////////////////////////////////////////////////
-                //////////////////////////////////////////////////////////////////////////////
-                //////////////////////////////////////////////////////////////////////////////
-                //////////////////////////////////////////////////////////////////////////////
+                $response=redirect()->route('proveedor2');
             }
             catch(QueryException $ex)
             {
                 $mensaje=Utilidad::errorMessage($ex);
                 $request->session()->flash("error",$mensaje);
-                $response=redirect()->url('/proveedor2');
+                $response=redirect()->route('proveedor2');
             }  
         }
         return $response; 
