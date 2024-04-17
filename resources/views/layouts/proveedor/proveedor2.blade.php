@@ -1,146 +1,24 @@
-{{-- <pre>
-    @php
-        print_r($reservas)
-    @endphp
-</pre> --}}
-<div class="contenedor col-lg-12">
-    <div class="fila1 col-lg-12">
-        <div class="infoProveedor col-lg-7 col-sm-12">
-            <div class="titulo">
-                <h2>Proveedor</h2>
-            </div>
-            <hr />
-            <div class="row1">
-                <div class="nombre">
-                    <h4>{{ $user['nombre'] }}</h4>
-                </div>
-                <div class="calle">
-                    <h4>Calle: </h4>
-                    <p>{{ $proveedor['calle'] }} {{ $proveedor['numero'] }}</p>
-                </div>
-            </div>
-            <div class="row2">
-                <div class="email">
-                    <p>{{ $user['email'] }}</p>
-                </div>
-                <div class="ciudad">
-                    <h4>Ciudad: </h4>
-                    <p> {{ $proveedor['ciudad'] }} {{ $proveedor['cp'] }}</p>
-                </div>
-            </div>
-            <div class="row3">
-                <div class="telefono">
-                    <p> {{ $user['telefono'] }}</p>
-                </div>
-                <div class="icono">
-                    <form
-                        action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor['id'], 'user' => $user['id']]) }}"
-                        method="GET">
-                        <button type="submit" class="btnVolver" id="btnVolver">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="estadisticas col-lg-4 col-sm-12">
-            <div class="titulo">
-                <h2>Estadisticas</h2>
-            </div>
-            <hr />
-        </div>
-    </div>
+<!DOCTYPE html>
+<html lang="es">
 
-    <div class="fila2 col-lg-12">
-        <div class="crearMenu col-lg-4 col-sm-12" id="menu">
-            <div class="titulo">
-                <h2>Crear Menu</h2>
-            </div>
-            <hr />
-            <div class="cantidadMenu">
-                <div class="menosMenu">
-                    <button class="menos" id="menosBtn">
-                        <i class="fa-solid fa-minus"></i>
-                    </button>
-                </div>
-                <div class="cantMenu"> 0 </div>
-                <div class="masMenu">
-                    <button class="mas" id="masBtn">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="btnCrear">
-                <button class="crear" id="crearBtn" type="submit" form="idForm">
-                    Crear Menu(s)
-                </button>
-            </div>
-            <form id="idForm">
-                <label for="cant">cant</label>
-                <input type="text" id="cant">
-            </form>
-        </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>@yield("titulo")</title>
 
-        <div class="entregarMenu col-lg-7 col-sm-12">
-            <div class="titulo">
-                <h2>Entregar Menu</h2>
-            </div>
-            <hr />
-            <div class="selectRider">
-                <label for="opciones">Select Rider:</label>
-                <select id="opciones" name="opciones">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/c7334dda94.js" crossorigin="anonymous"></script>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css' rel='stylesheet' />
 
-                    <option value="opcion">-- Select --</option>
-                    @foreach ($riders as $rider)
-                        <option value="option">{{ $rider->nombre }}</option>
-                        {{-- <option value="opcion">{{ $reserva->id }} - {{ $reserva->rider->nickname }}</option> --}}
-                    @endforeach
+        <link rel="icon" type="image/png" href="{{ asset('img/logo-02.png') }}">
+        <link rel="stylesheet" href="{{ asset('css/proveedor2.css') }}">
+    </head>
 
-                </select>
-            </div>
-            <div class="btnConfirm">
-                <button class="confirm">
-                    Confirmar
-                </button>
-            </div>
-        </div>
-    </div>
+    <body>
+        @yield('contenido')
+    </body>
 
-    <div class="fila3 col-lg-12">
-        <div class="stok col-lg-5 col-sm-12">
-            <div class="titulo">
-                <h2>Stok</h2>
-            </div>
-            <hr />
-            <div class="stokDiv">
-                <div class="selectMenu container-fluid">
-                    @yield('contenidoMenu')
-                    <h4>Stok actual: </h4>
-                    <p> {{ $proveedor['stock_proveedor'] }}</p>
-                </div>
-                <div class="selectHistorico container-fluid">
-                    @yield('contenidoHistorico')
-                    <h4>Historial Menus:</h4>
-                    <p>{{ $proveedor['stock_proveedor'] }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="mapa col-lg-5">
-            <div class="titulo">
-                <h2>Mapa</h2>
-            </div>
-            <hr />
-            {{-- @yield('contenido')
-            <div id="map">
-                das
-            </div> --}}
-            <div class="divVolver">
-                <a class="aVolver" id="aVolver" href="{{ route('proveedor1') }}">
-                    <button class="btnVolver">
-                        <i class="fa-solid fa-circle-chevron-right"></i>
-                    </button>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+</html>

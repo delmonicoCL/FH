@@ -15,11 +15,8 @@ class RiderController extends Controller
      */
     public function index(Request $request)
     {
-       
-        
+               
         $usuarios = Usuario::where("tipo", "=", "rider")->get();
-
-
         $riders = Rider::all();
         return view("administradores.gestionRaider", compact("usuarios", "riders"));
 
@@ -86,7 +83,11 @@ class RiderController extends Controller
      */
     public function edit(Rider $rider)
     {
-        //
+        $usuarios = Usuario::all();
+        $riders = Rider::all();
+
+        
+        return view("administradores.updateRIDER", compact("usuarios", "riders"));
     }
 
     /**
