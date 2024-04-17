@@ -94,9 +94,9 @@ class ProveedorController extends Controller
      */
     public function edit(Proveedor $proveedore)
     {
-        $usuario = Usuario::where("id","=",$proveedore->id)->first();
-        $proveedor=$proveedore;
-        return view('proveedor.formProveedor', compact('usuario',"proveedor"));
+        $usuario = Usuario::where("id", "=", $proveedore->id)->first();
+        $proveedor = $proveedore;
+        return view('proveedor.formProveedor', compact('usuario', "proveedor"));
     }
 
     /**
@@ -104,26 +104,24 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, Proveedor $proveedore)
     {
-        $tipoDeModificacion=$request->tipoDeModificacion;
-        if($tipoDeModificacion==="crearMenu")
-        {
-            $cant=$request->input("Cant");
-            $proveedore->stock_proveedor=$cant;
-            try
-            {
+        $tipoDeModificacion = $request->tipoDeModificacion;
+        if ($tipoDeModificacion === "crearMenu") {
+            $cant = $request->input("Cant");
+            $stok = $proveedore->stock_proveedor;
+            $nuevoStok = $cant + $stok;
+            $proveedore->stock_proveedor = $nuevoStok;
+            try {
                 //Hacer el insert en la tabla
                 $proveedore->save();
-                $request->session()->flash("mensaje","Registro modificado correctamente.");
-                $response=redirect()->route('proveedor2');
+                $request->session()->flash("mensaje", "Registro modificado correctamente.");
+                $response = redirect()->route('proveedor2');
+            } catch (QueryException $ex) {
+                $mensaje = Utilidad::errorMessage($ex);
+                $request->session()->flash("error", $mensaje);
+                $response = redirect()->route('proveedor2');
             }
-            catch(QueryException $ex)
-            {
-                $mensaje=Utilidad::errorMessage($ex);
-                $request->session()->flash("error",$mensaje);
-                $response=redirect()->route('proveedor2');
-            }  
         }
-        return $response; 
+        return $response;
     }
 
     /**

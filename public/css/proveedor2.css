@@ -28,6 +28,7 @@ body {
     height: 300px;
     margin: 2%;
     background-color: #fdfefe;
+    border-radius: 25px;
 }
 
 div.titulo {

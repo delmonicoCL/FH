@@ -80,7 +80,7 @@
                             Crear Menu(s)
                         </button>
                     </div>
-                    <form id="idForm" action="{{action([App\Http\Controllers\ProveedorController::class,'update'],['proveedore'=>$proveedor,"tipoDeModificacion"=>"crearMenu"])}}" method="POST">
+                    <form id="idForm" action="{{action([App\Http\Controllers\ProveedorController::class,'update'],['proveedore'=>$proveedor,"tipoDeModificacion"=>"crearMenu"])}}" method="POST" hidden>
                         @csrf
                         @method("PUT")
                         <label for="cant">cant</label>
