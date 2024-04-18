@@ -98,9 +98,9 @@ Route::middleware(["auth"])->group(function () {
     })->name('formProveedor');
 });
 
-Route::get('/registros/index', function () {
-    return view('registros.index');
-})->name('registros.index');
+Route::get('/registros/elige_tipo_de_usuario', function () {
+    return view('registros.elige_tipo_de_usuario');
+})->name('registros.elige_tipo_de_usuario');
 
 Route::get('/registros/administrador', function () {
     return view('registros.administrador');
