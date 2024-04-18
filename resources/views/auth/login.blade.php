@@ -13,7 +13,7 @@
         <div class="row mt-5" style="display:flex; align-items: center; justify-content: center;">
             <!--<div style="display:flex; align-items: center; justify-content: center;">-->
             <div class="col-sm-6" style="display:flex; justify-content: flex-end">
-                <img src="{{asset('media/img/zanahoria.png')}}" alt="imagen reloj" height="700vh" width="700vw" draggable="false">
+                <img src="{{asset('media/img/zanahoria.png')}}" alt="karoteno" height="700vh" width="700vw" draggable="false">
             </div>
             <div class="col-sm-6" style="display:flex; align-items: center; justify-content: flex-start">
                 <div class="card">
@@ -21,7 +21,7 @@
                         <form action="{{action([App\Http\Controllers\UsuarioController::class,'login'])}}" method="POST">
                             @csrf
 
-                            <div class="row mb-3">
+                            <div class="row">
                                 <div class="col-sm-8">
                                     <p class="h6">
                                         Bienvenidos a Food Hero
@@ -43,17 +43,36 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-sm-8">
-                                    <button type="button" class="btn btn-primary float-right col-sm-12" style="background-color: #FFF4E3;">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                        Iniciar Sesión
+                                <div class="col-sm-12 mt-3" style="display:flex; align-items: center; justify-content: center;">
+                                    <button type="button" class="btn float-right col-12" style="background-color: #FFF4E3;">
+                                        <div class="row">
+                                            <div class="col-sm-4" style="display:flex; align-items: center; justify-content: center;">
+                                                <img src="{{asset('media/img/iconos/google.png')}}" alt="Icono de Google" height="30vh" width="30vw" draggable="false">
+                                            </div>
+                                            <div class="col-sm-8" style="display:flex; align-items: center; justify-content: center;">
+                                                <small style="color:#DA2427;">
+                                                    Iniciar sesión con Google
+                                                </small>
+                                            </div>
+                                        </div>
                                     </button>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-12 mt-3" style="display:flex; align-items: center; justify-content: space-around;">
+                                    <button type="button" class="btn float-right" style="background-color: #F2F2F2;">
+                               
+                                        <div style="display:flex; align-items: center; justify-content: center;">
+                                            <img src="{{asset('media/img/iconos/facebook.png')}}" alt="Icono de Facebook" height="30vh" width="30vw" draggable="false">
+                                        </div>
+                            
+                                    </button>
 
-                                </div>
-                                <div class="col-sm-2">
-
+                                    <button type="button" class="btn float-right" style="background-color: #F2F2F2;">
+                                        
+                                        <div style="display:flex; align-items: center; justify-content: center;">
+                                            <img src="{{asset('media/img/iconos/x.png')}}" alt="Icono de x" height="30vh" width="30vw" draggable="false">
+                                        </div>
+                                
+                                </button>
                                 </div>
                             </div>
 
@@ -75,9 +94,9 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="row mb-3 text-end">
                                 <div class="col-sm-12">
-                                    <button type="submit" class="btn btn-primary float-right col-sm-12" style="background-color: #00AEEF;">
+                                    <button type="submit" class="btn float-right col-sm-12 text-light" style="background-color: #00AEEF;">
                                         <i class="fa fa-check" aria-hidden="true"></i>
                                         Iniciar Sesión
                                     </button>
