@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EntregaController;
+use App\Http\Controllers\PuaController;
 use App\Models\Rider;
 use App\Models\Reserva;
 use App\Models\Usuario;
@@ -96,6 +98,38 @@ Route::middleware(["auth"])->group(function () {
             return view('auth.login');
         }
     })->name('formProveedor');
+
+    Route::get('/administradores/gestionRaider', function () {
+        $user = Auth::user();
+        $id = $user["id"];
+
+        if ($user["tipo"] === "administrador") {
+            $usuarios = Usuario::where("tipo", "=", "rider")->get();
+            $riders = Rider::all();
+            $administrador=Administrador::where("id","=",$id)->first();
+            return view("administradores.gestionRaider", compact("usuarios", "riders","administrador"));
+        } else {
+            return view('auth.login');
+        }
+    })->name('administradores.gestionRaider');
+
+
+    Route::get('/administradores/gestionProveedor', function () {
+        $user = Auth::user();
+        $id = $user["id"];
+
+        if ($user["tipo"] === "administrador") {
+            $usuarios = Usuario::where("tipo", "=", "proveedor")->get();
+            $proveedores = Proveedor::all();
+            $administrador=Administrador::where("id","=",$id)->first();
+            return view("administradores.gestionProveedor", compact("usuarios", "proveedores","administrador"));
+        } else {
+            return view('auth.login');
+        }
+     
+
+    })->name('administradores.gestionProveedor');
+
 });
 
 Route::get('/registros/elige_tipo_de_usuario', function () {
@@ -115,3 +149,18 @@ Route::resource("proveedores", ProveedorController::class);
 Route::resource("riders", RiderController::class);
 
 Route::resource("reservas", ReservaController::class);
+
+
+// ROUTES DE CHART.JS //
+
+Route::get('/1', [UsuarioController::class, 'usuariosPorTipo']);
+Route::get('/2', [ReservaController::class, 'histogramaReservasPorEstado']);
+Route::get('/3', [ReservaController::class, 'ReservasPorProveedor']);
+Route::get('/4', [ReservaController::class, 'reservasPorRaider']);
+Route::get('/5', [EntregaController::class, 'entregasPorTipoPua']);
+Route::get('/6', [PuaController::class, 'datosPUA']);
+Route::get('/7', [RiderController::class, 'listaRaidersPuasPersonas']);
+
+
+
+

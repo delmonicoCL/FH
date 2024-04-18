@@ -9,6 +9,23 @@ use Illuminate\Database\QueryException;
 
 class PuaController extends Controller
 {
+
+    public function datosPUA()
+    {
+        // Obtener la cantidad de PUA creados por cada rider
+        $puasPorRider = Pua::select('id', \DB::raw('count(*) as total_puas'))
+            ->groupBy('id')
+            ->pluck('total_puas', 'id');
+
+        // Obtener el promedio de personas por PUA
+        $promedioPersonasPorPua = Pua::select(\DB::raw('avg(cantidad_de_personas) as promedio_personas'))
+            ->pluck('promedio_personas')
+            ->first();
+
+        return view('estadisticas.datos_pua', compact('puasPorRider', 'promedioPersonasPorPua'));
+    }
+
+    
     /**
      * Display a listing of the resource.
      */

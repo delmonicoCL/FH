@@ -13,12 +13,37 @@ class RiderController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+// funciones chart.js//
+
+    public function listaRaidersPuasPersonas()
+    {
+        $listaRaidersPuasPersonas = Rider::with(['puas', 'puas.entregas'])
+            ->get()
+            ->map(function ($rider) {
+                $puas = $rider->puas->map(function ($pua) {
+                    $cantidadPersonas = $pua->entregas->sum('cantidad_de_personas');
+                    return [
+                        'id' => $pua->id,
+                        'cantidad_personas' => $cantidadPersonas,
+                    ];
+                });
+                return [
+                    'rider' => $rider->nombre, // Suponiendo que hay una columna 'nombre' en la tabla de riders
+                    'puas' => $puas,
+                ];
+            });
+
+        return $listaRaidersPuasPersonas;
+    }
+
+    // funciones chart.js//  
+
     public function index(Request $request)
     {
                
-        $usuarios = Usuario::where("tipo", "=", "rider")->get();
-        $riders = Rider::all();
-        return view("administradores.gestionRaider", compact("usuarios", "riders"));
+       
+        return redirect()->route("administradores.gestionRaider");
 
     }
 
