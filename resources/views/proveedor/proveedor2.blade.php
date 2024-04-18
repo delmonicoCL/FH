@@ -9,7 +9,7 @@
                 print_r($reservas)
             @endphp
         </pre> --}}
-        <div class="contenedor col-lg-12">
+        <div class="container col-lg-12">
             <div class="fila1 col-lg-12">
                 <div class="infoProveedor col-lg-7 col-sm-12">
                     <div class="titulo">
@@ -114,7 +114,7 @@
             </div>
 
             <div class="fila3 col-lg-12">
-                <div class="stok col-lg-5 col-sm-12">
+                <div class="stok col-lg-6">
                     <div class="titulo">
                         <h2>Stok</h2>
                     </div>
@@ -132,7 +132,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mapa col-lg-5">
+                <div class="mapa col-lg-6">
                     <div class="titulo">
                         <h2>Mapa</h2>
                     </div>
