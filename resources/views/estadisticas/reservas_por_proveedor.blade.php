@@ -2,8 +2,12 @@
 
 @section('contenido')
   
-
+    <div class="container mt-5 mb-5">
+         <H1>RESERVAS POR PROVEEDOR</H1>
+    </div>
+    
     <div class="container">
+       
         <canvas id="ReservasPorProveedor" width="400" height="400"></canvas>
     </div>
 
@@ -33,7 +37,7 @@
             },
             options: {
                 responsive: true, // Permite que el gráfico sea responsivo
-                 maintainAspectRatio: false, // No mantiene el aspecto del gráfico
+                maintainAspectRatio: false, // No mantiene el aspecto del gráfico
                 scales: {
                     x: { stacked: true },
                     y: { stacked: true }

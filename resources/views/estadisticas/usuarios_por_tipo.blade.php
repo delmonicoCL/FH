@@ -1,7 +1,12 @@
 @extends('layouts.principal1')
 
 @section('contenido')
+
+     <div class="container mt-5 mb-5">
+        <H1>TIPOS DE USUARIO</H1>
+    </div>
     <div class="container mt-5">
+     
         <canvas id="usuariosPorTipoChart" width="400" height="400"></canvas>
     </div>
 

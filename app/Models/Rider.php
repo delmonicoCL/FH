@@ -27,7 +27,7 @@ class Rider extends Model
 
     public function puas()
     {
-        return $this->hasMany(Pua::class,"rider_creador");
+        return $this->hasMany(Pua::class,"id");
     }
 
     public function entregas()

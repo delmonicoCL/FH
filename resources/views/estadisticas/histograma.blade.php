@@ -2,7 +2,12 @@
 
 @section('contenido')
    
+    <div class="container mt-5 mb-5">
+        <H1>ESTADOS DE LAS RESERVAS</H1>
+    </div>
+
     <div class="container">
+        
         <canvas id="histogramaReservasPorEstado" width="400" height="400"></canvas>
     </div>
 

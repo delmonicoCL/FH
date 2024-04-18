@@ -38,8 +38,23 @@ class ReservaController extends Controller
         
         return view('estadisticas.reservas_por_proveedor', compact('data'));
     }
+    
+    public function ReservasPorRaider()
+    {
+        // Obtener las reservas por raider y estado
+        $reservas = Reserva::select('rider', 'estado')
+            ->selectRaw('count(*) as total')
+            ->groupBy('rider', 'estado')
+            ->get();
 
+        // Transformar los datos para el gráfico
+        $data = [];
+        foreach ($reservas as $reserva) {
+            $data[$reserva->rider][$reserva->estado] = $reserva->total;
+        }
 
+        return view('estadisticas.reservas_por_raider', compact('data'));
+    }
 
 // FUNCION CHART.JS//
 
