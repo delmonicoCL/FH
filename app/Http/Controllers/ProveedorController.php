@@ -21,9 +21,11 @@ class ProveedorController extends Controller
         // echo $reservas;
         // return response()->json($reservas);<
 
-        $usuarios = Usuario::where("tipo", "=", "proveedor")->get();
-        $proveedores = Proveedor::all();
-        return view("administradores.gestionProveedor", compact("usuarios", "proveedores"));
+        // $usuarios = Usuario::where("tipo", "=", "proveedor")->get();
+        // $proveedores = Proveedor::all();
+        // return view("administradores.gestionProveedor", compact("usuarios", "proveedores"));
+
+        return redirect()->route("administradores.gestionProveedor");
     }
 
     /**
