@@ -130,7 +130,7 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ asset('img/superhero.png') }}" alt="" width="32" height="32"
                         class="rounded-circle me-2">
-                    <strong>{{ Auth::user()['nombre'] }} {{ $administrador->apellidos }}</strong>
+                    <strong>{{ Auth::user()['nombre'] }} </strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li>
