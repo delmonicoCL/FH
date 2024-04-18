@@ -5,17 +5,129 @@
 
 body {
     background-color: #ff4d4d;
+    /* margin: 3%; */
 }
 
-.fila1, .fila2,.fila3{
-    background-color: purple;
+div.fila1,
+div.fila2,
+div.fila3 {
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+div.infoProveedor,
+div.estadisticas,
+div.crearMenu,
+div.entregarMenu {
+    border: solid 3px black;
+    height: 400px;
+    background-color: #fdfefe;
+}
+
+div.titulo {
+    height: 20%;
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
-.infoProveedor,
+h2 {
+    margin: 0px;
+}
+
+hr {
+    margin: 0px;
+    height: 1px;
+    background-color: #000000;
+}
+
+div.row1,
+div.row2,
+div.row3 {
+    height: calc(80% / 3);
+    width: 100%;
+    display: flex;
+}
+
+div.nombre,
+div.calle,
+div.email,
+div.ciudad,
+div.telefono {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.icono {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+h4 {
+    margin: 0px;
+}
+
+p {
+    margin: 0px;
+    padding: 3%;
+    font-size: 24px;
+}
+
+img.svgEditar {
+    height: 140px;
+    width: auto;
+}
+
+button.btnEditar {
+    height: 50px;
+    width: 50px;
+    border: none;
+    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+i.fa-pen-to-square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
+
+/* button.btnEditar {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: #ff4d4d;
+    border: solid 2px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ */
+
+/* div.row1,
+div.row2,
+div.row3 {
+    height: calc(80% / 3);
+    width: 100%;
+    display: flex;
+} */
+
+/* .infoProveedor,
 .estadisticas,
 .crearMenu,
 .entregarMenu,
@@ -23,17 +135,10 @@ body {
 .mapa {
     border: solid 3px black;
     height: 300px;
-    /* margin: 1%; */
+    margin: 1%;
     background-color: #fdfefe;
-    /* border-radius: 25px; */
-}
-
-.stok,.mapa{
-    margin: 20px;
-}
-
-
-
+    border-radius: 25px;
+} */
 
 /* * {
     margin: 0;
