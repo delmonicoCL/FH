@@ -5,6 +5,9 @@
     @endphp
 @else
     @extends("layouts.principal")
+    @section("titulo")
+        Iniciar Sesión
+    @endsection
     @section('contenido')
         @include('partials.mensajes')
         <div class="row mt-5" style="display:flex; align-items: center; justify-content: center;">
@@ -32,10 +35,25 @@
                                         ¿No tienes cuenta? Crea una 
                                     </small>
                                     <small>
-                                        <a href="{{url("/registros/index")}}">
+                                        <a href="{{url("/registros/elige_tipo_de_usuario")}}">
                                             aqui
                                         </a>
                                     </small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-8">
+                                    <button type="button" class="btn btn-primary float-right col-sm-12" style="background-color: #FFF4E3;">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                        Iniciar Sesión
+                                    </button>
+                                </div>
+                                <div class="col-sm-2">
+
+                                </div>
+                                <div class="col-sm-2">
+
                                 </div>
                             </div>
 
