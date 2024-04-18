@@ -14,50 +14,89 @@ class ReservaController extends Controller
 
 // FUNCION CHART.JS//
 
-    public function histogramaReservasPorEstado()
-    {
-        $reservasPorEstado = Reserva::select('estado', \DB::raw('count(*) as total'))
-            ->groupBy('estado')
-            ->pluck('total', 'estado');
 
-        return view('estadisticas.histograma', compact('reservasPorEstado'));
+
+public function estadisticasReservas()
+{
+    // Histograma de reservas por estado
+    $reservasPorEstado = Reserva::select('estado', \DB::raw('count(*) as total'))
+        ->groupBy('estado')
+        ->pluck('total', 'estado');
+
+    // Reservas por proveedor
+    $reservasPorProveedor = Reserva::select('proveedor', 'estado')
+        ->selectRaw('count(*) as total')
+        ->groupBy('proveedor', 'estado')
+        ->get();
+
+    // Transformar los datos para el gráfico de proveedor
+    $dataProveedor = [];
+    foreach ($reservasPorProveedor as $reserva) {
+        $dataProveedor[$reserva->proveedor][$reserva->estado] = $reserva->total;
     }
 
+    // Reservas por raider
+    $reservasPorRaider = Reserva::select('rider', 'estado')
+        ->selectRaw('count(*) as total')
+        ->groupBy('rider', 'estado')
+        ->get();
 
-    public function ReservasPorProveedor()
-    {
-        // Obtener las reservas por proveedor y estado
-        $reservas = Reserva::select('proveedor', 'estado')
-                            ->selectRaw('count(*) as total')
-                            ->groupBy('proveedor', 'estado')
-                            ->get();
+    // Transformar los datos para el gráfico de raider
+    $dataRaider = [];
+    foreach ($reservasPorRaider as $reserva) {
+        $dataRaider[$reserva->rider][$reserva->estado] = $reserva->total;
+    }
 
-        // Transformar los datos para el gráfico
-        $data = [];
-        foreach ($reservas as $reserva) {
-            $data[$reserva->proveedor][$reserva->estado] = $reserva->total;
-        }
+    return view('estadisticas.resumenEstadisticas', compact('reservasPorEstado', 'dataProveedor', 'dataRaider'));
+}
+
+
+
+
+    // public function histogramaReservasPorEstado()
+    // {
+    //     $reservasPorEstado = Reserva::select('estado', \DB::raw('count(*) as total'))
+    //         ->groupBy('estado')
+    //         ->pluck('total', 'estado');
+
+    //     return view('estadisticas.histograma', compact('reservasPorEstado'));
+    // }
+
+
+    // public function ReservasPorProveedor()
+    // {
+    //     // Obtener las reservas por proveedor y estado
+    //     $reservas = Reserva::select('proveedor', 'estado')
+    //                         ->selectRaw('count(*) as total')
+    //                         ->groupBy('proveedor', 'estado')
+    //                         ->get();
+
+    //     // Transformar los datos para el gráfico
+    //     $data = [];
+    //     foreach ($reservas as $reserva) {
+    //         $data[$reserva->proveedor][$reserva->estado] = $reserva->total;
+    //     }
 
         
-        return view('estadisticas.reservas_por_proveedor', compact('data'));
-    }
+    //     return view('estadisticas.reservas_por_proveedor', compact('data'));
+    // }
     
-    public function ReservasPorRaider()
-    {
-        // Obtener las reservas por raider y estado
-        $reservas = Reserva::select('rider', 'estado')
-            ->selectRaw('count(*) as total')
-            ->groupBy('rider', 'estado')
-            ->get();
+    // public function ReservasPorRaider()
+    // {
+    //     // Obtener las reservas por raider y estado
+    //     $reservas = Reserva::select('rider', 'estado')
+    //         ->selectRaw('count(*) as total')
+    //         ->groupBy('rider', 'estado')
+    //         ->get();
 
-        // Transformar los datos para el gráfico
-        $data = [];
-        foreach ($reservas as $reserva) {
-            $data[$reserva->rider][$reserva->estado] = $reserva->total;
-        }
+    //     // Transformar los datos para el gráfico
+    //     $data = [];
+    //     foreach ($reservas as $reserva) {
+    //         $data[$reserva->rider][$reserva->estado] = $reserva->total;
+    //     }
 
-        return view('estadisticas.reservas_por_raider', compact('data'));
-    }
+    //     return view('estadisticas.reservas_por_raider', compact('data'));
+    // }
 
 // FUNCION CHART.JS//
 
