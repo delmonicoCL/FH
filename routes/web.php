@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EntregaController;
+use App\Http\Controllers\PuaController;
 use App\Models\Rider;
 use App\Models\Reserva;
 use App\Models\Usuario;
@@ -115,3 +117,18 @@ Route::resource("proveedores", ProveedorController::class);
 Route::resource("riders", RiderController::class);
 
 Route::resource("reservas", ReservaController::class);
+
+
+// ROUTES DE CHART.JS //
+
+Route::get('/1', [UsuarioController::class, 'usuariosPorTipo']);
+Route::get('/2', [ReservaController::class, 'histogramaReservasPorEstado']);
+Route::get('/3', [ReservaController::class, 'ReservasPorProveedor']);
+Route::get('/4', [ReservaController::class, 'reservasPorRaider']);
+Route::get('/5', [EntregaController::class, 'entregasPorTipoPua']);
+Route::get('/6', [PuaController::class, 'datosPUA']);
+Route::get('/7', [RiderController::class, 'listaRaidersPuasPersonas']);
+
+
+
+

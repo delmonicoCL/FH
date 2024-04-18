@@ -8,6 +8,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
      <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>DashBoard - Food Hero</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">

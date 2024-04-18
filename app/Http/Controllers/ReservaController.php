@@ -10,6 +10,58 @@ use Illuminate\Database\QueryException;
 
 class ReservaController extends Controller
 {
+
+
+// FUNCION CHART.JS//
+
+    public function histogramaReservasPorEstado()
+    {
+        $reservasPorEstado = Reserva::select('estado', \DB::raw('count(*) as total'))
+            ->groupBy('estado')
+            ->pluck('total', 'estado');
+
+        return view('estadisticas.histograma', compact('reservasPorEstado'));
+    }
+
+
+    public function ReservasPorProveedor()
+    {
+        // Obtener las reservas por proveedor y estado
+        $reservas = Reserva::select('proveedor', 'estado')
+                            ->selectRaw('count(*) as total')
+                            ->groupBy('proveedor', 'estado')
+                            ->get();
+
+        // Transformar los datos para el gráfico
+        $data = [];
+        foreach ($reservas as $reserva) {
+            $data[$reserva->proveedor][$reserva->estado] = $reserva->total;
+        }
+
+        
+        return view('estadisticas.reservas_por_proveedor', compact('data'));
+    }
+    
+    public function ReservasPorRaider()
+    {
+        // Obtener las reservas por raider y estado
+        $reservas = Reserva::select('rider', 'estado')
+            ->selectRaw('count(*) as total')
+            ->groupBy('rider', 'estado')
+            ->get();
+
+        // Transformar los datos para el gráfico
+        $data = [];
+        foreach ($reservas as $reserva) {
+            $data[$reserva->rider][$reserva->estado] = $reserva->total;
+        }
+
+        return view('estadisticas.reservas_por_raider', compact('data'));
+    }
+
+// FUNCION CHART.JS//
+
+
     public function index()
 {
     // Obtener el ID del rider actual
