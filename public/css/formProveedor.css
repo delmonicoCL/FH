@@ -7,7 +7,7 @@ body {
     background-color: #ff4d4d;
 }
 
-div.titulo{
+div.titulo {
     height: 100px;
     width: 100%;
     display: flex;
@@ -33,6 +33,18 @@ div.formulario {
     width: 60%;
 }
 
-div.card{
+div.card {
     background-color: #fdfefe;
+}
+
+div.botones {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height: 100%;
+    width: 80%;
+}
+
+button.btn {
+    margin: 20px;
 }
