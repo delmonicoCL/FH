@@ -42,9 +42,8 @@ class RiderController extends Controller
     public function index(Request $request)
     {
                
-        $usuarios = Usuario::where("tipo", "=", "rider")->get();
-        $riders = Rider::all();
-        return view("administradores.gestionRaider", compact("usuarios", "riders"));
+       
+        return redirect()->route("administradores.gestionRaider");
 
     }
 

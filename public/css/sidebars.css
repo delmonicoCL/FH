@@ -1,13 +1,18 @@
+.nav-link {
+  font-size: 25px;
+  color: azure;
+  font-family: "Luckiest Guy", sans-serif;
+  }
+  
+  .titulo {
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+    font-family: "Luckiest Guy", sans-serif;
 
 
+  }
 
-/* .bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-} */
+
 
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
@@ -28,6 +33,11 @@
   flex-shrink: 0;
   width: 1.5rem;
   height: 100vh;
+}
+
+.colorBarra {
+  background-color:#92B721;
+
 }
 
 .bi {
