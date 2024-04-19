@@ -15,10 +15,10 @@
             @include('partials.mensajes')
             <div class="row" style="display:flex; align-items: center; justify-content: center;">
                 <!--<div style="display:flex; align-items: center; justify-content: center;">-->
-                <div class="col-sm-6 d-none d-md-block" style="display:flex; align-items: center; justify-content: flex-end;">
+                <div class="col-sm-6 d-none d-md-block text-end" style="display:flex; align-items: center; justify-content: flex-end;">
                     <img src="{{asset('media/img/zanahoria.png')}}" alt="karoteno" height="700vh" width="700vw" draggable="false">
                 </div>
-                <div class="col-sm-6" style="display:flex; align-items: center; justify-content: center;">
+                <div class="col-sm-12 col-md-6 text-start" style="display:flex; align-items: center; justify-content: center;">
                     <div class="card rounded-4">
                         <div class="card-body">
                             <form action="{{action([App\Http\Controllers\UsuarioController::class,'login'])}}" method="POST">
