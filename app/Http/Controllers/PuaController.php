@@ -9,6 +9,7 @@ use Illuminate\Database\QueryException;
 
 class PuaController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */

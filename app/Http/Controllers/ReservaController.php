@@ -10,6 +10,8 @@ use Illuminate\Database\QueryException;
 
 class ReservaController extends Controller
 {
+
+
     public function index()
 {
     // Obtener el ID del rider actual

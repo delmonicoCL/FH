@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\EntregaController;
+use App\Http\Controllers\EstadisticasController;
+use App\Http\Controllers\PuaController;
 use App\Models\Rider;
 use App\Models\Reserva;
 use App\Models\Usuario;
@@ -58,6 +61,7 @@ Route::middleware(["auth"])->group(function () {
         }
         return $response;
     });
+
     Route::get('/proveedor1', function () {
         $user = Auth::user();
         if ($user["tipo"] === "proveedor") {
@@ -96,11 +100,42 @@ Route::middleware(["auth"])->group(function () {
             return view('auth.login');
         }
     })->name('formProveedor');
+
+    Route::get('/administradores/gestionRaider', function () {
+        $user = Auth::user();
+        $id = $user["id"];
+
+        if ($user["tipo"] === "administrador") {
+            $usuarios = Usuario::where("tipo", "=", "rider")->get();
+            $riders = Rider::all();
+            $administrador=Administrador::where("id","=",$id)->first();
+            return view("administradores.gestionRaider", compact("usuarios", "riders","administrador"));
+        } else {
+            return view('auth.login');
+        }
+    })->name('administradores.gestionRaider');
+
+    Route::get('/administradores/gestionProveedor', function () {
+        $user = Auth::user();
+        $id = $user["id"];
+
+        if ($user["tipo"] === "administrador") {
+            $usuarios = Usuario::where("tipo", "=", "proveedor")->get();
+            $proveedores = Proveedor::all();
+            $administrador=Administrador::where("id","=",$id)->first();
+            return view("administradores.gestionProveedor", compact("usuarios", "proveedores","administrador"));
+        } else {
+            return view('auth.login');
+        }
+     
+
+    })->name('administradores.gestionProveedor');
+
 });
 
-Route::get('/registros/index', function () {
-    return view('registros.index');
-})->name('registros.index');
+Route::get('/registros/elige_tipo_de_usuario', function () {
+    return view('registros.elige_tipo_de_usuario');
+})->name('registros.elige_tipo_de_usuario');
 
 Route::get('/registros/administrador', function () {
     return view('registros.administrador');
@@ -115,3 +150,14 @@ Route::resource("proveedores", ProveedorController::class);
 Route::resource("riders", RiderController::class);
 
 Route::resource("reservas", ReservaController::class);
+
+
+// ROUTES DE CHART.JS //
+
+Route::get('/estadisticas/resumen', [EstadisticasController::class, 'estadisticas'])->name('estadisticas.resumen');
+
+
+
+
+
+

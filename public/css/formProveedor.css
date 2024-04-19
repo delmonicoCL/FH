@@ -1,29 +1,50 @@
-*,
-hr {
+* {
     margin: 0px;
     padding: 0px;
 }
 
-div.formulario {
-    background-color: yellowgreen;
+body {
+    background-color: #ff4d4d;
+}
+
+div.titulo {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fdfefe;
+}
+
+div.contenidoBody {
     height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
 }
 
-div.card {
-    height: 60%;
+div.decoracion {
+    margin: 2%;
+}
+
+div.formulario {
+    height: 100%;
     width: 60%;
 }
 
-div.tituloForm {
-    /* background-color: red; */
-    height: 10%;
-    width: 100%;
+div.card {
+    background-color: #fdfefe;
+}
+
+div.botones {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
+    height: 100%;
+    width: 80%;
+}
+
+button.btn {
+    margin: 20px;
 }

@@ -2,7 +2,6 @@
 
 @section('contenido')
 
-
 <div class="container mt-5">
 
 <H2> RIDERS </H2>

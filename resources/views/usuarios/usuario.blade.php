@@ -192,7 +192,7 @@
                         <button type="submit" class="btn btn-primary" form="formularioinscripcion" id="aceptar">
                             Aceptar
                         </button>
-                        <a href="{{url('/registros/index')}}" class="btn btn-secondary">
+                        <a href="{{url('/registros/elige_tipo_de_usuario')}}" class="btn btn-secondary">
                             Cancelar
                         </a>
                     </div>
