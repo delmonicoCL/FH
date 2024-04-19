@@ -10,40 +10,18 @@
         }
     </style>
 
-    <DIV class="container mt-5 d-flex ">
+    <DIV class="d-flex ">
 
-        <div class="container ">
-            <div class="container d-flex justify-content-center align-items-center">
-                <div>
-                    <img src="{{ asset('img/titulo.png') }}" alt="" srcset="">
-                </div>
-            </div>
-            <div id="resumen" class=" mt-5">
-                <div class="row mt-5 mb-5">
-                    <div class="col-4">
-                        <img src="{{ asset('img/estadisticas/card_total_canceled.png') }}" alt="" srcset=""
-                            style="width: 100%;">
-                    </div>
-                    <div class="col-4">
-                        <img src="{{ asset('img/estadisticas/card_total_order.png') }}" alt="" srcset=""
-                            style="width: 100%;">
-                    </div>
-                    <div class="col-4">
-                        <img src="{{ asset('img/estadisticas/card_total_delivered.png') }}" alt="" srcset=""
-                            style="width: 100%;">
-                    </div>
-                </div>
-            </div>
-            <div id="grafica1" class="my-5 mt-5 ">
-                <div class="row my-5">
+      
+               
                     <div class="col-12">
-                        <img src="{{ asset('img/group2.png') }}" alt="" srcset="" style="width: 100%;">
+                        <img src="{{ asset('img/group4.png') }}" alt="" srcset="" style="width: 100%;">
                     </div>
-                </div>
+               
 
-            </div>
+            
 
-        </div>
+      
 
     </DIV>
 @endsection
