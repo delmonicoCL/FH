@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Pua;
 use Illuminate\Http\Request;
+use App\Models\Rider;
 
 class PuaController extends Controller
 {
@@ -13,6 +14,33 @@ class PuaController extends Controller
         $puas = Pua::all();
         return response()->json($puas); // Devuelve todas las PUAs como respuesta JSON
     }
+
+// PuaController.php
+
+
+
+public function entregar(Pua $pua)
+{
+    $cantidadEntregada = $pua->cantidad_de_personas;
+
+    // Obtener el rider asociado a la pua
+    $rider = $pua->rider;
+
+    // Verificar si el rider existe y si tiene suficiente stock para realizar la entrega
+    if ($rider && $rider->stock_rider >= $cantidadEntregada) {
+        // Restar la cantidad entregada al stock del rider
+        $rider->stock_rider -= $cantidadEntregada;
+        $rider->save();
+
+        // Eliminar la pua entregada
+        $pua->delete();
+
+        return response()->json(['message' => 'Pua entregada exitosamente. Stock del rider actualizado.'], 200);
+    }
+
+    return response()->json(['error' => 'No se puede entregar la pua. Stock insuficiente del rider.'], 400);
+}
+
 
     public function store(Request $request)
     {

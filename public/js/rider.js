@@ -143,16 +143,39 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .setLngLat(lngLat)
         .addTo(map);
-
+    
         var description = "<h2><p>Numero de personas: " + pua.cantidad_de_personas + "</p></h2>" +
         "<button class='boton-entregar'>Entregar</button>";
-        
-
+    
         var popup = new mapboxgl.Popup()
             .setHTML(description);
-
+    
         marker.setPopup(popup);
+    
+        popup.on('open', function() {
+            var botonEntregar = document.querySelector('.boton-entregar');
+    
+            botonEntregar.addEventListener('click', function (){
+                // Realizar una solicitud para entregar la PUA
+                fetch(`/FH/public/api/puas`, {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Actualizar la vista o mostrar un mensaje de éxito
+                    alert(data.message);
+                    // Actualizar los marcadores después de la entrega
+                    loadMarkers();
+                })
+                .catch(error => {
+                    console.error('Error entregando PUA:', error);
+                    // Mostrar un mensaje de error si la entrega falla
+                    alert('Error al entregar la PUA.');
+                });
+            });
+        });
     }
+    
 
     function addMarkerToMapProveedores(proveedor) {
         var lngLat = [proveedor.lng, proveedor.lat];
@@ -172,22 +195,55 @@ document.addEventListener('DOMContentLoaded', function () {
     
         marker.setPopup(popup);
     
-    popup.on('open', function() {
-        var botonReservar = document.querySelector('.boton-reservar');
-        var modalReservar = document.getElementById("modal-reservar");
-
-        botonReservar.addEventListener('click', function (){
-            modalReservar.style.display = "block";
-            document.getElementById('proveedor').value = proveedor.id;
+        popup.on('open', function() {
+            var botonReservar = document.querySelector('.boton-reservar');
+            var modalReservar = document.getElementById("modal-reservar");
+            var cantidadInput = document.getElementById('cantidad');
+            var enviarReservaBtn = document.getElementById('enviarReserva'); // Cambiado a enviarReserva
+        
+            botonReservar.addEventListener('click', function (){
+                // Obtener la cantidad de personas a reservar
+                var cantidadReserva = parseInt(cantidadInput.value);
+        
+                // Verificar si la cantidad de personas a reservar supera el stock
+                if (cantidadReserva > proveedor.stock_proveedor) {
+                    // Mostrar una alerta en pantalla
+                    alert("La cantidad de personas a reservar excede el stock disponible.");
+                    return;
+                }
+        
+                // Si la reserva es válida, mostrar el modal de reserva y establecer el ID del proveedor
+                modalReservar.style.display = "block";
+                document.getElementById('proveedor').value = proveedor.id;
+            });
+        
+            var closeButtonReservar = document.getElementById('closeButtonReservar');
+        
+            closeButtonReservar.addEventListener('click', function() {
+                modalReservar.style.display = "none";
+            });
+        
+            // Desactivar el botón de enviar si la cantidad supera el stock
+            cantidadInput.addEventListener('input', function() {
+                var cantidadReserva = parseInt(cantidadInput.value);
+        
+                if (cantidadReserva > proveedor.stock_proveedor) {
+                    enviarReservaBtn.disabled = true; // Desactivar el botón de enviar
+                    // Cambiar el estilo del input para indicar que la cantidad es mayor que el stock
+                    cantidadInput.style.backgroundColor = 'rgba(255, 0, 0, 0.2)'; // Fondo rojo claro
+                    cantidadInput.style.borderColor = 'red'; // Borde rojo
+                    cantidadInput.setCustomValidity('La cantidad ingresada es mayor que el stock disponible');
+                } else {
+                    enviarReservaBtn.disabled = false; // Activar el botón de enviar
+                    // Restaurar el estilo del input
+                    cantidadInput.style.backgroundColor = ''; // Restaurar el fondo
+                    cantidadInput.style.borderColor = ''; // Restaurar el borde
+                    cantidadInput.setCustomValidity(''); // Restaurar el mensaje de validación personalizado
+                }
+            });
         });
-
-        var closeButtonReservar = document.getElementById('closeButtonReservar');
-
-        closeButtonReservar.addEventListener('click', function() {
-            modalReservar.style.display = "none";
-        });
-    });
-}
+        
+    }
     
     function createPua(latitud, longitud, cantidad_de_personas) {
         fetch('/FH/public/api/puas', {
