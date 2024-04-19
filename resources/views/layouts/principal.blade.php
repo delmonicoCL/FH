@@ -11,6 +11,9 @@
     </head>
     <body style="background-color: #FECB09;">
         <div class="container-fluid">
+            <a href="@yield("paginaAnterior")">
+                <img src="{{asset('media/img/iconos/atras.png')}}" alt="karoteno" height="100vh" width="300vw" draggable="false">
+            </a>
             @yield("contenido")
         </div>
     </body>

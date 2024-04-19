@@ -60,6 +60,7 @@ Route::middleware(["auth"])->group(function () {
         }
         return $response;
     });
+
     Route::get('/proveedor1', function () {
         $user = Auth::user();
         if ($user["tipo"] === "proveedor") {
@@ -112,7 +113,6 @@ Route::middleware(["auth"])->group(function () {
             return view('auth.login');
         }
     })->name('administradores.gestionRaider');
-
 
     Route::get('/administradores/gestionProveedor', function () {
         $user = Auth::user();
