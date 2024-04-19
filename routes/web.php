@@ -14,7 +14,6 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\AdministradorController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -155,9 +154,4 @@ Route::resource("reservas", ReservaController::class);
 // ROUTES DE CHART.JS //
 
 Route::get('/estadisticas/resumen', [EstadisticasController::class, 'estadisticas'])->name('estadisticas.resumen');
-
-
-
-
-
 
