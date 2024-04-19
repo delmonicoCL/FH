@@ -34,4 +34,9 @@ class Rider extends Model
     {
         return $this->hasMany(Reserva::class,"rider");
     }
+
+    public function puas()
+    {
+        return $this->hasMany(Pua::class,"rider_creador");
+    }
 }
