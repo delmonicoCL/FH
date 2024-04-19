@@ -56,31 +56,43 @@
                     <h2>Estadisticas</h2>
                 </div>
                 <hr />
+                <div class="mostrarEstadisticas">
+                    <div class="imgEstadisticas">
+                        <img src="{{ asset('img/estadisticas/card_total_revenue.png') }}" alt="estadisticasMenu"
+                            class="imgEstadisticas">
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="fila2 col-lg-12">
             <div class="crearMenu col-lg-4" id="menu">
                 <div class="titulo">
-                    <h2>Crear Menu</h2>
+                    <h2>Crear Menú</h2>
                 </div>
                 <hr />
-                <div class="cantidadMenu">
-                    <div class="menosMenu">
-                        <button class="menos" id="menosBtn">
-                            <i class="fa-solid fa-minus"></i>
-                        </button>
+                <div class="menus">
+                    <div class="cantidadMenu">
+                        <div class="menosMenu">
+                            <button class="menos" id="menosBtn">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                        </div>
+                        <div class="cantMenu"> 0 </div>
+                        <div class="masMenu">
+                            <button class="mas" id="masBtn">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="cantMenu"> 0 </div>
-                    <div class="masMenu">
-                        <button class="mas" id="masBtn">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
+                    <div class="imgFresa">
+                        <img src="{{ asset('img/fresa.svg') }}" alt="imgFresa" class="imgFresa">
                     </div>
                 </div>
+
                 <div class="btnCrear">
                     <button class="crear" id="crearBtn" type="submit" form="idForm">
-                        Crear Menu(s)
+                        Crear Menú(s)
                     </button>
                 </div>
                 <form id="idForm"
@@ -95,7 +107,7 @@
 
             <div class="entregarMenu col-lg-7">
                 <div class="titulo">
-                    <h2>Entregar Menu</h2>
+                    <h2>Entregar Menú</h2>
                 </div>
                 <hr />
                 <div class="selectRider">
@@ -118,25 +130,25 @@
         </div>
 
         <div class="fila3 col-lg-12">
-            <div class="stok col-lg-6">
+            <div class="stock col-lg-5">
                 <div class="titulo">
                     <h2>Stock</h2>
                 </div>
                 <hr />
-                <div class="stokDiv">
+                <div class="stockDiv">
                     <div class="selectMenu container-fluid">
                         @yield('contenidoMenu')
-                        <h4>Stok actual: </h4>
+                        <h4>Stock actual: </h4>
                         <p> {{ $proveedor['stock_proveedor'] }}</p>
                     </div>
                     <div class="selectHistorico container-fluid">
                         @yield('contenidoHistorico')
-                        <h4>Historial Menus:</h4>
+                        <h4>Historial Menús:</h4>
                         <p>{{ $proveedor['stock_proveedor'] }}</p>
                     </div>
                 </div>
             </div>
-            <div class="mapa col-lg-6">
+            <div class="mapa col-lg-5">
                 <div class="titulo">
                     <h2>Mapa</h2>
                 </div>
