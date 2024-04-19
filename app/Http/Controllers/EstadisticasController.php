@@ -55,7 +55,49 @@ class EstadisticasController extends Controller
             ->groupBy('tipo')
             ->pluck('total', 'tipo');
 
-        return view('estadisticas.estadisticasResumen', compact('reservasPorEstado', 'dataProveedor', 'dataRaider', 'puaData', 'usuariosPorTipo'));
-    }
 
-}
+        // 1. Cantidad total de PUAs
+        $totalPuas = Pua::count();
+
+        // 2. Cantidad total de reservas
+        $totalReservas = Reserva::count();
+
+        // 3. Cantidad total de entregas
+        $totalEntregas = Entrega::count();
+
+
+
+
+        return view('estadisticas.estadisticasResumen', compact('reservasPorEstado', 'dataProveedor', 'dataRaider', 'puaData', 'usuariosPorTipo','totalPuas','totalReservas','totalEntregas'));
+
+        }
+
+    // public function estadisticasResumen()
+    // {
+    //     // 1. Cantidad total de PUAs
+    //     $totalPuas = Pua::count();
+
+    //     // 2. Cantidad total de reservas
+    //     $totalReservas = Reserva::count();
+
+    //     // 3. Cantidad total de entregas
+    //     $totalEntregas = Entrega::count();
+
+    //     // Devolver los resultados como un array asociativo
+    //     return [
+    //         'totalPuas' => $totalPuas,
+    //         'totalReservas' => $totalReservas,
+    //         'totalEntregas' => $totalEntregas
+    //     ];
+    // }
+
+    // public function index()
+    // {
+    //     // Llamar a la función estadisticasResumen para obtener los datos
+    //     $estadisticas = $this->estadisticasResumen();
+
+    //     // Pasar los resultados a la vista utilizando compact
+    //     return view('administradores.administrador', compact('estadisticas'));
+    // }
+
+    }
