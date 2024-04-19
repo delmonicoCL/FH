@@ -16,36 +16,6 @@ use Illuminate\Database\QueryException;
 class UsuarioController extends Controller
 {
 
-    // FUNCIONES CHART.JS///
-    private $usuariosPorTipo;
-
-    public function __construct()
-    {
-        $this->usuariosPorTipo = Usuario::select('tipo', \DB::raw('count(*) as total'))
-            ->groupBy('tipo')
-            ->pluck('total', 'tipo');
-    }
-
-    public function usuariosPorTipo()
-    {
-        return view('estadisticas.usuarios_por_tipo', ['usuariosPorTipo' => $this->usuariosPorTipo]);
-    }
-
-    public function histogramaReservasPorEstado()
-    {
-        $reservasPorEstado = Reserva::select('estado', \DB::raw('count(*) as total'))
-            ->groupBy('estado')
-            ->pluck('total', 'estado');
-
-        return view('estadisticas.histograma', compact('reservasPorEstado'));
-    }
-
-
-
-
-    // FUNCIONES CHART.JS///
-
-
     public function showLogin()
     {
         return view("auth.login");
