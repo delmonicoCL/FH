@@ -81,22 +81,22 @@
 
         <div class="d-flex flex-column flex-shrink-0 p-3 colorBarra " style="width: 280px;">
           <a href="{{ url('home') }}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none titulo">
-            <img src="{{ asset('img/logo-02.png') }}" alt="Logo" class="me-2" style="height: 75px;">
-            <span class="fs-4">DashBoard</span>
+            <img src="{{ asset('img/superhero.png') }}" alt="Logo" class="me-2" style="height: 75px;">
+            <span class="">DashBoard</span>
         </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
                     <a href="{{ url('home') }}" class="nav-link text-white" aria-current="page">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#home" />
+                        <svg class="bi pe-none me-2" width="32" height="32">
+                            <use xlink:href="#home"  />
                         </svg>
                         Principal
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('usuarios') }}" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16">
+                    <a href="{{ url('riders') }}" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="32" height="32">
                             <use xlink:href="#speedometer2" />
                         </svg>
                         Riders
@@ -104,7 +104,7 @@
                 </li>
                 <li>
                     <a href="{{ url('proveedores') }} " class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16">
+                        <svg class="bi pe-none me-2" width="32" height="32">
                             <use xlink:href="#table" />
                         </svg>
                         Proveedores
@@ -112,7 +112,7 @@
                 </li>
                 <li>
                     <a href="{{ route('estadisticas.resumen') }}" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16">
+                        <svg class="bi pe-none me-2" width="32" height="32">
                             <use xlink:href="#grid" />
                         </svg>
                         Estadisticas
@@ -123,15 +123,15 @@
             <div class="dropdown">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ asset('img/superhero.png') }}" alt="" width="32" height="32"
+                    <img src="{{ asset('img/MrSalchicha.png') }}" alt="" width="65" height="90"
                         class="rounded-circle me-2">
-                    <strong>{{ Auth::user()['nombre'] }} </strong>
+                    <strong class="user-name">{{ Auth::user()['nombre'] }} </strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="{{ url('/logout') }}">Sign out</a></li>
+                    <li><a class="dropdown-item" href="{{ url('/logout') }}">Cerrar Sesion</a></li>
                 </ul>
             </div>
         </div>

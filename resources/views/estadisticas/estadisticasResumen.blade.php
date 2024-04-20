@@ -31,6 +31,17 @@
             align-items: center; /* Alineamos verticalmente al centro */
         }
 
+        h3{
+            font-size: 30px;
+            color: #018780;
+            font-family: "Luckiest Guy", sans-serif;
+        }
+         h4{
+            font-size: 28px;
+            color: #018780;
+            font-family: "Luckiest Guy", sans-serif;
+        }
+
         /* Estilo para la primera columna */
         .columna-imagen {
             flex: 1; /* La primera columna ocupa el 50% del ancho del contenedor */
@@ -108,7 +119,7 @@
             <!-- Segundo div -->
             <div class="contenedor">
                 <div class="col-md-4 chart-container mb-4">
-                    <h3>Reservas Proveedor</h3>
+                    <h4>Reservas Proveedor</h4>
                     <canvas id="ReservasPorProveedor"></canvas>
                 </div>
             </div>
