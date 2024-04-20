@@ -12,9 +12,7 @@ use Illuminate\Database\QueryException;
 
 class ProveedorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         // $reservas = Reserva::with('rider')->get();
@@ -28,9 +26,6 @@ class ProveedorController extends Controller
         return redirect()->route("administradores.gestionProveedor");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request)
     {
         $id = $request["id"];
@@ -42,9 +37,6 @@ class ProveedorController extends Controller
         return view("usuarios.proveedor", compact("id", "calle", "numero", "cp", "ciudad", "logo"));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //Recuperar los datos del formulario
@@ -83,17 +75,11 @@ class ProveedorController extends Controller
         return $response;
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Proveedor $proveedor)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Proveedor $proveedore)
     {
         $usuario = Usuario::where("id", "=", $proveedore->id)->first();
@@ -101,9 +87,6 @@ class ProveedorController extends Controller
         return view('proveedor.formProveedor', compact('usuario', "proveedor"));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Proveedor $proveedore)
     {
         $tipoDeModificacion = $request->tipoDeModificacion;
@@ -125,10 +108,7 @@ class ProveedorController extends Controller
         }
         return $response;
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(Proveedor $proveedor)
     {
         //

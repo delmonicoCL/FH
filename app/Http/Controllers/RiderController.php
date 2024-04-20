@@ -10,11 +10,7 @@ use Illuminate\Database\QueryException;
 
 class RiderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
-// funciones chart.js//
+    // funciones chart.js//
 
     public function listaRaidersPuasPersonas()
     {
@@ -41,15 +37,9 @@ class RiderController extends Controller
 
     public function index(Request $request)
     {
-               
-       
         return redirect()->route("administradores.gestionRaider");
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request)
     {
         $id=$request["id"];
@@ -59,9 +49,6 @@ class RiderController extends Controller
         return view("usuarios.rider",compact("id","apellidos","nickname","avatar"));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //Recuperar los datos del formulario
@@ -95,9 +82,6 @@ class RiderController extends Controller
         return $response;
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Rider $rider)
     {
         $stockRider = $rider->stock_rider;
@@ -106,9 +90,6 @@ class RiderController extends Controller
         return view("riders.rider", compact("rider", "stockRider"));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Rider $rider)
     {
         $usuarios = Usuario::all();
@@ -118,17 +99,11 @@ class RiderController extends Controller
         return view("administradores.updateRIDER", compact("usuarios", "riders"));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Rider $rider)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Rider $rider)
     {
         //
