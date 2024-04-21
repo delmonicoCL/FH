@@ -28,48 +28,61 @@ class ProveedorController extends Controller
 
     public function create(Request $request)
     {
-        $id = $request["id"];
-        $calle = $request["calle"];
-        $numero = $request["numero"];
-        $cp = $request["cp"];
-        $ciudad = $request["ciudad"];
-        $logo = $request["nombreDelArchivoDelLogo"];
-        return view("usuarios.proveedor", compact("id", "calle", "numero", "cp", "ciudad", "logo"));
+        //
     }
 
     public function store(Request $request)
     {
-        //Recuperar los datos del formulario
-        $id = $request->input("Id");
+        //Recuperar los valores del request
+        $tipo=$request->input("Tipo");
+        $id=$request->input("Id");
         $calle = $request->input("Calle");
         $numero = $request->input("Numero");
         $cp = $request->input("Cp");
         $ciudad = $request->input("Ciudad");
-        $logo = $request->input("Logo");
+        $logo = $request->file("Logo");
+        $nombreDelArchivoDelLogo = $id . "." . $logo->getClientOriginalExtension();
+        $logo->storeAs('storage/logos', $nombreDelArchivoDelLogo);
         $latitud = $request->input("Latitud");
         $longitud = $request->input("Longitud");
 
+        /*$file = $request->file('nombre_campo');
+        // Acceder a información del archivo
+        $nombre = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        $tipo = $file->getClientMimeType();
+        $tamanio = $file->getSize();
+        //modificar la informacion del archivo
+        $name = $file->hashName(); // Generate a unique, random name...
+        $extension = $file->extension(); // Determine the file's extension based on the file's MIME type...
+        // Almacenar el archivo
+        $file->store('carpeta_destino');*/
+
         //Crear un objeto de la clase que representa un registro a la tabla
         $proveedor = new Proveedor();
+
         //Asignar los valores del formulario a su respectivo campo
         $proveedor->id = $id;
         $proveedor->calle = $calle;
         $proveedor->numero = $numero;
         $proveedor->cp = $cp;
         $proveedor->ciudad = $ciudad;
-        $proveedor->logo = $logo;
+        $proveedor->logo = $nombreDelArchivoDelLogo;
         $proveedor->lat = $latitud;
         $proveedor->lng = $longitud;
 
-        try {
+        try
+        {
             //Hacer el insert en la tabla
             $proveedor->save();
-            $request->session()->flash("mensaje", "Usuario inscrito correctamente.");
+            $request->session()->flash("mensaje", "Proveedor inscrito correctamente.");
             $response = redirect("/login");
-        } catch (QueryException $ex) {
+        }
+        catch (QueryException $ex)
+        {
             $mensaje = Utilidad::errorMessage($ex);
             $request->session()->flash("error", $mensaje);
-            $response = redirect("/login");
+            $response = redirect()->route("usuarios.create", compact("tipo"))->withInput();
         }
 
         return $response;

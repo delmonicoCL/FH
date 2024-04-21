@@ -14,7 +14,6 @@ use Illuminate\Database\QueryException;
 
 class RiderController extends Controller
 {
-    // funciones chart.js//
 
     public function listaRaidersPuasPersonas()
     {
@@ -37,39 +36,26 @@ class RiderController extends Controller
         return $listaRaidersPuasPersonas;
     }
 
-    // funciones chart.js//  
-    /**
-     * Display a listing of the resource.
-     */
-
-
     public function index(Request $request)
     {
                
        //aca le deberia pasar la informacion de las consultas a estadisticas //
         return redirect()->route("administradores.gestionRaider");
     }
-        
-  }
-
-    
 
     public function create(Request $request)
     {
-        $id=$request["id"];
-        $apellidos=$request["apellidos"];
-        $nickname=$request["nickname"];
-        $avatar=$request["avatar"];
-        return view("usuarios.rider",compact("id","apellidos","nickname","avatar"));
+        //
     }
 
     public function store(Request $request)
     {
-        //Recuperar los datos del formulario
+        //Recuperar los valores del request
+        $tipo=$request->input("Tipo");
         $id=$request->input("Id");
-        $apellidos=$request->input("Apellidos");
-        $nickname=$request->input("Nickname");
-        $avatar=$request->input("Avatar");
+        $apellidos = $request->input("Apellidos");
+        $nickname = $request->input("Nickname");
+        $avatar = $request->input("Avatar");
 
         //Crear un objeto de la clase que representa un registro a la tabla
         $rider=new Rider();
@@ -83,14 +69,14 @@ class RiderController extends Controller
         {
             //Hacer el insert en la tabla
             $rider->save();
-            $request->session()->flash("mensaje","Usuario inscrito correctamente.");
+            $request->session()->flash("mensaje","Rider inscrito correctamente.");
             $response=redirect("/login");
         }
         catch(QueryException $ex)
         {
             $mensaje=Utilidad::errorMessage($ex);
             $request->session()->flash("error",$mensaje);
-            $response=redirect("/login");
+            $response = redirect()->route("usuarios.create", compact("tipo"))->withInput();
         }
         
         return $response;

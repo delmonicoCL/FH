@@ -33,6 +33,7 @@
                     </div>
                 @endif
                 <div class="card w-75 rounded-4">
+
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-12">
@@ -46,6 +47,7 @@
                         </div>
                         @if($tipo==="proveedor") <small id="mensajeValidacionFormularioCrearProveedor"></small> @else <small id="mensajeValidacionFormularioCrearRider"></small> @endif
                     </div>
+
                     <div class="card-body" style="height: 455px; overflow-y: auto;">
                         <form action="{{action([App\Http\Controllers\UsuarioController::class,'store'])}}" class="row" method="POST" id="formularioinscripcion" enctype="multipart/form-data">  
                             @csrf
@@ -69,7 +71,7 @@
                                     Nickname
                                 </label>
                                 <div class="col-sm-12 mb-3">
-                                    <input type="text" id="nickname" class="form-control" name="Nickname" placeholder="Nickname" autofocus>
+                                    <input type="text" id="nickname" class="form-control" name="Nickname" value="{{old('Nickname')}}" placeholder="Nickname" autofocus>
                                     <small id="mensajeValidacionNickname"></small>
                                 </div>
 
@@ -80,7 +82,7 @@
                                 Nombre @if($tipo==="proveedor") {{"empresa"}} @endif
                             </label>
                             <div class="col-sm-12 mb-3">
-                                <input type="text" @if($tipo==="proveedor") id="nombreEmpresa" @else id="nombre" @endif class="form-control" @if($tipo==="proveedor") name="NombreEmpresa" @else name="Nombre" @endif @if($tipo!=="rider") autofocus @endif @if($tipo==="proveedor") placeholder="Nombre empresa" @else placeholder="Nombre" @endif>
+                                <input type="text" @if($tipo==="proveedor") id="nombreEmpresa" name="NombreEmpresa" value="{{old('NombreEmpresa')}}" placeholder="Nombre empresa" @else id="nombre" name="Nombre" value="{{old('Nombre')}}" placeholder="Nombre" autofocus @endif class="form-control">
                                 @if($tipo==="proveedor") <small id="mensajeValidacionNombreEmpresa"></small> @else <small id="mensajeValidacionNombre"></small> @endif 
                             </div>
 
@@ -90,7 +92,7 @@
                                     Apellidos
                                 </label>
                                 <div class="col-sm-12 mb-3">
-                                    <input type="text" id="apellidos" class="form-control" name="Apellidos" placeholder="Apellidos">
+                                    <input type="text" id="apellidos" class="form-control" name="Apellidos" value="{{old('Apellidos')}}" placeholder="Apellidos">
                                     <small id="mensajeValidacionApellidos"></small>
                                 </div>
                             @endif
@@ -100,7 +102,7 @@
                                 Contraseña
                             </label>
                             <div class="col-sm-12 mb-3">
-                                <input type="password" id="contrasenia" class="form-control" name="Contrasenia" placeholder="Contraseña">
+                                <input type="password" id="contrasenia" class="form-control" name="Contrasenia" value="{{old('Contrasenia')}}" placeholder="Contraseña">
                                 <small id="mensajeValidacionContrasenia"></small>
                             </div>
 
@@ -109,7 +111,7 @@
                                 Confirmar contraseña
                             </label>
                             <div class="col-sm-12 mb-3">
-                                <input type="password" id="confirmarContrasenia" class="form-control" name="ConfirmarContrasenia" placeholder="Confirmar contraseña">
+                                <input type="password" id="confirmarContrasenia" class="form-control" name="ConfirmarContrasenia" value="{{old('ConfirmarContrasenia')}}" placeholder="Confirmar contraseña">
                                 <small id="mensajeValidacionConfirmarContrasenia"></small>
                             </div>
 
@@ -118,7 +120,7 @@
                                 Email
                             </label>
                             <div class="col-sm-12 mb-3">
-                                <input type="email" id="email" class="form-control" name="Email" placeholder="Email">
+                                <input type="email" id="email" class="form-control" name="Email" value="{{old('Email')}}" placeholder="Email">
                                 <small id="mensajeValidacionEmail"></small>
                             </div>
 
@@ -137,7 +139,7 @@
                                 Teléfono
                             </label>
                             <div @if($tipo==="rider") class="col-sm-12" @else class="col-sm-12 mb-3" @endif>
-                                <input type="tel" id="telefono" class="form-control" name="Telefono" placeholder="Teléfono">
+                                <input type="tel" id="telefono" class="form-control" name="Telefono" value="{{old('Telefono')}}" placeholder="Teléfono">
                                 <small id="mensajeValidacionTelefono"></small>
                             </div>
 
@@ -148,7 +150,7 @@
                                     Calle
                                 </label>
                                 <div class="col-sm-12 mb-3">
-                                    <input type="text" id="calle" class="form-control" name="Calle" placeholder="Calle">
+                                    <input type="text" id="calle" class="form-control" name="Calle" value="{{old('Calle')}}" placeholder="Calle">
                                     <small id="mensajeValidacionCalle"></small>
                                 </div>
 
@@ -157,7 +159,7 @@
                                     Edificio (Numero)
                                 </label>
                                 <div class="col-sm-12 mb-3">
-                                    <input type="number" id="numero" class="form-control" name="Numero" placeholder="Edificio (Numero)">
+                                    <input type="number" id="numero" class="form-control" name="Numero" value="{{old('Numero')}}" placeholder="Edificio (Numero)">
                                     <small id="mensajeValidacionNumero"></small>
                                 </div>
 
@@ -166,7 +168,7 @@
                                     Cp
                                 </label>
                                 <div class="col-sm-12 mb-3">
-                                    <input type="number" id="cp" class="form-control" name="Cp" placeholder="Cp">
+                                    <input type="number" id="cp" class="form-control" name="Cp" value="{{old('Cp')}}" placeholder="Cp">
                                     <small id="mensajeValidacionCp"></small>
                                 </div>
 
@@ -175,7 +177,7 @@
                                     Ciudad
                                 </label>
                                 <div class="col-sm-12 mb-3">
-                                    <input type="text" id="ciudad" class="form-control" name="Ciudad" placeholder="Ciudad">
+                                    <input type="text" id="ciudad" class="form-control" name="Ciudad" value="{{old('Ciudad')}}" placeholder="Ciudad">
                                     <small id="mensajeValidacionCiudad"></small>
                                 </div>
 
@@ -190,48 +192,47 @@
                                     <input type="file" id="logo" class="form-control" name="Logo" required>
                                 </div>
 
+                                <div hidden>
+                                    <label for="latitud">
+                                        Latitud
+                                    </label>
+                                    <div>
+                                        <input type="text" id="latitud" name="Latitud" readonly>
+                                    </div>
+                        
+                                    <label for="longitud">
+                                        Longitud
+                                    </label>
+                                    <div>
+                                        <input type="text" id="longitud" name="Longitud" readonly>
+                                    </div>
+                                </div>
 
+                                <input type="submit" id="verdaderoBotonSubmit" hidden>
                             @endif
+                            
                         </form>
                     </div>
+
                     <div class="card-footer">
+
                         <div class="row mb-3 mt-3 text-end">
                             <div class="col-sm-12">
-                                <button type="submit" class="btn float-right col-sm-12 text-light" form="formularioinscripcion" id="aceptar" style="background-color: #00AEEF; box-shadow: 0 0 10px 2px #868b8d;">
+                                <button @if($tipo==="proveedor") type="button" id="falsoBotonSubmit" @else type="submit" id="aceptar" form="formularioinscripcion" @endif class="btn float-right col-sm-12 text-light" style="background-color: #00AEEF; box-shadow: 0 0 10px 2px #868b8d;">
                                     <i class="fa fa-check" aria-hidden="true"></i>
                                     Inscribir {{$tipo}}
                                 </button>
                             </div>
                         </div>
+
                     </div>
+
                 </div>
             </div>
-            @if($tipo==="rider")
-                <script src="{{asset('js/usuarioBladePhpRider.js')}}"></script>
-            @elseif($tipo==="proveedor")
+            @if($tipo==="proveedor")
                 <script src="{{asset('js/usuarioBladePhpProveedor.js')}}"></script>
+            @else
+                <script src="{{asset('js/usuarioBladePhpRider.js')}}"></script>
             @endif
         @endsection
-
-<!-- Script para cargar Landbot -->
-<script>
-    window.addEventListener('mouseover', initLandbot, { once: true });
-    window.addEventListener('touchstart', initLandbot, { once: true });
-    var myLandbot;
-    function initLandbot() {
-        if (!myLandbot) {
-            var s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.async = true;
-            s.addEventListener('load', function() {
-                var myLandbot = new Landbot.Livechat({
-                    configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-2183130-L3SDF8GFLGZH0B4A/index.json',
-                });
-            });
-            s.src = 'https://cdn.landbot.io/landbot-3/landbot-3.0.0.js';
-            var x = document.getElementsByTagName('script')[0];
-            x.parentNode.insertBefore(s, x);
-        }
-    }
-</script>
 @endif

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
+use App\Http\Controllers\ProveedorController;
 
 class UsuarioController extends Controller
 {
@@ -93,43 +94,6 @@ class UsuarioController extends Controller
         $email = $request->input("Email");
         $telefono = $request->input("Telefono");
 
-        if ($tipo === "administrador" || $tipo === "rider")
-        {
-            $apellidos = $request->input("Apellidos");
-        }
-
-        if ($tipo === "proveedor")
-        {
-            $calle = $request->input("Calle");
-            $numero = $request->input("Numero");
-            $cp = $request->input("Cp");
-            $ciudad = $request->input("Ciudad");
-            $logo = $request->file("Logo");
-            $nombreDelArchivoDelLogo = $nombreEmpresa . "." . $logo->getClientOriginalExtension();
-            $logo->storeAs('storage/logos', $nombreDelArchivoDelLogo);
-
-            // $file = $request->file('nombre_campo');
-
-            // // Acceder a información del archivo
-            // $nombre = $file->getClientOriginalName();
-            // $extension = $file->getClientOriginalExtension();
-            // $tipo = $file->getClientMimeType();
-            // $tamanio = $file->getSize();
-
-            // //modificar la informacion del archivo
-            // $name = $file->hashName(); // Generate a unique, random name...
-            // $extension = $file->extension(); // Determine the file's extension based on the file's MIME type...
-
-            // // Almacenar el archivo
-            // $file->store('carpeta_destino');
-        }
-
-        if ($tipo === "rider")
-        {
-            $nickname = $request->input("Nickname");
-            $avatar = $request->input("Avatar");
-        }
-
         //Crear un objeto de la clase que representa un registro a la tabla
         $usuario = new Usuario();
         //Asignar los valores del formulario a su respectivo campo
@@ -150,18 +114,18 @@ class UsuarioController extends Controller
         {
             //Hacer el insert en la tabla
             $usuario->save();
-            $id = $usuario["id"];
+            $request->merge(['Id' => $usuario->id]);
             if ($tipo === "administrador")
             {
                 $response = redirect()->route('administradores.create', compact('apellidos', 'id'));
             }
             else if ($tipo === "proveedor")
             {
-                $response = redirect()->route('proveedores.create', compact("id", 'calle', "numero", "cp", "ciudad", 'nombreDelArchivoDelLogo'));
+                $response=app(ProveedorController::class)->store($request);
             }
             else if ($tipo === "rider")
             {
-                $response = redirect()->route('riders.create', compact("id", 'apellidos', "nickname", "avatar"));
+                $response=app(RiderController::class)->store($request);
             }
         }
         catch (QueryException $ex)
