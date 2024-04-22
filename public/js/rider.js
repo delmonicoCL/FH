@@ -374,6 +374,8 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             if(event.target.id==="botonMarcarRuta")
             {
+                event.target.setAttribute("value","Desmarcar Ruta");
+                event.target.setAttribute("id","botonDesmarcarRuta");
                 navigator.geolocation.getCurrentPosition
                 (
                     function(position)
