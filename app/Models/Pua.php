@@ -16,7 +16,12 @@ class Pua extends Model
     protected $fillable = [ // Se especifican los campos que se pueden llenar
         'cantidad_de_personas',
     ];
-    
+
+    public function riders()
+    {
+        return $this->belongsTo(Rider::class,"rider_creador");
+    }
+
     public function entregas()
     {
         return $this->hasMany(Entrega::class,"pua");

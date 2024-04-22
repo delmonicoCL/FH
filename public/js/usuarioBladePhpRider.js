@@ -22,7 +22,7 @@ document.addEventListener
                     {
                         let imagenSeleccionada=document.getElementById(nombreDelArchivoDelAvatarSeleccionado);
                         imagenSeleccionada.removeAttribute("style");
-                        event.target.setAttribute("style","border:2px solid blue; box-shadow: 0 0 20px 2px blue;");
+                        event.target.setAttribute("style","border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;");
                         imagenGrandeAvatar.setAttribute("src","../media/img/avatares/"+event.target.id);
                         inputAvatar.setAttribute("value",event.target.id);
                     }
@@ -54,7 +54,7 @@ document.addEventListener
 
                 if(avatares[i]===nombreDelArchivoDelAvatarSeleccionado)
                 {
-                    imagenAvatar.setAttribute("style","border:2px solid blue; box-shadow: 0 0 20px 2px blue;")
+                    imagenAvatar.setAttribute("style","border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;")
                 }
                 
                 let contenedorImagenAvatar=document.createElement("div");

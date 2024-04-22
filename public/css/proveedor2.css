@@ -4,8 +4,17 @@
 }
 
 body {
-    background-color: #ff4d4d;
-    /* margin: 3%; */
+    margin: 0;
+    padding: 0;
+    background-image: url("../img/raider.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+div.contenedor {
+    padding: 20px;
 }
 
 div.fila1,
@@ -20,10 +29,13 @@ div.fila3 {
 div.infoProveedor,
 div.estadisticas,
 div.crearMenu,
-div.entregarMenu {
+div.entregarMenu,
+div.stock,
+div.mapa {
     border: solid 3px black;
     height: 400px;
     background-color: #fdfefe;
+    margin: 5px;
 }
 
 div.titulo {
@@ -99,11 +111,109 @@ button.btnEditar {
     z-index: 1;
 }
 
-i.fa-pen-to-square {
+i.fa-pen-to-square,
+i.fa-minus,
+i.fa-plus {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 28px;
+}
+
+div.mostrarEstadisticas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.imgEstadisticas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img.imgEstadisticas {
+    height: 250px;
+    width: auto;
+}
+
+div.menus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.cantidadMenu {
+    height: 60%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.menosMenu,
+div.masMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.menos,
+button.mas {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: #ff4d4d;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.cantMenu {
+    font-size: 50px;
+    padding: 20px;
+}
+
+div.imgFresa {
+    height: 60%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img.imgFresa {
+    height: 235px;
+    width: auto;
+}
+
+div.btnCrear,
+div.btnConfirm {
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.crear,
+button.confirm {
+    background-color: #eca623;
+    color: #ffffff;
+    border: 1px solid black;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#map{
+    height: 80%;
 }
 
 /* button.btnEditar {

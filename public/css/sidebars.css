@@ -5,13 +5,19 @@
   }
   
   .titulo {
-    font-size: 25px;
-    color: rgb(0, 0, 0);
-    font-family: "Luckiest Guy", sans-serif;
+  font-size: 30px;
+  color: #018780;
+  font-family: "Luckiest Guy", sans-serif;
 
 
   }
 
+  h2 {
+  font-size: 30px;
+  color: #018780;
+  font-family: "Luckiest Guy", sans-serif;
+
+  }
 
 
 @media (min-width: 768px) {
@@ -35,8 +41,12 @@
   height: 100vh;
 }
 
+.user-name {
+  font-size: 30px;
+  }
+
 .colorBarra {
-  background-color:#92B721;
+  background-color: #FECB09;
 
 }
 

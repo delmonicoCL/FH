@@ -8,13 +8,14 @@ use App\Models\Reserva;
 use App\Models\Usuario;
 use App\Models\Proveedor;
 use App\Models\Administrador;
+use App\Models\Entrega;
+use App\Models\Pua;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\AdministradorController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,7 +110,24 @@ Route::middleware(["auth"])->group(function () {
             $usuarios = Usuario::where("tipo", "=", "rider")->get();
             $riders = Rider::all();
             $administrador=Administrador::where("id","=",$id)->first();
-            return view("administradores.gestionRaider", compact("usuarios", "riders","administrador"));
+
+            // Obtener las estadísticas
+            $datosEntregas = [];
+            $datosReservas = [];
+            $datosPuas = [];
+
+            foreach ($riders as $raider) {
+                $cantidadEntregas = Entrega::where('rider', $raider->id)->count();
+                $datosEntregas[$raider->nickname] = $cantidadEntregas;
+
+                $cantidadReservas = Reserva::where('rider', $raider->id)->count();
+                $datosReservas[$raider->nickname] = $cantidadReservas;
+
+                $cantidadPuas = Pua::where('rider_creador', $raider->id)->count();
+                $datosPuas[$raider->nickname] = $cantidadPuas;
+            }
+
+            return view("administradores.gestionRaider", compact("usuarios", "riders","administrador", "datosEntregas", "datosReservas", "datosPuas", ));
         } else {
             return view('auth.login');
         }
@@ -120,16 +138,28 @@ Route::middleware(["auth"])->group(function () {
         $id = $user["id"];
 
         if ($user["tipo"] === "administrador") {
+            // Obtener usuarios y proveedores
             $usuarios = Usuario::where("tipo", "=", "proveedor")->get();
             $proveedores = Proveedor::all();
-            $administrador=Administrador::where("id","=",$id)->first();
-            return view("administradores.gestionProveedor", compact("usuarios", "proveedores","administrador"));
+            $administrador = Administrador::where("id", "=", $id)->first();
+
+            // Reservas por proveedor
+            $reservasPorProveedor = Reserva::select('proveedor', 'estado')
+                ->selectRaw('count(*) as total')
+                ->groupBy('proveedor', 'estado')
+                ->get();
+
+            // Transformar los datos para el gráfico de proveedor
+            $dataProveedor = [];
+            foreach ($reservasPorProveedor as $reserva) {
+                $dataProveedor[$reserva->proveedor][$reserva->estado] = $reserva->total;
+            }
+            return view("administradores.gestionProveedor", compact("usuarios", "proveedores", "administrador", "dataProveedor"));
         } else {
             return view('auth.login');
         }
-     
-
     })->name('administradores.gestionProveedor');
+
 
 });
 
@@ -155,9 +185,6 @@ Route::resource("reservas", ReservaController::class);
 // ROUTES DE CHART.JS //
 
 Route::get('/estadisticas/resumen', [EstadisticasController::class, 'estadisticas'])->name('estadisticas.resumen');
-
-
-
 
 
 
