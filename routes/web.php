@@ -53,8 +53,9 @@ Route::middleware(["auth"])->group(function () {
                 // $reservas = Reserva::where("rider","=",$id)->where("estado","!=","finalizada")->get(); // Aquí se filtran las reservas finalizadas
                 $reservas = DB::table('reservas')
                 ->join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
-                ->where('reservas.rider', '=', $id)
-                ->select('usuarios.nombre AS nombre', 'cantidad')
+                ->join('proveedores', 'reservas.proveedor', '=', 'proveedores.id')
+                ->select('usuarios.nombre AS nombre_proveedor', 'reservas.cantidad', 'proveedores.lat AS latitud', 'proveedores.lng AS longitud')
+                ->where('reservas.rider', 160)
                 ->get();
 
                 $response = view("riders/rider", compact("user", "rider","reservas"));
