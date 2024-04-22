@@ -366,72 +366,78 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error creating PUA:', error));
     }
 
-    let etiquetaBody=document.getElementsByTagName("body")[0];
-    etiquetaBody.addEventListener
-    (
-        "click",
-        function(event)
-        {
-            if(event.target.id==="botonMarcarRuta")
-            {
-                event.target.setAttribute("value","Desmarcar Ruta");
-                event.target.setAttribute("id","botonDesmarcarRuta");
-                navigator.geolocation.getCurrentPosition
-                (
-                    function(position)
-                    {
-                        let latitudOrigen = position.coords.latitude;
-                        let longitudOrigen = position.coords.longitude;
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                        let directions = new MapboxDirections(
-                            {
-                                accessToken: 'pk.eyJ1IjoiZG5lcml6IiwiYSI6ImNsdHJrN3ppZjAxYmsya3BqcWRsYzdkam8ifQ.gjTWrYyirEhh94V_agnuhQ'
-                            }
-                        );
-                          
-                        map.addControl(directions, 'top-left');
-                          
-                        directions.setOrigin([longitudOrigen, latitudOrigen]);
-                        directions.setDestination([event.target.getAttribute("data-longitud"), event.target.getAttribute("data-latitud")]);
-                          
-                        directions.on(
-                            'route',
-                            function(e)
-                            {
-                                var route = e.route[0];
-                                // Puedes trabajar con la ruta aquí, por ejemplo, mostrarla en el mapa.
-                                map.addLayer(
-                                    {
-                                        id: 'ruta',
-                                        type: 'line',
-                                        source:
-                                        {
-                                            type: 'geojson',
-                                            data:
-                                            {
-                                                type: 'Feature',
-                                                properties: {},
-                                                geometry: route.geometry
-                                            }
-                                        },
-                                        layout:
-                                        {
-                                            'line-join': 'round',
-                                            'line-cap': 'round'
-                                        },
-                                        paint:
-                                        {
-                                            'line-color': '#3887be',
-                                            'line-width': 8,
-                                            'line-opacity': 0.75
-                                        }
-                                    }
-                                );
-                            }
-                        );
-                    }
-                );
-            }
+
+
+
+
+
+
+
+
+
+
+      
+      let etiquetaBody = document.getElementsByTagName("body")[0];
+      
+      let panelRutas = new MapboxDirections({
+        accessToken: 'pk.eyJ1IjoiZG5lcml6IiwiYSI6ImNsdHJrN3ppZjAxYmsya3BqcWRsYzdkam8ifQ.gjTWrYyirEhh94V_agnuhQ'
+      });
+      
+      let capaRuta; // Variable para almacenar la referencia a la capa de la ruta
+      
+      map.addControl(panelRutas, 'top-left');
+      
+      etiquetaBody.addEventListener("click", function (event) {
+        if (event.target.id === "botonMarcarRuta") {
+          event.target.setAttribute("value", "Desmarcar ruta");
+          event.target.setAttribute("id", "botonDesmarcarRuta");
+      
+          navigator.geolocation.getCurrentPosition(function (position) {
+            let latitudOrigen = position.coords.latitude;
+            let longitudOrigen = position.coords.longitude;
+      
+            panelRutas.setOrigin([longitudOrigen, latitudOrigen]);
+            panelRutas.setDestination([event.target.getAttribute("data-longitud"), event.target.getAttribute("data-latitud")]);
+      
+            panelRutas.on('route', function (e) {
+              var route = e.route[0];
+      
+              capaRuta = map.addLayer({ // Almacena la referencia a la capa
+                id: 'ruta',
+                type: 'line',
+                source: {
+                  type: 'geojson',
+                  data: {
+                    type: 'Feature',
+                    properties: {},
+                    geometry: route.geometry
+                  }
+                },
+                layout: {
+                  'line-join': 'round',
+                  'line-cap': 'round'
+                },
+                paint: {
+                  'line-color': '#3887be',
+                  'line-width': 8,
+                  'line-opacity': 0.75
+                }
+              });
+            });
+          });
+        } else if (event.target.id === "botonDesmarcarRuta") {
+          // Elimina la capa existente
+          if (capaRuta) {
+            map.removeLayer(capaRuta.getId());
+            map.removeSource(capaRuta.getId());
+          }
+      
+          event.target.setAttribute("value", "Marcar ruta");
+          event.target.setAttribute("id", "botonMarcarRuta");
         }
-    );
+      });
 });
