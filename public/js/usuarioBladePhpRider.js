@@ -272,10 +272,6 @@ document.addEventListener
             }
             function verificarQueElCampoSoloContengaNumeros(validacionNumeros,elementoInput)
             {
-                /*if(elementoInput.value==="")
-                {
-                    elementoInput.value=1;
-                }*/
                 if (!elementoInput.value.match(/^[0-9]+$/))
                 {
                     const mensajeError = document.getElementById("mensajeValidacion"+elementoInput.name);

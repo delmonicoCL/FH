@@ -111,7 +111,7 @@ class ProveedorController extends Controller
             try {
                 //Hacer el insert en la tabla
                 $proveedore->save();
-                $request->session()->flash("mensaje", "Registro modificado correctamente.");
+                $request->session()->flash("mensaje", "Menus creados exitosamente.");
                 $response = redirect()->route('proveedor2');
             } catch (QueryException $ex) {
                 $mensaje = Utilidad::errorMessage($ex);

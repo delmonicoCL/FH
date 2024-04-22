@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="shortcut icon" href="{{asset('img/favicon.png')}}" type="image/x-icon">
         <title>
             @yield("titulo")
         </title>
@@ -17,7 +18,6 @@
             </a>
             @include('partials.mensajes')
             <div class="row" style="display:flex; align-items: center; justify-content: center;">
-                <!--<div style="display:flex; align-items: center; justify-content: center;">-->
                 <div class="col-sm-6 d-none d-md-block text-end" style="display:flex; align-items: center; justify-content: flex-end;">
                     <img src="{{asset('media/img/zanahoria.png')}}" alt="karoteno" height="700vh" width="700vw" draggable="false">
                 </div>
