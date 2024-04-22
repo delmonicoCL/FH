@@ -12,13 +12,14 @@ document.addEventListener
                 "click",
                 function(event)
                 {
-                    if(event.target.id==="aceptar")
+                    if(event.target.id==="falsoBotonSubmit")
                     {
-                        if(!validaciones())
+                        if(validaciones())
                         {
-                            event.preventDefault();
+                            generarCoordenadas();
                         }
                     }
+
                 }
             );
         }
@@ -175,9 +176,6 @@ document.addEventListener
                     let mensajeError = document.getElementById("mensajeValidacion"+elementoInput.name);
                     mensajeError.style.color = "red";
                     mensajeError.textContent = "El campo '"+elementoInput.name+"' no puede quedar vacío.";
-
-                    // Evita que el formulario se envíe
-                    event.preventDefault();
                 }
                 else
                 {
@@ -207,8 +205,6 @@ document.addEventListener
                     {
                         mensajeError.textContent = "La longitud del campo no puede ser mayor a "+longitudMaxima+" caracteres.";
                     }
-                    // Evita que el formulario se envíe
-                    event.preventDefault();
                 }
                 else
                 {
@@ -229,9 +225,6 @@ document.addEventListener
                     const mensajeError = document.getElementById("mensajeValidacion"+elementoInput.name);
                     mensajeError.style.color = "red";
                     mensajeError.textContent = "Este campo solo puede contener letras del alfabeto español.";
-
-                    // Evita que el formulario se envíe
-                    event.preventDefault();
                 }
                 else
                 {
@@ -252,9 +245,6 @@ document.addEventListener
                     const mensajeError = document.getElementById("mensajeValidacion"+correo.name);
                     mensajeError.style.color = "red";
                     mensajeError.textContent = "El correo electrónico no es válido.";
-
-                    // Evita que el formulario se envíe
-                    event.preventDefault();
                 }
                 else
                 {
@@ -264,16 +254,11 @@ document.addEventListener
             }
             function verificarQueElCampoSoloContengaNumeros(validacionNumeros,elementoInput)
             {
-                /*if(elementoInput.value==="")
-                {
-                    elementoInput.value=1;
-                }*/
                 if (!elementoInput.value.match(/^[0-9]+$/))
                 {
                     const mensajeError = document.getElementById("mensajeValidacion"+elementoInput.name);
                     mensajeError.style.color = "red";
                     mensajeError.textContent = "Este campo solo puede contener numeros naturales.";
-                    event.preventDefault();
                 }
                 else
                 {
@@ -291,17 +276,50 @@ document.addEventListener
                     const mensajeError = document.getElementById("mensajeValidacion"+elementoInputUno.name);
                     mensajeError.style.color = "red";
                     mensajeError.textContent = "Las contraseñas no coinciden.";
-
-                    // Evita que el formulario se envíe
-                    event.preventDefault();
                 }
                 else
                 {
                     losCamposCoinciden=true;
                 }
                 return losCamposCoinciden;
-            }
+            } 
             return laTareaPasoTodasLasValidaciones;
+        }
+        function generarCoordenadas()
+        {
+            let inputLatitud=document.getElementById("latitud");
+            let inputLongitud=document.getElementById("longitud");
+            let verdaderoBotonSubmit=document.getElementById("verdaderoBotonSubmit");
+    
+            // Definir la dirección a buscar
+            let calle=document.getElementById("calle").value;
+            let numero=document.getElementById("numero").value;
+            let cp=document.getElementById("cp").value;
+            let ciudad=document.getElementById("ciudad").value;
+            let direccion=calle+", "+numero+", "+cp+", "+ciudad;
+    
+            // Configurar la URL de la API de geocodificación de Mapbox
+            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${direccion}.json?access_token=pk.eyJ1Ijoib2FycmlhemEiLCJhIjoiY2x1cG9nc2hrMDZibzJqcGIzOGYzN3N3aiJ9.R8CTcgwHzP-_Isspx2S8lw`;
+    
+            // Función para obtener las coordenadas GPS
+            async function obtenerCoordenadas()
+            {
+                const respuesta = await fetch(url);
+                const datos = await respuesta.json();
+                return datos.features[0].center;
+            }
+    
+            // Obtener las coordenadas GPS
+            obtenerCoordenadas(direccion).then
+            (
+                (coordenadas) =>
+                {
+                    //Añadir las coordenadas al formulario
+                    inputLatitud.setAttribute("value",coordenadas[1]);
+                    inputLongitud.setAttribute("value",coordenadas[0]);
+                    verdaderoBotonSubmit.click();
+                }
+            );
         }
     }
 

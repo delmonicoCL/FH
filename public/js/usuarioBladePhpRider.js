@@ -22,7 +22,7 @@ document.addEventListener
                     {
                         let imagenSeleccionada=document.getElementById(nombreDelArchivoDelAvatarSeleccionado);
                         imagenSeleccionada.removeAttribute("style");
-                        event.target.setAttribute("style","border:2px solid blue; box-shadow: 0 0 20px 2px blue;");
+                        event.target.setAttribute("style","border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;");
                         imagenGrandeAvatar.setAttribute("src","../media/img/avatares/"+event.target.id);
                         inputAvatar.setAttribute("value",event.target.id);
                     }
@@ -54,7 +54,7 @@ document.addEventListener
 
                 if(avatares[i]===nombreDelArchivoDelAvatarSeleccionado)
                 {
-                    imagenAvatar.setAttribute("style","border:2px solid blue; box-shadow: 0 0 20px 2px blue;")
+                    imagenAvatar.setAttribute("style","border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;")
                 }
                 
                 let contenedorImagenAvatar=document.createElement("div");
@@ -194,9 +194,6 @@ document.addEventListener
                     let mensajeError = document.getElementById("mensajeValidacion"+elementoInput.name);
                     mensajeError.style.color = "red";
                     mensajeError.textContent = "El campo '"+elementoInput.name+"' no puede quedar vacío.";
-
-                    // Evita que el formulario se envíe
-                    event.preventDefault();
                 }
                 else
                 {
@@ -226,8 +223,6 @@ document.addEventListener
                     {
                         mensajeError.textContent = "La longitud del campo no puede ser mayor a "+longitudMaxima+" caracteres.";
                     }
-                    // Evita que el formulario se envíe
-                    event.preventDefault();
                 }
                 else
                 {
@@ -248,9 +243,6 @@ document.addEventListener
                     const mensajeError = document.getElementById("mensajeValidacion"+elementoInput.name);
                     mensajeError.style.color = "red";
                     mensajeError.textContent = "Este campo solo puede contener letras del alfabeto español.";
-
-                    // Evita que el formulario se envíe
-                    event.preventDefault();
                 }
                 else
                 {
@@ -271,9 +263,6 @@ document.addEventListener
                     const mensajeError = document.getElementById("mensajeValidacion"+correo.name);
                     mensajeError.style.color = "red";
                     mensajeError.textContent = "El correo electrónico no es válido.";
-
-                    // Evita que el formulario se envíe
-                    event.preventDefault();
                 }
                 else
                 {
@@ -283,16 +272,11 @@ document.addEventListener
             }
             function verificarQueElCampoSoloContengaNumeros(validacionNumeros,elementoInput)
             {
-                /*if(elementoInput.value==="")
-                {
-                    elementoInput.value=1;
-                }*/
                 if (!elementoInput.value.match(/^[0-9]+$/))
                 {
                     const mensajeError = document.getElementById("mensajeValidacion"+elementoInput.name);
                     mensajeError.style.color = "red";
                     mensajeError.textContent = "Este campo solo puede contener numeros naturales.";
-                    event.preventDefault();
                 }
                 else
                 {
@@ -310,9 +294,6 @@ document.addEventListener
                     const mensajeError = document.getElementById("mensajeValidacion"+elementoInputUno.name);
                     mensajeError.style.color = "red";
                     mensajeError.textContent = "Las contraseñas no coinciden.";
-
-                    // Evita que el formulario se envíe
-                    event.preventDefault();
                 }
                 else
                 {

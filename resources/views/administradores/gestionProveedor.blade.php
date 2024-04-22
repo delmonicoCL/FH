@@ -3,7 +3,12 @@
 @section('contenido')
 
 
-<div class="container mt-5">
+<div class="container mt-4">
+
+<script>
+    console.log(@json($dataProveedor));
+    
+</script>
 
 <H2> PROVEEDORES </H2>
 
@@ -82,7 +87,7 @@
 
 </div>
 
-<div class="container mt-4">
+<div class="container mt-3">
   <a href="{{route('usuarios.create', ['tipo' =>'proveedor'])}}" class="btn btn-primary">
     <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Proveedor
   </a>
@@ -91,25 +96,55 @@
 
 <div class="container mt-5">
 
-  <H2> ESTADISTICAS </H2>
+  <H2> RESERVAS </H2>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <img src="{{ asset('img/estadisticas.png') }}" alt="" srcset=""  style="width: 100%;">
-            </div>
-            <div class="col-md-6">
-                <img src="{{ asset('img/estadisticas.png') }}" alt="" srcset=""  style="width: 100%;">
-            </div>
-        </div>
+    <div class="container mt-4">
+     
+      <canvas id="ReservasPorProveedor" width="800" height="300"></canvas>
     </div>
 
 </div>
 
-    
-  {{-- {{ $riders->links() }} --}}
 
-{{-- <a href="{{ url('cicles/create')}}" class="btn btn-primary btn-float-afegir"><i class="fa fa-plus-circle" aria-hidden="true"></i>Nuevo Ciclo</a> --}}
+<script>
+            var ctx2 = document.getElementById('ReservasPorProveedor').getContext('2d');
+        var dataProveedor = @json($dataProveedor);
+
+        var proveedores = Object.keys(dataProveedor);
+        var estadosProveedor = Array.from(new Set(proveedores.flatMap(proveedor => Object.keys(dataProveedor[proveedor]))));
+        var datasetsProveedor = [];
+
+        estadosProveedor.forEach(estado => {
+            var dataset = {
+                label: estado,
+                backgroundColor: 'rgb(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() *
+                    256) + ', ' + Math.floor(Math.random() * 256) + ')',
+                stack: estado,
+                data: proveedores.map(proveedor => dataProveedor[proveedor][estado] || 0)
+            };
+            datasetsProveedor.push(dataset);
+        });
+
+        var graficoReservasPorProveedorEstado = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: proveedores,
+                datasets: datasetsProveedor
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true
+                    }
+                }
+            }
+        });
+</script>   
 
 
 @endsection
