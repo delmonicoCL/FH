@@ -16,6 +16,7 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\AdministradorController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,12 +53,13 @@ Route::middleware(["auth"])->group(function () {
                 $rider = Rider::where("id", "=", $id)->first();
                 // $reservas = Reserva::where("rider","=",$id)->where("estado","!=","finalizada")->get(); // Aquí se filtran las reservas finalizadas
                 $reservas = DB::table('reservas')
-                ->join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
-                ->where('reservas.rider', '=', $id)
-                ->select('usuarios.nombre AS nombre', 'cantidad')
-                ->get();
+                    ->join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
+                    ->join('proveedores', 'reservas.proveedor', '=', 'proveedores.id')
+                    ->select('usuarios.nombre AS nombre_proveedor', 'reservas.cantidad', 'proveedores.lat AS latitud', 'proveedores.lng AS longitud')
+                    ->where('reservas.rider', 160)
+                    ->get();
 
-                $response = view("riders/rider", compact("user", "rider","reservas"));
+                $response = view("riders/rider", compact("user", "rider", "reservas"));
                 break;
         }
         return $response;
@@ -76,16 +78,16 @@ Route::middleware(["auth"])->group(function () {
         $user = Auth::user();
         $id = $user["id"];
         $proveedor = Proveedor::where("id", "=", $id)->first();
-        $reservas = Reserva::where("proveedor","=",$id)->get();
+        $reservas = Reserva::where("proveedor", "=", $id)->get();
 
         $riders = DB::table('reservas')
-        ->join('usuarios', 'reservas.rider', '=', 'usuarios.id')
-        ->select('usuarios.nombre AS nombre')
-        ->where('reservas.proveedor',"=",$id)
-        ->get();
+            ->join('usuarios', 'reservas.rider', '=', 'usuarios.id')
+            ->select('usuarios.nombre AS nombre')
+            ->where('reservas.proveedor', "=", $id)
+            ->get();
 
         if ($user["tipo"] === "proveedor") {
-            return view('proveedor/proveedor2',compact("user", "proveedor","reservas","riders"));
+            return view('proveedor/proveedor2', compact("user", "proveedor", "reservas", "riders"));
         } else {
             return view('auth.login');
         }
@@ -109,7 +111,7 @@ Route::middleware(["auth"])->group(function () {
         if ($user["tipo"] === "administrador") {
             $usuarios = Usuario::where("tipo", "=", "rider")->get();
             $riders = Rider::all();
-            $administrador=Administrador::where("id","=",$id)->first();
+            $administrador = Administrador::where("id", "=", $id)->first();
 
             // Obtener las estadísticas
             $datosEntregas = [];
@@ -127,7 +129,7 @@ Route::middleware(["auth"])->group(function () {
                 $datosPuas[$raider->nickname] = $cantidadPuas;
             }
 
-            return view("administradores.gestionRaider", compact("usuarios", "riders","administrador", "datosEntregas", "datosReservas", "datosPuas", ));
+            return view("administradores.gestionRaider", compact("usuarios", "riders", "administrador", "datosEntregas", "datosReservas", "datosPuas", ));
         } else {
             return view('auth.login');
         }
