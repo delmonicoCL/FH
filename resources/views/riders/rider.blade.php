@@ -95,12 +95,6 @@
                     </form>
                 </div>
             </div>
-            {{-- 
-            <div id="modal-carga" class="modal-carga">
-                <div>
-                    <video src=""></video>
-                </div>
-            </div> --}}
             
             {{-- <div class="container text-center d-flex ">
                 <div class="navbar-item">
