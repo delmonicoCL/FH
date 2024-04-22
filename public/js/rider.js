@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .addTo(map);
     
         var description = "<h2><p>Numero de personas: " + pua.cantidad_de_personas + "</p></h2>" +
-        "<button class='boton-entregar'>Entregar</button>";
+            "<button class='boton-entregar'>Entregar</button>";
     
         var popup = new mapboxgl.Popup()
             .setHTML(description);
@@ -251,26 +251,33 @@ document.addEventListener('DOMContentLoaded', function () {
             var botonEntregar = document.querySelector('.boton-entregar');
     
             botonEntregar.addEventListener('click', function (){
+                // Obtener la ID de la PUA
+                var puaId = pua.id;
+            
                 // Realizar una solicitud para entregar la PUA
-                fetch(`/FH/public/api/puas`, {
-                    method: 'POST'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Actualizar la vista o mostrar un mensaje de éxito
-                    alert(data.message);
-                    // Actualizar los marcadores después de la entrega
-                    loadMarkers();
-                })
-                .catch(error => {
-                    console.error('Error entregando PUA:', error);
-                    // Mostrar un mensaje de error si la entrega falla
-                    alert('Error al entregar la PUA.');
-                });
-            });
+                try {
+                    fetch(`/FH/public/api/puas/${puaId}/entregar`, { // Se agrega el endpoint correcto para entregar la PUA
+                        method: 'POST'
+                    })                
+                    .then(response => response.json())
+                    .then(data => {
+                        // Actualizar la vista o mostrar un mensaje de éxito
+                        alert(data.message);
+                        // Actualizar los marcadores después de la entrega
+                        loadMarkers();
+                    })
+                    .catch(error => {
+                        console.error('Error entregando PUA:', error);
+                        // Mostrar un mensaje de error si la entrega falla
+                        alert('Error al entregar la PUA.');
+                    });
+                } catch (error) {
+                    console.error('Error al realizar la solicitud POST:', error);
+                    alert('Error al realizar la solicitud POST.');
+                }
+            });             
         });
-    }
-    
+    }    
 
     function addMarkerToMapProveedores(proveedor) {
         var lngLat = [proveedor.lng, proveedor.lat];
