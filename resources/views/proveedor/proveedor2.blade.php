@@ -6,7 +6,7 @@
     @include('partials.mensajes')
     {{-- <pre>
             @php
-                print_r($reservas)
+                print_r($reservas);
             @endphp
         </pre> --}}
     <div class="contenedor col-lg-12">
@@ -124,7 +124,7 @@
                 </div>
                 <form id="idForm"
                     action="{{ action([App\Http\Controllers\ProveedorController::class, 'update'], ['proveedore' => $proveedor, 'tipoDeModificacion' => 'crearMenu']) }}"
-                    method="POST" hidden>
+                    method="POST">
                     @csrf
                     @method('PUT')
                     <label for="cant">cant</label>
@@ -141,12 +141,10 @@
                     <div class="selectRider">
                         <label for="opciones">Select Rider:</label>
                         <select id="opciones" name="opciones">
-
                             <option value="opcion">-- Select --</option>
                             @foreach ($riders as $rider)
                                 <option value="option">{{ $rider->nombre }}</option>
                             @endforeach
-
                         </select>
                     </div>
                     <div class="explicacion">
@@ -162,10 +160,17 @@
                         Confirmar
                     </button>
                 </div>
+                <form id="idForm" action="{{ action([App\Http\Controllers\RiderController::class, 'update']) }}"
+                    method="POST">
+                    @csrf
+                    @method('PUT')
+                    <label for="riderName">riderNaem</label>
+                    <input type="text" id="riderName" name="riderName">
+                </form>
             </div>
         </div>
 
-        <div class="fila3 col-lg-12">
+        <div class="fila3 col-lg-12" style="margin-top: 20px">
             <div class="stock col-lg-5">
                 <div class="titulo">
                     <h2>Stock</h2>

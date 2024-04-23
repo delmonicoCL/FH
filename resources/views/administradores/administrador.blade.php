@@ -12,16 +12,16 @@
 
     <DIV class="d-flex ">
 
-      
-               
-                    <div class="col-12">
-                        <img src="{{ asset('img/group4.png') }}" alt="" srcset="" style="width: 100%;">
-                    </div>
-               
 
-            
 
-      
+        <div class="col-12">
+            <img src="{{ asset('img/group4.png') }}" alt="" srcset="" style="width: 100%;">
+        </div>
+
+
+
+
+
 
     </DIV>
 @endsection

@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function ()
-{
+document.addEventListener("DOMContentLoaded", function () {
     let menosBtn = document.getElementById("menosBtn");
     let masBtn = document.getElementById("masBtn");
     // let crearBtn = document.getElementById("crearBtn");
@@ -16,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function ()
             cantidad--;
             cantidadMenu.textContent = cantidad;
             console.log(cantidad);
-            cant.setAttribute("value",cantidad);
+            cant.setAttribute("value", cantidad);
         }
     }
 
@@ -30,7 +29,17 @@ document.addEventListener("DOMContentLoaded", function ()
         if (cantidad <= 9) {
             cantidad++;
             cantidadMenu.textContent = cantidad;
-            cant.setAttribute("value",cantidad);
+            cant.setAttribute("value", cantidad);
         }
     }
+
+    // Agregamos el nuevo código para el select
+    let selectElement = document.getElementById("opciones");
+    let inputElement = document.getElementById("riderName");
+
+    selectElement.addEventListener("change", function () {
+        let selectedName =
+            selectElement.options[selectElement.selectedIndex].text;
+        inputElement.value = selectedName;
+    });
 });
