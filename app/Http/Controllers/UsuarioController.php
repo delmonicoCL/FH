@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Rider;
 use App\Models\Reserva;
 use App\Models\Usuario;
+use App\Models\Administrador;
 use App\Clases\Utilidad;
 use App\Models\Proveedor;
 use App\Models\AvatarRider;
@@ -233,6 +234,26 @@ class UsuarioController extends Controller
             {
                 return redirect()->route("proveedores.index");
             }
+        }
+
+        if ($tipo === "administrador")
+        {
+
+            // Obtener el rider asociado con el usuario
+            $administrador = Administrador::where("id", "=", $usuario->id)->first();
+
+            // Actualizar los datos del usuario
+            $usuario->nombre = $request->input("nombre");
+            $usuario->email = $request->input("email");
+            $usuario->telefono = $request->input("telefono");
+            // $contrasenia = $request->input("contraseña");
+            // $usuario->contrasenia =\bcrypt($contrasenia);
+           
+            // Guardar los cambios en el usuario
+            $usuario->save();
+
+            // Redirigir a la página de inicio, o a donde necesites
+            return redirect()->route("riders.index");
         }
 
 

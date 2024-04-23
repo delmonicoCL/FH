@@ -189,4 +189,6 @@ Route::resource("reservas", ReservaController::class);
 Route::get('/estadisticas/resumen', [EstadisticasController::class, 'estadisticas'])->name('estadisticas.resumen');
 
 
-
+Route::get('/updateADMIN', function () {
+    return view("administradores.updateADMIN");
+})->name('actualizarAdmin');
