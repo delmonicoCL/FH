@@ -17,10 +17,10 @@
                     <th scope="col">Apellido</th>
                     <th scope="col">Email</th>
                     <th scope="col">Telefono</th>
-                    <th scope="col">Avatar</th>
+                    <th scope="col" class="text-center">Avatar</th>
                     <th scope="col">Stock</th>
-                    <th scope="col">Borrar</th>
-                    <th scope="col">Editar</th>
+                    <th scope="col" class="text-center">Borrar</th>
+                    <th scope="col" class="text-center">Editar</th>
 
                 </tr>
             </thead>
@@ -35,10 +35,32 @@
                         <td>{{ $riders[$i]->apellidos }}</td>
                         <td>{{ $usuarios[$i]->email }}</td>
                         <td>{{ $usuarios[$i]->telefono }}</td>
-                        <td>{{ $riders[$i]->avatar }}</td>
+
+                        <td class="text-center">
+                          
+                            
+                                    @if ($riders[$i]->avatar === 'avatar1.png')
+                                        <img src="{{ asset('media/img/avatares/avatar1.png') }}" alt="imagen avatar" width="45" height="45" >
+                                    @elseif ($riders[$i]->avatar === 'avatar2.png')
+                                        <img src="{{ asset('media/img/avatares/avatar2.png') }}" alt="imagen avatar" width="45" height="45" >
+                                    @elseif ($riders[$i]->avatar === 'avatar3.png')
+                                        <img src="{{ asset('media/img/avatares/avatar3.png') }}" alt="imagen avatar" width="45" height="45" >
+                                    @elseif ($riders[$i]->avatar === 'avatar4.png')
+                                        <img src="{{ asset('media/img/avatares/avatar4.png') }}" alt="imagen avatar" width="45" height="45">
+                                    @elseif ($riders[$i]->avatar === 'avatar5.png')
+                                        <img src="{{ asset('media/img/avatares/avatar5.png') }}" alt="imagen avatar" width="45" height="45">
+                                    @elseif ($riders[$i]->avatar === 'avatar6.png')
+                                        <img src="{{ asset('media/img/avatares/avatar6.png') }}" alt="imagen avatar" width="45" height="45">
+                                    @else
+                                        {{ $riders[$i]->avatar }}
+                                    @endif
+                               
+
+                           
+                        </td>                        
                         <td>{{ $riders[$i]->stock_rider }}</td>
 
-                        <td>
+                        <td class="text-center">
 
                             <form class="float-right ml-1"
                                 action="{{ action([App\Http\Controllers\UsuarioController::class, 'destroy'], ['usuario' => $usuarios[$i]->id, 'tipo' => $usuarios[$i]->tipo]) }}"
@@ -55,9 +77,7 @@
                                 }
                             </script>
                         </td>
-                        <td>
-
-
+                        <td class="text-center">
                             <form
                                 action="{{ action([App\Http\Controllers\UsuarioController::class, 'edit'], ['usuario' => $usuarios[$i]->id, 'tipo' => $usuarios[$i]->tipo]) }}"
                                 method="POST" class="float-right">
@@ -87,7 +107,7 @@
     <div class="container mt-4">
         <H2> ESTADISTICAS </H2>
         <div class="container mt-3">
-            <canvas id="graficoPorRaider" width="800" height="300"></canvas>
+            <canvas id="graficoPorRaider" width="800" height="250"></canvas>
         </div>
     </div>
 
