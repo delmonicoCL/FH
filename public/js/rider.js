@@ -373,7 +373,14 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error creating PUA:', error));
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////// Mostrar las rutas //////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     let etiquetaBody=document.getElementsByTagName("body")[0];
+
+    let panelRutas;
+
     etiquetaBody.addEventListener
     (
         "click",
@@ -381,25 +388,30 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             if(event.target.id==="botonMarcarRuta")
             {
+                event.target.setAttribute("value","Desmarcar ruta");
+                event.target.setAttribute("id","botonDesmarcarRuta");
                 navigator.geolocation.getCurrentPosition
                 (
                     function(position)
                     {
-                        let latitudOrigen = position.coords.latitude;
-                        let longitudOrigen = position.coords.longitude;
-
-                        let directions = new MapboxDirections(
+                        panelRutas=new MapboxDirections(
                             {
                                 accessToken: 'pk.eyJ1IjoiZG5lcml6IiwiYSI6ImNsdHJrN3ppZjAxYmsya3BqcWRsYzdkam8ifQ.gjTWrYyirEhh94V_agnuhQ'
                             }
                         );
+
+                        map.addControl(
+                            panelRutas,
+                            'top-left'
+                        );
+
+                        let latitudOrigen = position.coords.latitude;
+                        let longitudOrigen = position.coords.longitude;
+
+                        panelRutas.setOrigin([longitudOrigen, latitudOrigen]);
+                        panelRutas.setDestination([event.target.getAttribute("data-longitud"), event.target.getAttribute("data-latitud")]);
                           
-                        map.addControl(directions, 'top-left');
-                          
-                        directions.setOrigin([longitudOrigen, latitudOrigen]);
-                        directions.setDestination([event.target.getAttribute("data-longitud"), event.target.getAttribute("data-latitud")]);
-                          
-                        directions.on(
+                        panelRutas.on(
                             'route',
                             function(e)
                             {
@@ -436,6 +448,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         );
                     }
                 );
+            }
+            else if(event.target.id==="botonDesmarcarRuta")
+            {
+                map.removeControl(panelRutas);
+
+                map.removeLayer("ruta");
+                map.removeSource('ruta');
+
+                event.target.setAttribute("value","Marcar ruta");
+                event.target.setAttribute("id","botonMarcarRuta");
             }
         }
     );

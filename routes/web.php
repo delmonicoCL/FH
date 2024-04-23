@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\EntregaController;
 use App\Http\Controllers\EstadisticasController;
-use App\Http\Controllers\PuaController;
 use App\Models\Rider;
 use App\Models\Reserva;
 use App\Models\Usuario;
@@ -128,7 +127,6 @@ Route::middleware(["auth"])->group(function () {
                 $cantidadPuas = Pua::where('rider_creador', $raider->id)->count();
                 $datosPuas[$raider->nickname] = $cantidadPuas;
             }
-
             return view("administradores.gestionRaider", compact("usuarios", "riders", "administrador", "datosEntregas", "datosReservas", "datosPuas", ));
         } else {
             return view('auth.login');
