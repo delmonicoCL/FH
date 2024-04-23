@@ -51,6 +51,14 @@
                                         <img src="{{ asset('media/img/avatares/avatar5.png') }}" alt="imagen avatar" width="45" height="45">
                                     @elseif ($riders[$i]->avatar === 'avatar6.png')
                                         <img src="{{ asset('media/img/avatares/avatar6.png') }}" alt="imagen avatar" width="45" height="45">
+                                    @elseif ($riders[$i]->avatar === 'avatar7.png')
+                                        <img src="{{ asset('media/img/avatares/avatar7.png') }}" alt="imagen avatar" width="45" height="45">
+                                    @elseif ($riders[$i]->avatar === 'avatar8.png')
+                                        <img src="{{ asset('media/img/avatares/avatar8.png') }}" alt="imagen avatar" width="45" height="45">
+                                    @elseif ($riders[$i]->avatar === 'avatar9.png')
+                                        <img src="{{ asset('media/img/avatares/avatar9.png') }}" alt="imagen avatar" width="45" height="45">
+                                    @elseif ($riders[$i]->avatar === 'avatar10.png')
+                                        <img src="{{ asset('media/img/avatares/avatar10.png') }}" alt="imagen avatar" width="45" height="45">
                                     @else
                                         {{ $riders[$i]->avatar }}
                                     @endif
