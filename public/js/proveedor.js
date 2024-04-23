@@ -32,14 +32,16 @@ document.addEventListener("DOMContentLoaded", function () {
             cant.setAttribute("value", cantidad);
         }
     }
+});
 
+addEventListener("DOMContentLoaded", function () {
     // Agregamos el nuevo código para el select
     let selectElement = document.getElementById("opciones");
     let inputElement = document.getElementById("riderName");
+    let inputElement2 = document.getElementById("cantidad");
 
-    selectElement.addEventListener("change", function () {
-        let selectedName =
-            selectElement.options[selectElement.selectedIndex].text;
+    selectElement.addEventListener("click", function () {
+        let selectedName = selectElement.options[selectElement.selectedIndex].text;
         inputElement.value = selectedName;
     });
 });

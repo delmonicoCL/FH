@@ -118,11 +118,11 @@
                 </div>
 
                 <div class="btnCrear">
-                    <button class="crear" id="crearBtn" type="submit" form="idForm">
+                    <button class="crear" id="crearBtn" type="submit" form="idFormCrear">
                         Crear Menú(s)
                     </button>
                 </div>
-                <form id="idForm"
+                <form id="idFormCrear"
                     action="{{ action([App\Http\Controllers\ProveedorController::class, 'update'], ['proveedore' => $proveedor, 'tipoDeModificacion' => 'crearMenu']) }}"
                     method="POST">
                     @csrf
@@ -143,7 +143,7 @@
                         <select id="opciones" name="opciones">
                             <option value="opcion">-- Select --</option>
                             @foreach ($riders as $rider)
-                                <option value="option">{{ $rider->nombre }}</option>
+                                <option value="option">{{ $rider->nickname}},{{$rider->cantidad}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -156,17 +156,22 @@
                     </div>
                 </div>
                 <div class="btnConfirm">
-                    <button class="confirm">
+                    <button class="confirmar" id="confirmarBtn" type="submit" form="idFormConfirmar">
                         Confirmar
                     </button>
                 </div>
-                <form id="idForm" action="{{ action([App\Http\Controllers\RiderController::class, 'update']) }}"
+                {{-- action="{{ action([App\Http\Controllers\RiderController::class, 'update'], ['rider' => $rider]) }}" --}}
+                <form id="idFormConfirmar"
+                    
                     method="POST">
-                    @csrf
-                    @method('PUT')
-                    <label for="riderName">riderNaem</label>
-                    <input type="text" id="riderName" name="riderName">
-                </form>
+                    <form id="idFormConfirmar" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <label for="riderName">riderNaem</label>
+                        <input type="text" id="riderName" name="riderName">
+                        <label for="cantidad">cantidad</label>
+                        <input type="text" id="cantidad" name="cantidad">
+                    </form>
             </div>
         </div>
 
@@ -212,5 +217,5 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script src="{{ asset('js/proveedor.js') }}"></script>
-    <script src="{{ asset('js/rider.js') }}"></script>
+    <script src="{{ asset('js/proveedorMapa.js') }}"></script>
 @endsection
