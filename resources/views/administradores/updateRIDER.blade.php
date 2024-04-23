@@ -16,6 +16,9 @@
             @csrf
             @method('PUT')
 
+
+            
+
             <div class="form-group mt-2">
             <label for="nombre">ID:</label>
             <input type="text" class="form-control" id="id" name="id" value="{{ $usuario->id }}" readonly>
@@ -74,35 +77,3 @@
 
 @endsection 
 
-
-{{-- @extends('layouts.principal1')
-
-@section('content')
-<div class="container">
-    <h2>Editar Usuario</h2>
-    <form action="{{ route('RutaPrueba', $usuario->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-
-      
-        <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $usuario->nombre }}">
-        </div>
-
-     
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ $usuario->email }}">
-        </div>
-
-       
-        <div class="form-group">
-            <label for="telefono">Teléfono:</label>
-            <input type="tel" class="form-control" id="telefono" name="telefono" value="{{ $usuario->telefono }}">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Guardar cambios</button>
-    </form>
-</div>
-@endsection --}}

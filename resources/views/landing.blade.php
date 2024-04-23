@@ -17,7 +17,7 @@
   <div class="container-fluid">
 
 
-    <nav class="navbar navbar-expand-lg barra">
+    <nav class="navbar navbar-expand-lg barra" style="border: 5px solid white; border-radius: 10px; padding: 10px;" >
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img class="logo-barra" src="{{ asset('img/logo-02.png') }}" alt="Food Hero" />
