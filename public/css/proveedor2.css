@@ -30,8 +30,7 @@ div.infoProveedor,
 div.estadisticas,
 div.crearMenu,
 div.entregarMenu,
-div.stock,
-div.mapa {
+div.stock {
     border: solid 3px black;
     height: 400px;
     background-color: #fdfefe;
@@ -113,28 +112,24 @@ button.btnEditar {
 
 i.fa-pen-to-square,
 i.fa-minus,
-i.fa-plus {
+i.fa-plus,
+i.fa-circle-chevron-right {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 28px;
 }
 
-div.mostrarEstadisticas {
+div.mostrarRanking {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 80%;
+    width: 100%;
 }
 
-div.imgEstadisticas {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-img.imgEstadisticas {
-    height: 250px;
-    width: auto;
+div.ranking {
+    width: 90%;
 }
 
 div.menus {
@@ -159,7 +154,8 @@ div.masMenu {
 }
 
 button.menos,
-button.mas {
+button.mas,
+button.btnVolver {
     height: 50px;
     width: 50px;
     border-radius: 50%;
@@ -212,237 +208,84 @@ button.confirm {
     border-bottom-right-radius: 10px;
 }
 
-#map{
-    height: 80%;
-}
-
-/* button.btnEditar {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    background-color: #ff4d4d;
-    border: solid 2px black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
- */
-
-/* div.row1,
-div.row2,
-div.row3 {
-    height: calc(80% / 3);
-    width: 100%;
-    display: flex;
-} */
-
-/* .infoProveedor,
-.estadisticas,
-.crearMenu,
-.entregarMenu,
-.stok,
-.mapa {
-    border: solid 3px black;
-    height: 300px;
-    margin: 1%;
-    background-color: #fdfefe;
-    border-radius: 25px;
-} */
-
-/* * {
-    margin: 0;
-    padding: 0;
-}
-
-hr {
-    margin: 0px;
-}
-
-body {
-    background-color: #ff4d4d;
-}
-
-.fila1,
-.fila2,
-.fila3 {
-    display: flex;
-    justify-content: center;
-}
-
-.infoProveedor,
-.estadisticas,
-.crearMenu,
-.entregarMenu,
-.stok,
-.mapa {
-    border: solid 5px black;
-    height: 300px;
-    margin: 2%;
-    background-color: #fdfefe;
-    border-radius: 25px;
-}
-
-div.titulo {
-    height: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-h2 {
-    margin: 0px;
-}
-
-div.row1,
-div.row2,
-div.row3 {
-    height: calc(80% / 3);
-    width: 100%;
+div.entrega {
     display: flex;
 }
 
-div.nombre,
-div.calle,
-div.email,
-div.ciudad,
-div.telefono,
-div.icono {
-    height: 100%;
+div.selectRider {
+    height: 235px;
     width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-h4 {
-    margin: 0px;
-}
-
-p {
-    margin: 0px;
-    font-size: 25px;
-}
-
-div.cantidadMenu {
-    height: 60%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-div.menosMenu,
-div.masMenu {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-button.menos,
-button.mas {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    background-color: #ff4d4d;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-div.cantMenu {
-    font-size: 50px;
-    padding: 20px;
-}
-
-div.btnCrear,
-div.btnConfirm {
-    height: 20%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-button.crear,
-button.confirm {
-    background-color: #eca623;
-    color: #ffffff;
-    border: 1px solid black;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    padding-left: 2%;
-    padding-right: 2%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-div.selectRider {
-    height: 60%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-div.stokDiv {
+div.stockDiv {
     height: 80%;
     width: 100%;
     display: flex;
 }
 
-div.selectMenu {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
+div.selectMenu,
 div.selectHistorico {
+    height: 100%;
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 
-div.divVolver {
-    height: 80%;
-    width: 100%;
-    display: flex;
-    align-items: end;
-    justify-content: end;
+p.num {
+    font-size: 50px;
 }
 
-a.aVolver {
-    margin-bottom: 25px;
-    margin-right: 50px;
-    text-decoration: none;
-}
-
-button.btnVolver {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    background-color: #ff4d4d;
-    border: 1px solid black;
+div.explicacion {
+    position: relative;
+    height: 235px;
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+img.imgTexto {
+    height: 100%;
+    width: auto;
+    display: block;
+    margin-top: 30px;
+}
 
-i {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    color: white;
+div.texto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+p.textoExplicacion {
+    font-size: 20px;
+}
+
+div.mapa {
+    border: solid 3px black;
+    height: 400px;
+    background-color: #fdfefe;
+    margin: 5px;
+    position: relative;
 }
 
 #map {
-    width: 100%;
     height: 80%;
-    position: relative;
-} */
+}
+
+div.divVolver {
+    position: absolute;
+    bottom: 30px;
+    right: 50px;
+    margin: 10px;
+}
+
+a.aVolver {
+    text-decoration: none;
+}

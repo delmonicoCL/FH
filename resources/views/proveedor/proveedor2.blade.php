@@ -36,6 +36,7 @@
                 </div>
                 <div class="row3">
                     <div class="telefono">
+                        <h4>Teléfono: </h4>
                         <p> {{ $user['telefono'] }}</p>
                     </div>
                     <div class="icono">
@@ -56,10 +57,36 @@
                     <h2>Estadisticas</h2>
                 </div>
                 <hr />
-                <div class="mostrarEstadisticas">
-                    <div class="imgEstadisticas">
-                        <img src="{{ asset('img/estadisticas/card_total_revenue.png') }}" alt="estadisticasMenu"
-                            class="imgEstadisticas">
+                <div class="mostrarRanking">
+                    <div class="ranking">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Cant. Entregas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td colspan="2">Larry the Bird</td>
+                                    <td>@twitter</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -110,16 +137,25 @@
                     <h2>Entregar Menú</h2>
                 </div>
                 <hr />
-                <div class="selectRider">
-                    <label for="opciones">Select Rider:</label>
-                    <select id="opciones" name="opciones">
+                <div class="entrega">
+                    <div class="selectRider">
+                        <label for="opciones">Select Rider:</label>
+                        <select id="opciones" name="opciones">
 
-                        <option value="opcion">-- Select --</option>
-                        @foreach ($riders as $rider)
-                            <option value="option">{{ $rider->nombre }}</option>
-                        @endforeach
+                            <option value="opcion">-- Select --</option>
+                            @foreach ($riders as $rider)
+                                <option value="option">{{ $rider->nombre }}</option>
+                            @endforeach
 
-                    </select>
+                        </select>
+                    </div>
+                    <div class="explicacion">
+                        <div class="texto">
+                            <p class="textoExplicacion">Selecciona el nombre del rider que ha llegado y confirma la entrega
+                            </p>
+                        </div>
+                        <img src="{{ asset('img/texto.svg') }}" alt="imgTexto" class="imgTexto">
+                    </div>
                 </div>
                 <div class="btnConfirm">
                     <button class="confirm">
@@ -136,15 +172,15 @@
                 </div>
                 <hr />
                 <div class="stockDiv">
-                    <div class="selectMenu container-fluid">
+                    <div class="selectMenu">
                         @yield('contenidoMenu')
                         <h4>Stock actual: </h4>
-                        <p> {{ $proveedor['stock_proveedor'] }}</p>
+                        <p class="num"> {{ $proveedor['stock_proveedor'] }}</p>
                     </div>
-                    <div class="selectHistorico container-fluid">
+                    <div class="selectHistorico">
                         @yield('contenidoHistorico')
-                        <h4>Historial Menús:</h4>
-                        <p>{{ $proveedor['stock_proveedor'] }}</p>
+                        <h4>Historial Menús entregados:</h4>
+                        <p class="num">{{ $proveedor['stock_proveedor'] }}</p>
                     </div>
                 </div>
             </div>
@@ -154,11 +190,11 @@
                 </div>
                 <hr />
                 @yield('contenido')
-                <div id="map">
+                <div id="map" class="map-container">
                     das
                 </div>
                 <div class="divVolver">
-                    <a class="aVolver" id="aVolver" href="{{ route('proveedor1') }}">
+                    <a class="aVolver" id="aVolver" href="{{ route('proveedor1') }}" title="Volver al Mapa">
                         <button class="btnVolver">
                             <i class="fa-solid fa-circle-chevron-right"></i>
                         </button>
@@ -166,7 +202,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">

@@ -5,10 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Food Hero - Salva Comida Alimenta Corazones</title>
-  {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --}}
-  {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> --}}
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
   <link href="https://fonts.cdnfonts.com/css/luckiest-guy" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/landing.css') }}" />
  
@@ -19,7 +17,7 @@
   <div class="container-fluid">
 
 
-    <nav class="navbar navbar-expand-lg barra">
+    <nav class="navbar navbar-expand-lg barra" style="border: 5px solid white; border-radius: 10px; padding: 10px;" >
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img class="logo-barra" src="{{ asset('img/logo-02.png') }}" alt="Food Hero" />

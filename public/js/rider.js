@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+
     mapboxgl.accessToken = 'pk.eyJ1IjoiZG5lcml6IiwiYSI6ImNsdHJrN3ppZjAxYmsya3BqcWRsYzdkam8ifQ.gjTWrYyirEhh94V_agnuhQ';
     var modoPua = false;
 
@@ -9,12 +10,106 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [2.1734, 41.3851],
-        zoom: 13
-    });
+    var map = new mapboxgl.Map
+    (
+        {
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            /*center: [2.1734, 41.3851],
+            zoom: 13*/
+        }
+    );
+
+    // Obtener la posición actual usando la API de geolocalización
+    navigator.geolocation.getCurrentPosition
+    (
+        function(position)
+        {
+            let latitud = position.coords.latitude;
+            let longitud = position.coords.longitude;
+
+            // Mostrar la ubicación en el mapa
+            let marcador = new mapboxgl.Marker
+            (
+                {
+                    color: "blue",
+                    draggable: false
+                }
+            ).setLngLat([longitud, latitud]).addTo(map);
+
+            let description = "<h2>Estás aquí</h2>";
+    
+            let popup = new mapboxgl.Popup().setHTML(description);
+
+            marcador.setPopup(popup);
+
+            /*map.addLayer
+            (
+                {
+                    id: 'ubicacion-usuario',
+                    type: 'symbol',
+                    source:
+                    {
+                        type: 'geojson',
+                        data:
+                        {
+                            type: 'FeatureCollection',
+                            features:
+                            [
+                                {
+                                    type: 'Feature',
+                                    geometry:
+                                    {
+                                        type: 'Point',
+                                        coordinates: [longitud, latitud],
+                                    },
+                                    properties:
+                                    {
+                                        title: 'Estás aquí',
+                                    },
+                                }
+                            ],
+                        },
+                    },
+                    layout:
+                    {
+                        'icon-image': 'marker-icon', // Reemplaza 'marker-icon' con la ID de tu icono personalizado
+                    },
+                }
+            );*/
+
+            // Centrar el mapa en la ubicación del usuario
+            map.flyTo
+            (
+                {
+                    center: [longitud, latitud],
+                    zoom: 17,
+                }
+            );
+
+            // Actualizar la posición del marcador cada segundo
+            setInterval
+            (
+                () => 
+                {
+                    navigator.geolocation.getCurrentPosition
+                    (
+                        function(position)
+                        {
+                            const nuevaLatitud = position.coords.latitude;
+                            const nuevaLongitud = position.coords.longitude;
+
+                            if (nuevaLatitud !== latitud || nuevaLongitud !== longitud)
+                            {
+                                marcador.setLngLat([nuevaLongitud, nuevaLatitud]);
+                            }
+                        }
+                    );
+                },
+                1000
+            );
+        }
+    );
 
     map.on('load', function () {
         removeAttributionControl();
@@ -145,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .addTo(map);
     
         var description = "<h2><p>Numero de personas: " + pua.cantidad_de_personas + "</p></h2>" +
-        "<button class='boton-entregar'>Entregar</button>";
+            "<button class='boton-entregar'>Entregar</button>";
     
         var popup = new mapboxgl.Popup()
             .setHTML(description);
@@ -156,35 +251,43 @@ document.addEventListener('DOMContentLoaded', function () {
             var botonEntregar = document.querySelector('.boton-entregar');
     
             botonEntregar.addEventListener('click', function (){
+                // Obtener la ID de la PUA
+                var puaId = pua.id;
+            
                 // Realizar una solicitud para entregar la PUA
-                fetch(`/FH/public/api/puas`, {
-                    method: 'POST'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Actualizar la vista o mostrar un mensaje de éxito
-                    alert(data.message);
-                    // Actualizar los marcadores después de la entrega
-                    loadMarkers();
-                })
-                .catch(error => {
-                    console.error('Error entregando PUA:', error);
-                    // Mostrar un mensaje de error si la entrega falla
-                    alert('Error al entregar la PUA.');
-                });
-            });
+                try {
+                    fetch(`/FH/public/api/puas/${puaId}/entregar`, { // Se agrega el endpoint correcto para entregar la PUA
+                        method: 'POST'
+                    })                
+                    .then(response => response.json())
+                    .then(data => {
+                        // Actualizar la vista o mostrar un mensaje de éxito
+                        alert(data.message);
+                        // Actualizar los marcadores después de la entrega
+                        loadMarkers();
+                    })
+                    .catch(error => {
+                        console.error('Error entregando PUA:', error);
+                        // Mostrar un mensaje de error si la entrega falla
+                        alert('Error al entregar la PUA.');
+                    });
+                } catch (error) {
+                    console.error('Error al realizar la solicitud POST:', error);
+                    alert('Error al realizar la solicitud POST.');
+                }
+            });             
         });
-    }
-    
+    }    
 
     function addMarkerToMapProveedores(proveedor) {
         var lngLat = [proveedor.lng, proveedor.lat];
-        var marker = new mapboxgl.Marker({
-            color: "red",
-            draggable: false
-        })
-        .setLngLat(lngLat)
-        .addTo(map);
+        var marker = new mapboxgl.Marker
+        (
+            {
+                color: "red",
+                draggable: false
+            }
+        ).setLngLat(lngLat).addTo(map);
     
         var description = "<h2>" + proveedor.logo + "</h2>" +
             "<h2><p>Stock proveedor: " + proveedor.stock_proveedor + "</p></h2>" +
@@ -270,5 +373,70 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error creating PUA:', error));
     }
 
+    let etiquetaBody=document.getElementsByTagName("body")[0];
+    etiquetaBody.addEventListener
+    (
+        "click",
+        function(event)
+        {
+            if(event.target.id==="botonMarcarRuta")
+            {
+                navigator.geolocation.getCurrentPosition
+                (
+                    function(position)
+                    {
+                        let latitudOrigen = position.coords.latitude;
+                        let longitudOrigen = position.coords.longitude;
 
+                        let directions = new MapboxDirections(
+                            {
+                                accessToken: 'pk.eyJ1IjoiZG5lcml6IiwiYSI6ImNsdHJrN3ppZjAxYmsya3BqcWRsYzdkam8ifQ.gjTWrYyirEhh94V_agnuhQ'
+                            }
+                        );
+                          
+                        map.addControl(directions, 'top-left');
+                          
+                        directions.setOrigin([longitudOrigen, latitudOrigen]);
+                        directions.setDestination([event.target.getAttribute("data-longitud"), event.target.getAttribute("data-latitud")]);
+                          
+                        directions.on(
+                            'route',
+                            function(e)
+                            {
+                                var route = e.route[0];
+                                // Puedes trabajar con la ruta aquí, por ejemplo, mostrarla en el mapa.
+                                map.addLayer(
+                                    {
+                                        id: 'ruta',
+                                        type: 'line',
+                                        source:
+                                        {
+                                            type: 'geojson',
+                                            data:
+                                            {
+                                                type: 'Feature',
+                                                properties: {},
+                                                geometry: route.geometry
+                                            }
+                                        },
+                                        layout:
+                                        {
+                                            'line-join': 'round',
+                                            'line-cap': 'round'
+                                        },
+                                        paint:
+                                        {
+                                            'line-color': '#3887be',
+                                            'line-width': 8,
+                                            'line-opacity': 0.75
+                                        }
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
+        }
+    );
 });
