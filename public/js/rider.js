@@ -164,6 +164,24 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    document.getElementById('updateForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evitar el envío del formulario por defecto
+        // Realizar la solicitud fetch utilizando la URL del formulario
+        fetch(this.action, {
+            method: this.method,
+            body: new FormData(this), // Utilizar FormData para enviar los datos del formulario
+        })
+        .then(response => {
+            // Manejar la respuesta como desees
+            console.log(response);
+        })
+        .catch(error => {
+            // Manejar cualquier error que ocurra durante la solicitud
+            console.error('Error al enviar la solicitud:', error);
+        });
+    });
+    
+
     var modalReservas = document.getElementById("modal-reservas");
     var boton_reservas = document.getElementById('boton-reservas');
 

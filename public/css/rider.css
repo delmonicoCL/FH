@@ -496,3 +496,18 @@ label {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra del elemento */
     z-index: 999; /* Asegura que el elemento esté sobre otros elementos */
 }
+
+/* Botón de Editar */
+#editarPerfil {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#editarPerfil:hover {
+    background-color: #0056b3;
+}

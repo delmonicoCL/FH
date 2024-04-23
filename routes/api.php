@@ -26,4 +26,3 @@ Route::apiResource('puas', PuaController::class);
 
 Route::apiResource("proveedores",ProveedorController::class);
 
-Route::post('/puas/{id}/entregar', 'PuaController@entregarPua');
