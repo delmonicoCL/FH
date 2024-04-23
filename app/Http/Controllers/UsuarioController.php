@@ -150,8 +150,14 @@ class UsuarioController extends Controller
 
         if ($tipo === "rider")
         {
+            $avataresRider = AvatarRider::all();
+            $listaAvatares = [];
+            for ($i = 0; $i < count($avataresRider); $i++)
+            {
+                array_push($listaAvatares, $avataresRider[$i]["avatar"]);
+            }
             $rider = Rider::where("id", "=", $usuario->id)->first();
-            return view('administradores.updateRIDER', compact('usuario', "rider"));
+            return view('administradores.updateRIDER', compact('usuario', "rider","listaAvatares"));
         }
         if ($tipo === "proveedor")
         {
@@ -178,17 +184,17 @@ class UsuarioController extends Controller
             $rider = Rider::where("id", "=", $usuario->id)->first();
 
             // Actualizar los datos del usuario
-            $usuario->nombre = $request->input("nombre");
-            $usuario->email = $request->input("email");
-            $usuario->telefono = $request->input("telefono");
+            $usuario->nombre = $request->input("Nombre");
+            $usuario->email = $request->input("Email");
+            $usuario->telefono = $request->input("Telefono");
 
             // Actualizar los datos del rider si existe
             if ($rider)
             {
-                $rider->apellidos = $request->input("apellido");
-                $rider->nickname = $request->input("nickname");
-                $rider->avatar = $request->input("avatar");
-                $rider->stock_rider = $request->input("stock");
+                $rider->apellidos = $request->input("Apellidos");
+                $rider->nickname = $request->input("Nickname");
+                $rider->avatar = $request->input("Avatar");
+                $rider->stock_rider = $request->input("Stock");
                 $rider->save();
             }
 
