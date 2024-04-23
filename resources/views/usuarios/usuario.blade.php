@@ -9,7 +9,17 @@
             Inscribir {{$tipo}}
         @endsection
         @section("paginaAnterior")
-            {{url("/registros/elige_tipo_de_usuario")}}
+            @if(Auth::check())
+                @if(Auth::user()->tipo==="administrador")
+                    @if($tipo==="rider")
+                        {{url("/administradores/gestionRaider")}}
+                    @else
+                        {{url("/administradores/gestionProveedor")}}
+                    @endif
+                @endif
+            @else
+                {{url("/registros/elige_tipo_de_usuario")}}
+            @endif
         @endsection
         @section('contenido')
             <div class="col-sm-12 col-md-6" id="contenedorPrincipal" style="display:flex; align-items: center; justify-content: center;">

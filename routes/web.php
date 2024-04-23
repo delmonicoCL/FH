@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\EntregaController;
 use App\Http\Controllers\EstadisticasController;
-use App\Http\Controllers\PuaController;
 use App\Models\Rider;
 use App\Models\Reserva;
 use App\Models\Usuario;
@@ -81,8 +80,8 @@ Route::middleware(["auth"])->group(function () {
         $reservas = Reserva::where("proveedor", "=", $id)->get();
 
         $riders = DB::table('reservas')
-            ->join('usuarios', 'reservas.rider', '=', 'usuarios.id')
-            ->select('usuarios.nombre AS nombre')
+            ->join('riders', 'reservas.rider', '=', 'riders.id')
+            ->select('riders.nickname AS nickname', "reservas.id", "reservas.rider", "reservas.cantidad", "reservas.estado")
             ->where('reservas.proveedor', "=", $id)
             ->get();
 
@@ -128,7 +127,6 @@ Route::middleware(["auth"])->group(function () {
                 $cantidadPuas = Pua::where('rider_creador', $raider->id)->count();
                 $datosPuas[$raider->nickname] = $cantidadPuas;
             }
-
             return view("administradores.gestionRaider", compact("usuarios", "riders", "administrador", "datosEntregas", "datosReservas", "datosPuas", ));
         } else {
             return view('auth.login');
@@ -187,6 +185,3 @@ Route::resource("reservas", ReservaController::class);
 // ROUTES DE CHART.JS //
 
 Route::get('/estadisticas/resumen', [EstadisticasController::class, 'estadisticas'])->name('estadisticas.resumen');
-
-
-
