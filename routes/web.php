@@ -88,26 +88,22 @@ Route::middleware(["auth"])->group(function () {
             ->get();
         $riders = Rider::all();
 
-        // select usuarios.nombre as nombreProveedor,
-        // sum(reservas.cantidad) as cantidad
-        // from reservas
-        // join usuarios on reservas.proveedor=usuarios.id
-        // where reservas.estado="finalizada"
-        // group by usuarios.id
-        // order by reservas.cantidad desc;
-
-        $reservas = Reserva::join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
-            ->select('usuarios.nombre as nombreProveedor', DB::raw('SUM(reservas.cantidad) as cantidad'))
-            ->where('reservas.estado', 'finalizada')
-            ->groupBy('usuarios.id')
-            ->orderByDesc(DB::raw('SUM(reservas.cantidad)'))
+        $rankingProveedor = DB::table('reservas')
+            ->join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
+            ->select('usuarios.nombre as nombreProveedor', DB::raw('sum(reservas.cantidad) as cantidad'))
+            ->where('reservas.estado', '=', 'finalizada')
+            ->groupBy('usuarios.id', 'usuarios.nombre')
+            ->orderByDesc('cantidad')
             ->get();
 
-        $listaProveedores = [];
-
+        // consulta para mostrar el totoal de menus entregados por un proveedor
+        $entregasFinalizadas = DB::table('reservas')
+            ->where('proveedor', '=', $id)
+            ->where('estado', '=', 'finalizada')
+            ->sum('cantidad');
 
         if ($user["tipo"] === "proveedor") {
-            return view('proveedor/proveedor2', compact("user", "proveedor", "ridersReservas", "riders"));
+            return view('proveedor/proveedor2', compact("user", "proveedor", "ridersReservas", "riders", "rankingProveedor","entregasFinalizadas"));
         } else {
             return view('auth.login');
         }

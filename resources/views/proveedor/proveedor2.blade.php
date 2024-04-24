@@ -71,13 +71,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($reservas as $index => $reserva)
+                                @for ($i = 0; $i < count($rankingProveedor); $i++)
                                     <tr>
-                                        <th scope="row">{{ $index + 1 }}</th>
-                                        <td>{{ $reserva->nombreProveedor }}</td>
-                                        <td>{{ $reserva->cantidad }}</td>
+                                        <th scope="row">{{ $i + 1 }}</th>
+                                        <td>{{ $rankingProveedor[$i]->nombreProveedor }}</td>
+                                        <td>{{ $rankingProveedor[$i]->cantidad }}</td>
                                     </tr>
-                                @endforeach
+                                @endfor
                             </tbody>
                         </table>
                     </div>
@@ -117,7 +117,7 @@
                 </div>
                 <form id="idFormCrear"
                     action="{{ action([App\Http\Controllers\ProveedorController::class, 'update'], ['proveedore' => $proveedor, 'tipoDeModificacion' => 'crearMenu']) }}"
-                    method="POST">
+                    method="POST" hidden>
                     @csrf
                     @method('PUT')
                     <label for="cant">cant</label>
@@ -193,7 +193,7 @@
                     <div class="selectHistorico">
                         @yield('contenidoHistorico')
                         <h4>Historial Menús entregados:</h4>
-                        <p class="num">{{ $proveedor['stock_proveedor'] }}</p>
+                        <p class="num">{{ $entregasFinalizadas }}</p>
                     </div>
                 </div>
             </div>
