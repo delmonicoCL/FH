@@ -23,7 +23,7 @@
                 <H2>EDITAR RIDER</H2>
                 <small id="mensajeValidacionFormularioCrearRider"></small>
             </div>
-            <div class="card-body" style="height: 455px; overflow-y: auto;">
+            <div class="card-body">
                 <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=> $usuario->id,'tipo'=> $usuario->tipo])}}" id="formularioinscripcion" method="POST">
                     @csrf
                     @method('PUT')
