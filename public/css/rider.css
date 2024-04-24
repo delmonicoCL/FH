@@ -27,7 +27,6 @@ html {
     text-align: center;
 }
 
-
 .button {
     background-color: #4caf50;
     border: none;
@@ -63,13 +62,12 @@ html {
     font-family: "Open Sans", sans-serif;
 }
 
-/* --------------------------------------------------------------------NAV------------------------------------------------------------------------- */
-
-/* ---------------BOTONES--------------- */
-
-/* PERFIL */
-
-#boton-perfil{
+/* NAV */
+/* BOTONES */
+#boton-perfil,
+#createMarkerButton,
+#boton-reservas,
+#boton-historial {
     background-color: rgba(255, 255, 255, 0);
     z-index: 1;
     color: white;
@@ -81,91 +79,23 @@ html {
     border: 0px solid;
 }
 
-#boton-perfil:hover {
-    padding-top: 5px;
-    transition: 0.2s;
-    background-color: #decd62;
-}
-
-/* CREAR PUA */
-
-#createMarkerButton {
-    background-color: rgba(255, 255, 255, 0);
-    z-index: 1;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border: 0px solid;
-}
-
-#createMarkerButton:hover {
-    padding-top: 5px !important;
-    transition: 0.2s;
-    background-color: #decd62;
-}
-
-#createMarkerButton.active {
-    transition: 0.2s;
-    border-radius: 45px;
-    background-color: #008cba;
-    padding-top: 5px;
-}
-
-/* Elimina los efectos cuando el botón no está activo */
-#createMarkerButton:not(.active):hover {
-    padding-top: 0px;
-}
-
-
-/* RESERVAS */
-
-#boton-reservas{
-    background-color: rgba(255, 255, 255, 0);
-    z-index: 1;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border: 0px solid;
-}
-
-#boton-reservas:hover {
-    padding-top: 5px;
-    transition: 0.2s;
-    background-color: #decd62;
-}
-
-/* HISTORIAL */
-
-#boton-historial{
-    background-color: rgba(255, 255, 255, 0);
-    z-index: 1;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border: 0px solid;
-}
-
+#boton-perfil:hover,
+#createMarkerButton:hover,
+#boton-reservas:hover,
 #boton-historial:hover {
     padding-top: 5px;
     transition: 0.2s;
     background-color: #decd62;
 }
 
-/* ---------------MODALES--------------- */
-
-/* PERFIL */
-
-/* Estilos para el modal de perfil */
-.modal-perfil {
+/* MODALES */
+.modal-perfil,
+.modal-pua,
+.modal-reservas,
+.modal-reservar,
+.modal-historial,
+.modal-carga,
+.modal-editar-perfil {
     font-size: 20px;
     display: none;
     position: fixed;
@@ -178,15 +108,19 @@ html {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Contenido del modal de perfil */
-.modal-content-perfil {
+.modal-content-perfil,
+.modal-content-pua,
+.modal-content-reservas,
+.modal-content-reservar,
+.modal-content-historial,
+.modal-content-editar-perfil {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border-radius: 10px;
-    width: 60%; /* Ancho del modal */
-    max-width: 400px; /* Ancho máximo */
-    text-align: center; /* Alineación centrada */
+    width: 40%;
+    max-width: 400px;
+    text-align: center;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -194,158 +128,7 @@ html {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
-/* PUA */
-
-.modal-pua {
-    font-size: 20px;
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content-pua {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 40%; /* Ancho del modal */
-    max-width: 400px; /* Ancho máximo */
-    text-align: center; /* Alineación centrada */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-/* RESERVAS */
-
-.modal-reservas {
-    font-size: 20px;
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;    
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-/* Contenido del modal */
-.modal-content-reservas {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 40%; /* Ancho del modal */
-    max-width: 400px; /* Ancho máximo */
-    text-align: center; /* Alineación centrada */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-/* RESERVAR */
-
-.modal-reservar {
-    font-size: 20px;
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;    
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-/* Contenido del modal */
-.modal-content-reservar {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 40%; /* Ancho del modal */
-    max-width: 400px; /* Ancho máximo */
-    text-align: center; /* Alineación centrada */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-
-/* HISTORIAL */
-
-.modal-historial {
-    font-size: 20px;
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;    
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-/* Contenido del modal */
-.modal-content-historial {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 40%; /* Ancho del modal */
-    max-width: 400px; /* Ancho máximo */
-    text-align: center; /* Alineación centrada */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-/* CARGA */
-
-.modal-carga {
-    font-size: 20px;
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;    
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-carga > div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-
-/* Botón de cierre del modal */
+/* CIERRE DEL MODAL */
 .close {
     color: #aaa;
     float: right;
@@ -360,7 +143,38 @@ html {
     cursor: pointer;
 }
 
-/* Estilos para el botón de envío del formulario */
+/* BOTÓN DE EDITAR */
+#editarPerfil {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#editarPerfil:hover {
+    background-color: #0056b3;
+}
+
+/* BOTÓN DE ENVIAR EDITAR */
+#editarPerfilEnviar {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#editarPerfilEnviar:hover {
+    background-color: #0056b3;
+}
+
+/* ESTILOS GENERALES DEL FORMULARIO */
+/* BOTÓN DE ENVÍO */
 #submitForm {
     background-color: #4CAF50;
     color: white;
@@ -378,8 +192,10 @@ html {
     background-color: #45a049;
 }
 
-/* Estilos para los campos del formulario */
-input[type="text"] {
+/* ESTILOS PARA LOS CAMPOS DEL FORMULARIO */
+input[type="text"],
+input[type="number"],
+input[type="email"] {
     width: calc(100% - 40px);
     padding: 12px;
     margin: 8px 0;
@@ -389,24 +205,14 @@ input[type="text"] {
     resize: vertical;
 }
 
-input[type="number"] {
-    width: calc(100% - 40px);
-    padding: 12px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-}
-
-/* Estilos para las etiquetas del formulario */
+/* ESTILOS PARA LAS ETIQUETAS DEL FORMULARIO */
 label {
     padding: 12px 0;
     display: block;
-    text-align: left; /* Alinear texto a la izquierda */
+    text-align: left;
 }
 
-
+/* TABLA RESPONSIVA */
 .table-container {
     display: flex;
     justify-content: center;
@@ -418,8 +224,8 @@ label {
     max-width: 100%;
     overflow-x: auto;
 }
-/* Nav-Bar */
 
+/* NAVBAR */
 #logout {
     border: 1px solid black;
     border-radius: 15px;
@@ -470,7 +276,6 @@ label {
     background-color: #decd62;
 }
 
-
 .btn-success {
     background-color: #28a745;
     color: #fff;
@@ -487,27 +292,42 @@ label {
 
 #stockRider {
     position: fixed;
-    bottom: 20px; /* Ajusta este valor según tu preferencia para la distancia desde la parte inferior */
-    right: 20px; /* Ajusta este valor según tu preferencia para la distancia desde el borde derecho */
-    background-color: #17ad12; /* Color de fondo del elemento */
-    padding: 10px; /* Espaciado interno del elemento */
-    border: 1px solid #cccccc; /* Borde del elemento */
-    border-radius: 5px; /* Borde redondeado */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra del elemento */
-    z-index: 999; /* Asegura que el elemento esté sobre otros elementos */
-}
-
-/* Botón de Editar */
-#editarPerfil {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
+    bottom: 20px;
+    right: 20px;
+    background-color: #17ad12;
+    padding: 10px;
+    border: 1px solid #cccccc;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 999;
 }
 
-#editarPerfil:hover {
-    background-color: #0056b3;
+#createMarkerButton {
+    background-color: rgba(255, 255, 255, 0);
+    z-index: 1;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border: 0px solid;
+}
+
+#createMarkerButton:hover {
+    padding-top: 5px !important;
+    transition: 0.2s;
+    background-color: #decd62;
+}
+
+#createMarkerButton.active {
+    transition: 0.2s;
+    border-radius: 45px;
+    background-color: #008cba;
+    padding-top: 5px;
+}
+
+/* Elimina los efectos cuando el botón no está activo */
+#createMarkerButton:not(.active):hover {
+    padding-top: 0px;
 }

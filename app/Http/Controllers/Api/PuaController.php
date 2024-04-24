@@ -85,22 +85,20 @@ class PuaController extends Controller
             'cantidad_de_personas' => 'required|integer',
             'lng' => 'required|numeric',
             'lat' => 'required|numeric',
+            'rider_creador' => 'required|integer' // Validación del rider_id
         ]);
-    
+
         try {
-            // Obtener el ID del rider (supongamos que lo pasas como parte del request)
-            $rider_id = $request->rider_id;
-    
             // Crear una nueva instancia de Pua
             $pua = new Pua();
             $pua->cantidad_de_personas = $request->cantidad_de_personas;
             $pua->lng = $request->lng;
             $pua->lat = $request->lat;
-            $pua->rider_creador = $rider_id; // Asignar el ID del rider
-    
+            $pua->rider_creador = $request->rider_creador; // Asignar el ID del rider
+
             // Guardar la Pua en la base de datos
             $pua->save();
-    
+
             // Retornar una respuesta exitosa
             return response()->json(new PuaResource($pua), 201);
         } catch (QueryException $ex) {
