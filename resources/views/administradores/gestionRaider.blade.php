@@ -5,7 +5,7 @@
         <H2> RIDERS </H2>
     </div>
 
-    <div class="container mt-2">
+    <div class="container mt-4">
 
         <table class="table table-striped table-bordered">
 
@@ -106,13 +106,9 @@
 
         <!-- Enlaces de paginación para los usuarios -->
 {{ $usuarios->links() }}
-
-{{-- <!-- Enlaces de paginación para los riders -->
-{{ $riders->links() }} --}}
-
     </div>
 
-    <div class="container mt-2">
+    <div class="container mb-5 ">
         <a href="{{ route('usuarios.create', ['tipo' => 'rider']) }}" class="btn btn-primary">
             <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Raider
         </a>

@@ -1,7 +1,7 @@
 @extends('layouts.principal1')
 
 @section('contenido')
-    <div class="container mt-4">
+    <div class="container mt-5">
 
         <script>
             console.log(@json($dataProveedor));
@@ -43,7 +43,17 @@
                         <td>{{ $proveedores[$i]->numero }}</td>
                         <td>{{ $proveedores[$i]->cp }}</td>
                         <td>{{ $proveedores[$i]->ciudad }}</td>
-                        <td>{{ $proveedores[$i]->logo }}</td>
+                        <td>
+                            @if ($proveedores[$i]->logo)
+                                 {{-- <img src="{{ asset('storage/logos/' . $proveedores[$i]->logo) }}" alt="Logo" width="50" height="50">  --}}
+                              <img src="{{ asset('media/img/logos/' . $proveedores[$i]->logo) }}" alt="Logo"
+                                    width="50" height="50"> 
+                            @else
+                                Sin 
+                            @endif
+                        </td>
+
+
                         <td>{{ $usuarios[$i]->email }}</td>
                         <td>{{ $usuarios[$i]->telefono }}</td>
                         <td>{{ $proveedores[$i]->stock_proveedor }}</td>
@@ -84,11 +94,11 @@
             </tbody>
         </table>
         <!-- Paginator para los usuarios -->
-            {{ $usuarios->links() }}
+        {{ $usuarios->links() }}
 
     </div>
 
-    <div class="container mt-3">
+    <div class="container ">
         <a href="{{ route('usuarios.create', ['tipo' => 'proveedor']) }}" class="btn btn-primary">
             <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Proveedor
         </a>
@@ -101,7 +111,7 @@
 
         <div class="container mt-4">
 
-            <canvas id="ReservasPorProveedor" width="800" height="300"></canvas>
+            <canvas id="ReservasPorProveedor" width="800" height="250"></canvas>
         </div>
 
     </div>
