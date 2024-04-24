@@ -51,6 +51,7 @@ document.addEventListener
                 imagenAvatar.setAttribute("width","150");
                 imagenAvatar.setAttribute("class","imagenAvatarPequenia");
                 imagenAvatar.setAttribute("id",avatares[i]);
+                imagenAvatar.setAttribute("draggable","false");
 
                 if(avatares[i]===nombreDelArchivoDelAvatarSeleccionado)
                 {

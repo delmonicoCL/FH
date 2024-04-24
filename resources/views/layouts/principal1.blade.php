@@ -137,7 +137,7 @@
         </div>
 
         <div class="b-example-divider b-example-vr"></div>
-        <div class="container-fluid">
+        <div class="container-fluid" style="overflow-y: auto;">
             @yield('contenido')
         </div>
 

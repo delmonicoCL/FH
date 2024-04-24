@@ -101,11 +101,18 @@ class RiderController extends Controller
 
     public function update(Request $request, Rider $rider)
     {
+        $nombreRider=$request->input("riderName");
+        $cantidadRider=$request->input("cantidad");
+
+        echo $nombreRider;
+        /*$nombreRider
+
+
         $reservas=Reserva::class ;
         $reservas->estado === "finalizada";
 
         $rider->stock_rider += $request->input("cantidad");
-        $rider->save();
+        $rider->save();*/
     }
 
     public function destroy(Rider $rider)

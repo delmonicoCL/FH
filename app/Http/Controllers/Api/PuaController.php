@@ -94,7 +94,7 @@ class PuaController extends Controller
             $pua->cantidad_de_personas = $request->cantidad_de_personas;
             $pua->lng = $request->lng;
             $pua->lat = $request->lat;
-            $pua->rider_creador = 75; // Asignar el ID del rider
+            $pua->rider_creador = $request->rider_creador; // Asignar el ID del rider
 
             // Guardar la Pua en la base de datos
             $pua->save();
