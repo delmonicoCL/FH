@@ -34,14 +34,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-addEventListener("DOMContentLoaded", function () {
-    // Agregamos el nuevo código para el select
+document.addEventListener("DOMContentLoaded", function () {
     let selectElement = document.getElementById("opciones");
-    let inputElement = document.getElementById("riderName");
-    let inputElement2 = document.getElementById("cantidad");
+    let inputName = document.getElementById("riderName");
+    let inputCantidad = document.getElementById("cantidad");
 
-    selectElement.addEventListener("click", function () {
-        let selectedName = selectElement.options[selectElement.selectedIndex].text;
-        inputElement.value = selectedName;
+    selectElement.addEventListener("change", function () {
+        let selectedOption = selectElement.options[selectElement.selectedIndex].value;
+        let [name, cantidad] = selectedOption.split(",");
+        inputName.value = name.trim();
+        inputCantidad.value = cantidad.trim();
     });
 });

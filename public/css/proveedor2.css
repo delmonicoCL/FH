@@ -194,7 +194,7 @@ div.btnConfirm {
 }
 
 button.crear,
-button.confirm {
+button.confirmar {
     background-color: #eca623;
     color: #ffffff;
     border: 1px solid black;
@@ -218,6 +218,10 @@ div.selectRider {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+label.opciones{
+    margin: 10px;
 }
 
 div.stockDiv {
