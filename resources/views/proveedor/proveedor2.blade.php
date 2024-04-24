@@ -9,6 +9,9 @@
                 print_r($reservas);
             @endphp
         </pre> --}}
+    @php
+        $rider;
+    @endphp
     <div class="contenedor col-lg-12">
         <div class="fila1 col-lg-12">
             <div class="infoProveedor col-lg-7">
@@ -68,23 +71,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                @foreach ($reservas as $index => $reserva)
+                                    <tr>
+                                        <th scope="row">{{ $index + 1 }}</th>
+                                        <td>{{ $reserva->nombreProveedor }}</td>
+                                        <td>{{ $reserva->cantidad }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -142,9 +135,12 @@
                         <label for="opciones" class="opciones">Select Rider:</label>
                         <select id="opciones" name="opciones">
                             <option value="opcion">-- Select --</option>
-                            @foreach ($riders as $rider)
-                                <option value="{{ $rider->nickname }},{{ $rider->cantidad }}">{{ $rider->nickname }},
-                                    {{ $rider->cantidad }}</option>
+                            @foreach ($ridersReservas as $riderReserva)
+                                <option
+                                    value="{{ $riderReserva->nickname }},
+                                    {{ $riderReserva->cantidad }}">
+                                    {{ $riderReserva->nickname }},
+                                    {{ $riderReserva->cantidad }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -161,14 +157,23 @@
                     <button class="confirmar" id="confirmarBtn" type="submit" form="idFormConfirmar">Confirmar</button>
                 </div>
 
-                <form action="{{ action([App\Http\Controllers\RiderController::class, 'update'], ['rider' => $rider]) }}"
-                    id="idFormConfirmar" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <label for="riderName">Nombre del Rider</label>
-                    <input type="text" id="riderName" name="riderName">
-                    <label for="cantidad">Cantidad</label>
-                    <input type="text" id="cantidad" name="cantidad">
+                {{-- @php
+                    for ($i=0; $i <$riders; $i++)
+                    {
+                        if($riders["nickname"]===$riderReserva[$riderSeleccionado]["nickname"])
+                        {
+                            $rider=$riders[$i];
+                        }
+                    }
+                @endphp --}}
+
+                {{-- <form action="{{ action([App\Http\Controllers\RiderController::class, 'update'], ['rider' => $rider]) }}" id="idFormConfirmar" method="POST"> --}}
+                @csrf
+                @method('PUT')
+                <label for="riderName">Nombre del Rider</label>
+                <input type="text" id="riderName" name="riderName">
+                <label for="cantidad">Cantidad</label>
+                <input type="text" id="cantidad" name="cantidad">
                 </form>
             </div>
         </div>

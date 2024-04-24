@@ -1,19 +1,20 @@
 <?php
 
-use App\Http\Controllers\EntregaController;
-use App\Http\Controllers\EstadisticasController;
+use App\Models\Pua;
 use App\Models\Rider;
+use App\Models\Entrega;
 use App\Models\Reserva;
 use App\Models\Usuario;
 use App\Models\Proveedor;
 use App\Models\Administrador;
-use App\Models\Entrega;
-use App\Models\Pua;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiderController;
+use App\Http\Controllers\EntregaController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\EstadisticasController;
 use App\Http\Controllers\AdministradorController;
 
 /*
@@ -77,16 +78,36 @@ Route::middleware(["auth"])->group(function () {
         $user = Auth::user();
         $id = $user["id"];
         $proveedor = Proveedor::where("id", "=", $id)->first();
+        $proveedores = Proveedor::all();
         $reservas = Reserva::where("proveedor", "=", $id)->get();
 
-        $riders = DB::table('reservas')
+        $ridersReservas = DB::table('reservas')
             ->join('riders', 'reservas.rider', '=', 'riders.id')
             ->select('riders.nickname AS nickname', "reservas.id", "reservas.rider", "reservas.cantidad", "reservas.estado")
             ->where('reservas.proveedor', "=", $id)
             ->get();
+        $riders = Rider::all();
+
+        // select usuarios.nombre as nombreProveedor,
+        // sum(reservas.cantidad) as cantidad
+        // from reservas
+        // join usuarios on reservas.proveedor=usuarios.id
+        // where reservas.estado="finalizada"
+        // group by usuarios.id
+        // order by reservas.cantidad desc;
+
+        $reservas = Reserva::join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
+            ->select('usuarios.nombre as nombreProveedor', DB::raw('SUM(reservas.cantidad) as cantidad'))
+            ->where('reservas.estado', 'finalizada')
+            ->groupBy('usuarios.id')
+            ->orderByDesc(DB::raw('SUM(reservas.cantidad)'))
+            ->get();
+
+        $listaProveedores = [];
+
 
         if ($user["tipo"] === "proveedor") {
-            return view('proveedor/proveedor2', compact("user", "proveedor", "reservas", "riders"));
+            return view('proveedor/proveedor2', compact("user", "proveedor", "ridersReservas", "riders"));
         } else {
             return view('auth.login');
         }
