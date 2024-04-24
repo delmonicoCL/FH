@@ -29,7 +29,7 @@
           <div class="navbar-nav">
             <a class="nav-link" href="#home">Home</a>
             <a class="nav-link" href="#nosotros">Nosotros</a>
-            <a class="nav-link" href="#raider">Raider</a>
+            <a class="nav-link" href="#raider">Rider</a>
             <a class="nav-link" href="#proveedor">Proveedor</a>
             <a class="nav-link" href="#footer">Unete</a>
             <a class="nav-link"  href="{{ route('login') }}" style="color: black;">Ir al APP</a>
@@ -57,7 +57,7 @@
 
     <section id="raider" class="contenedor-seccion">
       <div class="contenedor-imagen">
-        <img src="{{ asset('img/raider.png') }}" alt="">
+        <img src="{{ asset('img/rider.png') }}" alt="">
         <p class="parrafo"> Nuestros riders, a través de nuestro app, al momento de identificar un persona en necesidad, pueden crear un punto geolocalizado de entrega 
           (denominado "pua"), además la posibilidad de repartir un menú solidario creado por un proveedor 
         </p>
