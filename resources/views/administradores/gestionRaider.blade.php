@@ -5,13 +5,13 @@
         <H2> RIDERS </H2>
     </div>
 
-    <div class="container mt-2">
+    <div class="container mt-4">
 
-        <table class="table table-striped table-bordered">
+        <table class="table ">
 
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
+            <thead style="background-color: yellow;">
+                <tr >
+                    <th scope="col">IDd</th>
                     <th scope="col">NickName</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
@@ -21,7 +21,6 @@
                     <th scope="col">Stock</th>
                     <th scope="col" class="text-center">Borrar</th>
                     <th scope="col" class="text-center">Editar</th>
-
                 </tr>
             </thead>
 
@@ -77,9 +76,11 @@
 
         </table>
 
+        <!-- Enlaces de paginación para los usuarios -->
+        {{ $usuarios->links() }}
     </div>
 
-    <div class="container mt-2">
+    <div class="container mb-5 ">
         <a href="{{ route('usuarios.create', ['tipo' => 'rider']) }}" class="btn btn-primary">
             <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Raider
         </a>

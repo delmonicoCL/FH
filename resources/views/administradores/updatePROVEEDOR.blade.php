@@ -66,12 +66,11 @@
                         value="{{ $usuario->telefono }}">
                 </div>
 
-
-                <div class="form-group mt-2">
+                {{-- <div class="form-group mt-2">
                     <label for="telefono">Stock:</label>
                     <input type="text" class="form-control" id="stock" name="stock"
                         value="{{ $proveedor->stock_proveedor }}">
-                </div>
+                </div> --}}
 
 
 

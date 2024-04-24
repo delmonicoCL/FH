@@ -141,7 +141,7 @@
             <!-- Tercer div -->
             <div class="contenedor">
                 <div class="col-md-4 chart-container mb-4">
-                    <h3>Reservas Raider</h3>
+                    <h3>Reservas Rider</h3>
                     <canvas id="reservasPorRaiderChart"></canvas>
                 </div>
             </div>

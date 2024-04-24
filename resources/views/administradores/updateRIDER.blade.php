@@ -77,11 +77,11 @@
                         <small id="mensajeValidacionTelefono"></small>
                     </div>
 
-                    <div class="form-group mt-2">
+                    {{-- <div class="form-group mt-2">
                         <label for="telefono">Stock:</label>
                         <input type="text" class="form-control" id="stock" name="Stock" value="{{ $rider->stock_rider }}">
                         <small id="mensajeValidacionStock"></small>
-                    </div>
+                    </div> --}}
 
                 </form>
             </div>

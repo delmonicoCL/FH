@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Rider;
 use App\Models\Reserva;
 use App\Models\Usuario;
+use App\Models\Administrador;
 use App\Clases\Utilidad;
 use App\Models\Proveedor;
 use App\Models\AvatarRider;
@@ -177,6 +178,27 @@ class UsuarioController extends Controller
         //Recuperar los datos del formulario
         $tipo = $request->input("tipo");
 
+        if ($tipo === "rider")
+        {
+
+            // Obtener el rider asociado con el usuario
+            $rider = Rider::where("id", "=", $usuario->id)->first();
+
+            // Actualizar los datos del usuario
+            $usuario->nombre = $request->input("Nombre");
+            $usuario->email = $request->input("Email");
+            $usuario->telefono = $request->input("Telefono");
+
+            // Actualizar los datos del rider si existe
+            if ($rider)
+            {
+                $rider->apellidos = $request->input("Apellidos");
+                $rider->nickname = $request->input("Nickname");
+                $rider->avatar = $request->input("Avatar");
+                // $rider->stock_rider = $request->input("Stock");
+                $rider->save();
+            }
+
         $nombre = $request->input("nombre");
         $email = $request->input("email");
         $telefono = $request->input("telefono");
@@ -232,6 +254,27 @@ class UsuarioController extends Controller
             {
                 return redirect()->route("proveedores.index");
             }
+        }
+
+        if ($tipo === "administrador")
+        {
+
+            // Obtener el rider asociado con el usuario
+            $administrador = Administrador::where("id", "=", $usuario->id)->first();
+
+            // Actualizar los datos del usuario
+            $usuario->nombre = $request->input("nombre");
+            $usuario->email = $request->input("email");
+            $usuario->telefono = $request->input("telefono");
+            // $contrasenia = $request->input("contraseña");
+            // $usuario->contrasenia =\bcrypt($contrasenia);
+           
+            // Guardar los cambios en el usuario
+            $usuario->save();
+
+            // Redirigir a la página de inicio, o a donde necesites
+            // return redirect()->route("administradores/administrador");
+            return view('administradores/administrador');
         }
 
 

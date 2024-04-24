@@ -125,8 +125,8 @@ Route::middleware(["auth"])->group(function () {
         $id = $user["id"];
 
         if ($user["tipo"] === "administrador") {
-            $usuarios = Usuario::where("tipo", "=", "rider")->get();
-            $riders = Rider::all();
+            $usuarios = Usuario::where("tipo", "=", "rider")->paginate(5);
+            $riders = Rider::paginate(5);
             $administrador = Administrador::where("id", "=", $id)->first();
 
             // Obtener las estadísticas
@@ -144,7 +144,8 @@ Route::middleware(["auth"])->group(function () {
                 $cantidadPuas = Pua::where('rider_creador', $raider->id)->count();
                 $datosPuas[$raider->nickname] = $cantidadPuas;
             }
-            return view("administradores.gestionRaider", compact("usuarios", "riders", "administrador", "datosEntregas", "datosReservas", "datosPuas", ));
+
+            return view("administradores.gestionRaider", compact("usuarios", "riders", "administrador", "datosEntregas", "datosReservas", "datosPuas"));
         } else {
             return view('auth.login');
         }
@@ -155,9 +156,9 @@ Route::middleware(["auth"])->group(function () {
         $id = $user["id"];
 
         if ($user["tipo"] === "administrador") {
-            // Obtener usuarios y proveedores
-            $usuarios = Usuario::where("tipo", "=", "proveedor")->get();
-            $proveedores = Proveedor::all();
+            // Obtener usuarios y proveedores paginados
+            $usuarios = Usuario::where("tipo", "=", "proveedor")->paginate(5);
+            $proveedores = Proveedor::paginate(5);
             $administrador = Administrador::where("id", "=", $id)->first();
 
             // Reservas por proveedor
@@ -171,10 +172,12 @@ Route::middleware(["auth"])->group(function () {
             foreach ($reservasPorProveedor as $reserva) {
                 $dataProveedor[$reserva->proveedor][$reserva->estado] = $reserva->total;
             }
+
             return view("administradores.gestionProveedor", compact("usuarios", "proveedores", "administrador", "dataProveedor"));
         } else {
             return view('auth.login');
         }
+
     })->name('administradores.gestionProveedor');
 
 
@@ -202,3 +205,8 @@ Route::resource("reservas", ReservaController::class);
 // ROUTES DE CHART.JS //
 
 Route::get('/estadisticas/resumen', [EstadisticasController::class, 'estadisticas'])->name('estadisticas.resumen');
+
+
+Route::get('/updateADMIN', function () {
+    return view("administradores.updateADMIN");
+})->name('actualizarAdmin');
