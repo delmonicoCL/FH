@@ -26,13 +26,13 @@ document.addEventListener
                         imagenGrandeAvatar.setAttribute("src","../../media/img/avatares/"+event.target.id);
                         inputAvatar.setAttribute("value",event.target.id);
                     }
-                    /*if(event.target.id==="aceptar")
+                    if(event.target.id==="aceptar")
                     {
                         if(!validaciones())
                         {
                             event.preventDefault();
                         }
-                    }*/
+                    }
                 }
             );
         }
@@ -51,6 +51,7 @@ document.addEventListener
                 imagenAvatar.setAttribute("width","150");
                 imagenAvatar.setAttribute("class","imagenAvatarPequenia");
                 imagenAvatar.setAttribute("id",avatares[i]);
+                imagenAvatar.setAttribute("draggable","false");
 
                 if(avatares[i]===nombreDelArchivoDelAvatarSeleccionado)
                 {
@@ -98,16 +99,6 @@ document.addEventListener
                 validacionCaracteresExtraniosApellidos=verificarQueElCampoNoContengaCaracteresExtranios(validacionCaracteresExtraniosApellidos,apellidos);
                 validacionLongitudApellidos=verificarLongitud(validacionLongitudApellidos,apellidos,2,30);
 
-                let validacionCampoVacioContrasenia=false;
-                let validacionLongitudContrasenia=false;
-                let campoContraseniaPasoTodasLasValidaciones=false;
-                validacionCampoVacioContrasenia=verificarQueElCampoNoEsteVacio(validacionCampoVacioContrasenia,contrasenia);
-                validacionLongitudContrasenia=verificarLongitud(validacionLongitudContrasenia,contrasenia,8,16);
-
-                let validacionCampoConfirmarContrasenia=false;
-                let campoConfirmarContraseniaPasoTodasLasValidaciones=false;
-                validacionCampoConfirmarContrasenia=verificarQueLosCamposCoincidan(validacionCampoConfirmarContrasenia,confirmarContrasenia,contrasenia);
-
                 let validacionCorreoElectronico=false;
                 let campoCorreoElectronicoPasoTodasLasValidaciones=false;
                 validacionCorreoElectronico=verificarSintaxisCorreo(validacionCorreoElectronico,email);
@@ -139,20 +130,6 @@ document.addEventListener
                     campoApellidosPasoTodasLasValidaciones=true;
                 }
                 
-                if(validacionCampoVacioContrasenia&&validacionLongitudContrasenia)
-                {
-                    let mensajeError = document.getElementById("mensajeValidacionContrasenia");
-                    mensajeError.textContent = "";
-                    campoContraseniaPasoTodasLasValidaciones=true;
-                }
-                
-                if(validacionCampoConfirmarContrasenia)
-                {
-                    let mensajeError = document.getElementById("mensajeValidacionConfirmarContrasenia");
-                    mensajeError.textContent = "";
-                    campoConfirmarContraseniaPasoTodasLasValidaciones=true;
-                }
-                
                 if(validacionCorreoElectronico)
                 {
                     let mensajeError = document.getElementById("mensajeValidacionEmail");
@@ -168,7 +145,7 @@ document.addEventListener
                 }
 
                 
-                if(campoNicknamePasoTodasLasValidaciones&&campoNombrePasoTodasLasValidaciones&&campoApellidosPasoTodasLasValidaciones&&campoContraseniaPasoTodasLasValidaciones&&campoConfirmarContraseniaPasoTodasLasValidaciones&&campoCorreoElectronicoPasoTodasLasValidaciones&&campoTelefonoPasoTodasLasValidaciones)
+                if(campoNicknamePasoTodasLasValidaciones&&campoNombrePasoTodasLasValidaciones&&campoApellidosPasoTodasLasValidaciones&&campoCorreoElectronicoPasoTodasLasValidaciones&&campoTelefonoPasoTodasLasValidaciones)
                 {
                     mensajeValidacionFormulario.textContent="";
                     laTareaPasoTodasLasValidaciones=true;

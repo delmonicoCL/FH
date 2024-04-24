@@ -37,34 +37,7 @@
                         <td>{{ $usuarios[$i]->telefono }}</td>
 
                         <td class="text-center">
-                          
-                            
-                                    @if ($riders[$i]->avatar === 'avatar1.png')
-                                        <img src="{{ asset('media/img/avatares/avatar1.png') }}" alt="imagen avatar" width="45" height="45" >
-                                    @elseif ($riders[$i]->avatar === 'avatar2.png')
-                                        <img src="{{ asset('media/img/avatares/avatar2.png') }}" alt="imagen avatar" width="45" height="45" >
-                                    @elseif ($riders[$i]->avatar === 'avatar3.png')
-                                        <img src="{{ asset('media/img/avatares/avatar3.png') }}" alt="imagen avatar" width="45" height="45" >
-                                    @elseif ($riders[$i]->avatar === 'avatar4.png')
-                                        <img src="{{ asset('media/img/avatares/avatar4.png') }}" alt="imagen avatar" width="45" height="45">
-                                    @elseif ($riders[$i]->avatar === 'avatar5.png')
-                                        <img src="{{ asset('media/img/avatares/avatar5.png') }}" alt="imagen avatar" width="45" height="45">
-                                    @elseif ($riders[$i]->avatar === 'avatar6.png')
-                                        <img src="{{ asset('media/img/avatares/avatar6.png') }}" alt="imagen avatar" width="45" height="45">
-                                    @elseif ($riders[$i]->avatar === 'avatar7.png')
-                                        <img src="{{ asset('media/img/avatares/avatar7.png') }}" alt="imagen avatar" width="45" height="45">
-                                    @elseif ($riders[$i]->avatar === 'avatar8.png')
-                                        <img src="{{ asset('media/img/avatares/avatar8.png') }}" alt="imagen avatar" width="45" height="45">
-                                    @elseif ($riders[$i]->avatar === 'avatar9.png')
-                                        <img src="{{ asset('media/img/avatares/avatar9.png') }}" alt="imagen avatar" width="45" height="45">
-                                    @elseif ($riders[$i]->avatar === 'avatar10.png')
-                                        <img src="{{ asset('media/img/avatares/avatar10.png') }}" alt="imagen avatar" width="45" height="45">
-                                    @else
-                                        {{ $riders[$i]->avatar }}
-                                    @endif
-                               
-
-                           
+                            <img src="{{asset('media/img/avatares')}}{{'/'.$riders[$i]->avatar}}" alt="imagen avatar" width="45" height="45" draggable="false">
                         </td>                        
                         <td>{{ $riders[$i]->stock_rider }}</td>
 

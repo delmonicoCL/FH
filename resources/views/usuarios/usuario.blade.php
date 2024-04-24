@@ -67,7 +67,7 @@
                                     $listaAvatares=json_encode($listaAvatares);
                                 @endphp
                                 <div class="col-sm-12 mb-3 text-center">
-                                    <img src="{{asset('media/img/avatares/avatar1.png')}}" alt="imagen avatar" height="150vh" width="150vw" id="imagenAvatar" data-avatares="{{$listaAvatares}}" data-bs-toggle="modal" data-bs-target="#modalCambiarAvatar" style="border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;">
+                                    <img src="{{asset('media/img/avatares/avatar1.png')}}" alt="imagen avatar" height="150vh" width="150vw" id="imagenAvatar" data-avatares="{{$listaAvatares}}" data-bs-toggle="modal" data-bs-target="#modalCambiarAvatar" style="border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;" draggable="false">
                                 </div>
 
                                 <div hidden>

@@ -1,11 +1,6 @@
 @extends('layouts.principal1')
 
     @section('contenido')
-        <div class="container mt-5">
-
-            <H2>EDITAR RIDER</H2>
-
-        </div>
         <div class="container mt-4" id="contenedorPrincipal">
             <div class="modal fade" tabindex="-1" id="modalCambiarAvatar">
                 <div class="modal-dialog modal-dialog-centered">
@@ -24,7 +19,11 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body" style="">
+            <div class="card-header">
+                <H2>EDITAR RIDER</H2>
+                <small id="mensajeValidacionFormularioCrearRider"></small>
+            </div>
+            <div class="card-body" style="height: 455px; overflow-y: auto;">
                 <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=> $usuario->id,'tipo'=> $usuario->tipo])}}" id="formularioinscripcion" method="POST">
                     @csrf
                     @method('PUT')
@@ -33,7 +32,7 @@
                         $listaAvatares=json_encode($listaAvatares);
                     @endphp
                     <div class="col-sm-12 mb-3 text-center">
-                        <img src="{{asset('media/img/avatares/avatar1.png')}}" alt="imagen avatar" height="150vh" width="150vw" id="imagenAvatar" data-avatares="{{$listaAvatares}}" data-bs-toggle="modal" data-bs-target="#modalCambiarAvatar" style="border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;">
+                        <img src="{{asset('media/img/avatares')}}{{'/'.$rider->avatar}}" alt="imagen avatar" height="150vh" width="150vw" id="imagenAvatar" data-avatares="{{$listaAvatares}}" data-bs-toggle="modal" data-bs-target="#modalCambiarAvatar" style="border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;" draggable="false">
                     </div>
 
                     <div hidden>
