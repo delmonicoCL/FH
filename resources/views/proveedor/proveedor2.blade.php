@@ -132,48 +132,6 @@
                 </form>
             </div>
 
-            {{-- <div class="entregarMenu col-lg-7">
-                <div class="titulo">
-                    <h2>Entregar Menú</h2>
-                </div>
-                <hr />
-                <div class="entrega">
-                    <div class="selectRider">
-                        <label for="opciones" class="opciones">Select Rider:</label>
-                        <select id="opciones" name="opciones">
-                            <option value="opcion">-- Select --</option>
-                            @foreach ($riders as $rider)
-                                <option value="option">{{ $rider->nickname}},{{$rider->cantidad}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="explicacion">
-                        <div class="texto">
-                            <p class="textoExplicacion">Selecciona el nombre del rider que ha llegado y confirma la entrega
-                            </p>
-                        </div>
-                        <img src="{{ asset('img/texto.svg') }}" alt="imgTexto" class="imgTexto">
-                    </div>
-                </div>
-                <div class="btnConfirm">
-                    <button class="confirmar" id="confirmarBtn" type="submit" form="idFormConfirmar">
-                        Confirmar
-                    </button>
-                </div>
-                action="{{ action([App\Http\Controllers\RiderController::class, 'update'], ['rider' => $rider]) }}"
-                <form id="idFormConfirmar"
-                    
-                    method="POST">
-                    <form id="idFormConfirmar" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <label for="riderName">riderNaem</label>
-                        <input type="text" id="riderName" name="riderName">
-                        <label for="cantidad">cantidad</label>
-                        <input type="text" id="cantidad" name="cantidad">
-                    </form>
-            </div> --}}
-
             <div class="entregarMenu col-lg-7">
                 <div class="titulo">
                     <h2>Entregar Menú</h2>
@@ -203,9 +161,8 @@
                     <button class="confirmar" id="confirmarBtn" type="submit" form="idFormConfirmar">Confirmar</button>
                 </div>
 
-                {{-- action="{{ action([App\Http\Controllers\RiderController::class, 'update'], ['rider' => $rider]) }}" --}}
-
-                <form id="idFormConfirmar" method="POST">
+                <form action="{{ action([App\Http\Controllers\RiderController::class, 'update'], ['rider' => $rider]) }}"
+                    id="idFormConfirmar" method="POST">
                     @csrf
                     @method('PUT')
                     <label for="riderName">Nombre del Rider</label>
