@@ -13,6 +13,11 @@ use Illuminate\Database\QueryException;
 class ProveedorController extends Controller
 {
 
+    public function entregas()
+    {
+        
+    }
+
     public function index()
     {
         // $reservas = Reserva::with('rider')->get();
@@ -34,8 +39,8 @@ class ProveedorController extends Controller
     public function store(Request $request)
     {
         //Recuperar los valores del request
-        $tipo=$request->input("Tipo");
-        $id=$request->input("Id");
+        $tipo = $request->input("Tipo");
+        $id = $request->input("Id");
         $calle = $request->input("Calle");
         $numero = $request->input("Numero");
         $cp = $request->input("Cp");
@@ -71,15 +76,12 @@ class ProveedorController extends Controller
         $proveedor->lat = $latitud;
         $proveedor->lng = $longitud;
 
-        try
-        {
+        try {
             //Hacer el insert en la tabla
             $proveedor->save();
             $request->session()->flash("mensaje", "Proveedor inscrito correctamente.");
             $response = redirect("/login");
-        }
-        catch (QueryException $ex)
-        {
+        } catch (QueryException $ex) {
             $mensaje = Utilidad::errorMessage($ex);
             $request->session()->flash("error", $mensaje);
             $response = redirect()->route("usuarios.create", compact("tipo"))->withInput();
@@ -121,7 +123,7 @@ class ProveedorController extends Controller
         }
         return $response;
     }
-    
+
     public function destroy(Proveedor $proveedor)
     {
         //

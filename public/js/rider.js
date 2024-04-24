@@ -140,12 +140,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 modal.style.display = "none";
             }
             var cantidad_de_personasInput = document.getElementById("cantidad_de_personas");
+            var rider_creadorInput = document.getElementById("rider_creador");
             var submitButton = document.getElementById("submitForm");
             submitButton.onclick = function () {
                 var cantidad_de_personas = cantidad_de_personasInput.value;
                 var latitud = e.lngLat.lat;
                 var longitud = e.lngLat.lng;
-                createPua(latitud, longitud, cantidad_de_personas);
+                var rider_creador= rider_creadorInput.value;
+                // rider_creador=Number(rider_creador);
+                console.log(typeof(cantidad_de_personas));
+                console.log(cantidad_de_personas);
+                console.log(typeof(rider_creador));
+                console.log(rider_creador);
+                createPua(latitud, longitud, cantidad_de_personas, rider_creador);
                 modoPua = false;
                 modal.style.display = "none";
             };
@@ -157,12 +164,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
     boton_perfil.addEventListener('click', function (){
         modalPerfil.style.display = "block";
-        var closeButtonPerfil = document.getElementById('closeButtonPerfil');
-
-        closeButtonPerfil.addEventListener('click', function() {
-            modalPerfil.style.display = "none";
-        });
     });
+
+    var closeButtonPerfil = document.getElementById('closeButtonPerfil');
+
+    closeButtonPerfil.addEventListener('click', function() {
+        modalPerfil.style.display = "none";
+    });
+
+    var botonEditarPerfil = document.getElementById('editarPerfil');
+if (botonEditarPerfil) {
+    botonEditarPerfil.addEventListener('click', function () {
+        var modalEditarPerfil = document.getElementById("modal-editar-perfil");
+        modalPerfil.style.display = "none";
+        modalEditarPerfil.style.display = "block";
+    });
+}
+
+var closeButtonEditarPerfil = document.getElementById('closeButtonEditarPerfil');
+if (closeButtonEditarPerfil) {
+    closeButtonEditarPerfil.addEventListener('click', function () {
+        var modalEditarPerfil = document.getElementById("modal-editar-perfil");
+        modalEditarPerfil.style.display = "none";
+    });
+}
+
+    
 
     var modalReservas = document.getElementById("modal-reservas");
     var boton_reservas = document.getElementById('boton-reservas');
@@ -348,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
     }
     
-    function createPua(latitud, longitud, cantidad_de_personas) {
+    function createPua(latitud, longitud, cantidad_de_personas, rider_creador) {
         fetch('/FH/public/api/puas', {
             method: 'POST',
             headers: {
@@ -357,7 +384,8 @@ document.addEventListener('DOMContentLoaded', function () {
             body: JSON.stringify({
                 cantidad_de_personas: cantidad_de_personas,
                 lat: latitud,
-                lng: longitud
+                lng: longitud,
+                rider_creador: rider_creador// Utilizando rider_creador como nombre de campo
             }) 
         })
         .then(response => {
@@ -372,7 +400,8 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error creating PUA:', error));
     }
-
+    
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////// Mostrar las rutas //////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

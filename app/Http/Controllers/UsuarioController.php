@@ -177,32 +177,25 @@ class UsuarioController extends Controller
         //Recuperar los datos del formulario
         $tipo = $request->input("tipo");
 
-        if ($tipo === "rider")
-        {
-
-            // Obtener el rider asociado con el usuario
-            $rider = Rider::where("id", "=", $usuario->id)->first();
-
-            // Actualizar los datos del usuario
-            $usuario->nombre = $request->input("Nombre");
-            $usuario->email = $request->input("Email");
-            $usuario->telefono = $request->input("Telefono");
-
-            // Actualizar los datos del rider si existe
-            if ($rider)
-            {
-                $rider->apellidos = $request->input("Apellidos");
-                $rider->nickname = $request->input("Nickname");
-                $rider->avatar = $request->input("Avatar");
-                $rider->stock_rider = $request->input("Stock");
-                $rider->save();
-            }
-
+        $nombre = $request->input("nombre");
+        $email = $request->input("email");
+        $telefono = $request->input("telefono");
+    
+        // Actualizar los datos del usuario
+        $usuario->nombre = $nombre;
+        $usuario->email = $email;
+        $usuario->telefono = $telefono;
+    
+        try {
             // Guardar los cambios en el usuario
             $usuario->save();
-
-            // Redirigir a la página de inicio, o a donde necesites
-            return redirect()->route("riders.index");
+    
+            // Redirigir a donde necesites después de actualizar el perfil
+            return redirect()->route("ruta.donde.quieras.redirigir");
+        } catch (\Exception $e) {
+            // Manejar cualquier excepción que pueda ocurrir al guardar los cambios
+            // Puedes mostrar un mensaje de error y redirigir a la página de edición del perfil
+            return redirect()->back()->withInput()->withErrors("Error al actualizar el perfil: " . $e->getMessage());
         }
 
         if ($tipo === "proveedor")

@@ -19,11 +19,12 @@ class Pua extends Model
 
     public function riders()
     {
-        return $this->belongsTo(Rider::class,"rider_creador");
-    }
+        return $this->belongsTo(Rider::class, "rider_creador");
+    }    
 
     public function entregas()
     {
         return $this->hasMany(Entrega::class,"pua");
     }
+    
 }

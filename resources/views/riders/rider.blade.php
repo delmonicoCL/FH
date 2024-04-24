@@ -25,7 +25,7 @@
                         <input type="hidden" id="lat" name="lat">
                         <label for="cantidad_de_personas">Cuantas personas hay?:</label><br>
                         <input type="number" id="cantidad_de_personas" name="cantidad_de_personas"><br><br>
-                        <div id="riderName"></div><br>
+                        <input type="number" id="rider_creador" name="rider_creador" value="{{$rider->id}}" hidden>
                         <button type="button" id="submitForm">Crear Pua</button>
                     </form>
                 </div>
@@ -119,42 +119,93 @@
                                             <h3>PERFIL</h3>
                                             <p class="lead text-muted fw-light">Información de usuario.</p>
                                         </div>
-                                        <div class="row mb-4">
-                                            <div class="col-md-6">
-                                                <div class="text-center">
-                                                    <h4>Nombre</h4>
-                                                    <div class="d-flex justify-content-center align-items-center">
-                                                        <p class="lead m-0">{{ $user->nombre }}</p>
+                                        <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $user->id, 'tipo' => $user->tipo]) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="row mb-4">
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Nombre</h4>
+                                                        <input type="text" class="form-control" name="nombre" value="{{ $user->nombre }}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Correo</h4>
+                                                        <input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="text-center">
-                                                    <h4>Correo</h4>
-                                                    <div class="d-flex justify-content-center align-items-center">
-                                                        <p class="lead m-0">{{ $user->email }}</p>
+                                            <div class="row mb-4">
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Teléfono</h4>
+                                                        <input type="text" class="form-control" name="telefono" value="{{ $user->telefono }}" readonly>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row mb-4">
-                                            <div class="col-md-6">
-                                                <div class="text-center">
-                                                    <h4>Teléfono</h4>
-                                                    <div class="d-flex justify-content-center align-items-center">
-                                                        <p class="lead m-0">{{ $user->telefono }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            <div class="text-center">
+                                                <button type="button" class="btn btn-primary" id="editarPerfil">Editar</button>                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
                 
+            <div class="modal-editar-perfil" id="modal-editar-perfil" style="display: none;">
+                <div class="modal-content-perfil modal-lg mt-3">
+                    <div class="modal-content px-5 pt-3 pb-3">
+                        <div class="row">
+                            <div class="col-lg-12 contact-form">
+                                <div class="card border-0">
+                                    <div class="card-body">
+                                        <div class="text-end">
+                                            <span class="close" id="closeButtonEditarPerfil">&times;</span>
+                                        </div>
+                                        <div class="card-title text-center pb-3">
+                                            <h3>EDITAR PERFIL</h3>
+                                            <p class="lead text-muted fw-light">Modifica tu información de usuario.</p>
+                                        </div>
+                                        <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $user->id, 'tipo' => $user->tipo]) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="row mb-4">
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Nombre</h4>
+                                                        <input type="text" class="form-control" name="nombre" value="{{ $user->nombre }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Correo</h4>
+                                                        <input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Teléfono</h4>
+                                                        <input type="text" class="form-control" name="telefono" value="{{ $user->telefono }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary" id="editarPerfilEnviar">Guardar cambios</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            
                 <!-- Modal Reservas -->
             <div id="modal-reservas" class="modal-reservas">
                 <div class="modal-content-reservas modal-lg">

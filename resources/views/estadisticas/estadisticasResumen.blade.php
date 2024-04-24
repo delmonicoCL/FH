@@ -9,7 +9,7 @@
 
         .chart-container1 {
             width: 600px;
-          
+
         }
 
         .chart-container2 {
@@ -18,25 +18,34 @@
         }
 
         .contenedor-padre {
-            display: flex; /* Utilizamos flexbox para organizar los divs horizontalmente */
-            justify-content: space-between; /* Distribuye los divs horizontalmente con espacio entre ellos */
-            margin-top: 10px; /* Margen superior */
-        }
-            /* Estilo para el div contenedor */
-        .contenedor {
-            display: flex; /* Utilizamos flexbox para organizar las columnas */
-                 
-            border-radius: 8px; /* Bordes redondeados */                
-            justify-content: space-evenly; /* Alineamos horizontalmente al centro */
-            align-items: center; /* Alineamos verticalmente al centro */
+            display: flex;
+            /* Utilizamos flexbox para organizar los divs horizontalmente */
+            justify-content: space-between;
+            /* Distribuye los divs horizontalmente con espacio entre ellos */
+            margin-top: 10px;
+            /* Margen superior */
         }
 
-        h3{
+        /* Estilo para el div contenedor */
+        .contenedor {
+            display: flex;
+            /* Utilizamos flexbox para organizar las columnas */
+
+            border-radius: 8px;
+            /* Bordes redondeados */
+            justify-content: space-evenly;
+            /* Alineamos horizontalmente al centro */
+            align-items: center;
+            /* Alineamos verticalmente al centro */
+        }
+
+        h3 {
             font-size: 30px;
             color: #018780;
             font-family: "Luckiest Guy", sans-serif;
         }
-         h4{
+
+        h4 {
             font-size: 28px;
             color: #018780;
             font-family: "Luckiest Guy", sans-serif;
@@ -44,37 +53,43 @@
 
         /* Estilo para la primera columna */
         .columna-imagen {
-            flex: 1; /* La primera columna ocupa el 50% del ancho del contenedor */
+            flex: 1;
+            /* La primera columna ocupa el 50% del ancho del contenedor */
         }
 
         /* Estilo para la imagen */
         .imagen {
-            width: 100%; /* La imagen ocupa todo el ancho de su contenedor */
-            height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
-            display: block; /* Se muestra como un bloque para evitar espacios en blanco adicionales */
+            width: 100%;
+            /* La imagen ocupa todo el ancho de su contenedor */
+            height: auto;
+            /* La altura se ajusta automáticamente para mantener la proporción */
+            display: block;
+            /* Se muestra como un bloque para evitar espacios en blanco adicionales */
         }
 
         /* Estilo para la segunda columna */
         .columna-texto {
-            flex: 1; /* La segunda columna ocupa el 50% del ancho del contenedor */
-            padding: 20px; /* Espacio interno para separar el texto del borde */
-            text-align: center; /* Centra el texto horizontalmente */
+            flex: 1;
+            /* La segunda columna ocupa el 50% del ancho del contenedor */
+            padding: 20px;
+            /* Espacio interno para separar el texto del borde */
+            text-align: center;
+            /* Centra el texto horizontalmente */
 
         }
 
         /* Estilo para el texto */
         .texto {
-            font-size: 25px; /* Tamaño de fuente */
+            font-size: 25px;
+            /* Tamaño de fuente */
             font-family: "Luckiest Guy", sans-serif;
-            
-        }
 
-        
+        }
     </style>
 
 
     <div class="container">
-     
+
         <div class="container contenedor-padre">
             <!-- Primer div -->
             <div class="contenedor">
@@ -83,7 +98,7 @@
                 </div>
                 <div class="columna-texto">
                     <p class="texto">{{ $totalPuas }} PUAS</p>
-                    
+
                 </div>
             </div>
             <!-- Segundo div -->
@@ -93,7 +108,7 @@
                 </div>
                 <div class="columna-texto">
                     <p class="texto">{{ $totalReservas }} RESERVAS</p>
-                    
+
                 </div>
             </div>
             <!-- Tercer div -->
@@ -103,7 +118,7 @@
                 </div>
                 <div class="columna-texto">
                     <p class="texto">{{ $totalEntregas }} ENTREGAS</p>
-                    
+
                 </div>
             </div>
         </div>
@@ -112,7 +127,7 @@
             <!-- Primer div -->
             <div class="contenedor">
                 <div class="col-md-4 chart-container mb-4">
-                     <h3>Tipos Usuarios</h3>
+                    <h3>Tipos Usuarios</h3>
                     <canvas id="usuariosPorTipoChart"></canvas>
                 </div>
             </div>
@@ -153,8 +168,8 @@
                     <img src="{{ asset('img/caroteno.png') }}" alt="Logo" class="me-2" style="height: 350px;">
                 </div>
             </div>
-        </div> 
-  
+        </div>
+
     </div>
 
 
