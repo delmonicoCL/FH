@@ -104,6 +104,12 @@
 
         </table>
 
+        <!-- Enlaces de paginación para los usuarios -->
+{{ $usuarios->links() }}
+
+{{-- <!-- Enlaces de paginación para los riders -->
+{{ $riders->links() }} --}}
+
     </div>
 
     <div class="container mt-2">

@@ -82,9 +82,9 @@
                     </tr>
                 @endfor
             </tbody>
-
-
         </table>
+        <!-- Paginator para los usuarios -->
+            {{ $usuarios->links() }}
 
     </div>
 
