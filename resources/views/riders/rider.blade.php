@@ -119,34 +119,36 @@
                                             <h3>PERFIL</h3>
                                             <p class="lead text-muted fw-light">Información de usuario.</p>
                                         </div>
-                                        <div class="row mb-4">
-                                            <div class="col-md-6">
-                                                <div class="text-center">
-                                                    <h4>Nombre</h4>
-                                                    <div class="d-flex justify-content-center align-items-center">
-                                                        <p class="lead m-0">{{ $user->nombre }}</p>
+                                        <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $user->id, 'tipo' => $user->tipo]) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="row mb-4">
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Nombre</h4>
+                                                        <input type="text" class="form-control" name="nombre" value="{{ $user->nombre }}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Correo</h4>
+                                                        <input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="text-center">
-                                                    <h4>Correo</h4>
-                                                    <div class="d-flex justify-content-center align-items-center">
-                                                        <p class="lead m-0">{{ $user->email }}</p>
+                                            <div class="row mb-4">
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Teléfono</h4>
+                                                        <input type="text" class="form-control" name="telefono" value="{{ $user->telefono }}" readonly>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row mb-4">
-                                            <div class="col-md-6">
-                                                <div class="text-center">
-                                                    <h4>Teléfono</h4>
-                                                    <div class="d-flex justify-content-center align-items-center">
-                                                        <p class="lead m-0">{{ $user->telefono }}</p>
-                                                    </div>
-                                                </div>
+                                            <div class="text-center">
+                                                <button type="button" class="btn btn-primary" id="editarPerfil">Editar</button>
+                                                <button type="submit" class="btn btn-primary" style="display:none;">Guardar cambios</button>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -154,6 +156,51 @@
                     </div>
                 </div>
             </div>
+
+            <form id="updateForm" action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $user->id, 'tipo' => $user->tipo]) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <h4>Nombre</h4>
+                            <input type="text" class="form-control" name="nombre" value="{{ $user->nombre }}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <h4>Correo</h4>
+                            <input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <h4>Teléfono</h4>
+                            <input type="text" class="form-control" name="telefono" value="{{ $user->telefono }}" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary" id="editarPerfil">Editar</button>
+                    <button type="submit" class="btn btn-primary" style="display:none;">Guardar cambios</button>
+                </div>
+            </form>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.getElementById('editarPerfil').addEventListener('click', function() {
+                        // Oculta el modal de perfil
+                        document.getElementById('modal-perfil').style.display = 'none';
+                        // Muestra el formulario de actualización
+                        document.getElementById('updateForm').style.display = 'block';
+                    });
+                });
+            </script>
+            
+            
+            
                 
                 <!-- Modal Reservas -->
             <div id="modal-reservas" class="modal-reservas">

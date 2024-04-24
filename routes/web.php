@@ -80,8 +80,8 @@ Route::middleware(["auth"])->group(function () {
         $reservas = Reserva::where("proveedor", "=", $id)->get();
 
         $riders = DB::table('reservas')
-            ->join('usuarios', 'reservas.rider', '=', 'usuarios.id')
-            ->select('usuarios.nombre AS nombre')
+            ->join('riders', 'reservas.rider', '=', 'riders.id')
+            ->select('riders.nickname AS nickname', "reservas.id", "reservas.rider", "reservas.cantidad", "reservas.estado")
             ->where('reservas.proveedor', "=", $id)
             ->get();
 
