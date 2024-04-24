@@ -195,7 +195,7 @@ class UsuarioController extends Controller
                 $rider->apellidos = $request->input("Apellidos");
                 $rider->nickname = $request->input("Nickname");
                 $rider->avatar = $request->input("Avatar");
-                $rider->stock_rider = $request->input("Stock");
+                // $rider->stock_rider = $request->input("Stock");
                 $rider->save();
             }
 
@@ -259,7 +259,8 @@ class UsuarioController extends Controller
             $usuario->save();
 
             // Redirigir a la página de inicio, o a donde necesites
-            return redirect()->route("riders.index");
+            // return redirect()->route("administradores/administrador");
+            return view('administradores/administrador');
         }
 
 

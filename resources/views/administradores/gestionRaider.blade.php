@@ -7,11 +7,11 @@
 
     <div class="container mt-4">
 
-        <table class="table table-striped table-bordered">
+        <table class="table ">
 
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
+            <thead style="background-color: yellow;">
+                <tr >
+                    <th scope="col">IDd</th>
                     <th scope="col">NickName</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
@@ -21,7 +21,6 @@
                     <th scope="col">Stock</th>
                     <th scope="col" class="text-center">Borrar</th>
                     <th scope="col" class="text-center">Editar</th>
-
                 </tr>
             </thead>
 
@@ -38,9 +37,17 @@
 
                         <td class="text-center">
                           
-                            
-                                    @if ($riders[$i]->avatar === 'avatar1.png')
-                                        <img src="{{ asset('media/img/avatares/avatar1.png') }}" alt="imagen avatar" width="45" height="45" >
+                            @if ($riders[$i]->avatar)
+                                 
+                            <img src="{{ asset('media/img/avatares/' . $riders[$i]->avatar) }}" alt="Logo"
+                                   width="50" height="50"> 
+                           @else 
+                               Sin LOGO
+                           @endif
+
+                                    {{--  NO BORRAR¡¡¡ --}}
+                                    {{-- @if ($riders[$i]->avatar === 'avatar1.png')
+                                    <img src="{{ asset('media/img/avatares/avatar1.png') }}" alt="imagen avatar" width="45" height="45" >
                                     @elseif ($riders[$i]->avatar === 'avatar2.png')
                                         <img src="{{ asset('media/img/avatares/avatar2.png') }}" alt="imagen avatar" width="45" height="45" >
                                     @elseif ($riders[$i]->avatar === 'avatar3.png')
@@ -61,10 +68,8 @@
                                         <img src="{{ asset('media/img/avatares/avatar10.png') }}" alt="imagen avatar" width="45" height="45">
                                     @else
                                         {{ $riders[$i]->avatar }}
-                                    @endif
+                                    @endif --}}
                                
-
-                           
                         </td>                        
                         <td>{{ $riders[$i]->stock_rider }}</td>
 
@@ -105,7 +110,7 @@
         </table>
 
         <!-- Enlaces de paginación para los usuarios -->
-{{ $usuarios->links() }}
+        {{ $usuarios->links() }}
     </div>
 
     <div class="container mb-5 ">

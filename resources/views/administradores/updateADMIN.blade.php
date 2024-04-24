@@ -48,7 +48,7 @@
         <button type="submit" class="btn btn-primary" form="formularioinscripcion" id="aceptar">
             Aceptar
         </button>
-        <a href="{{ url("usuarios")}}" class="btn btn-secondary">
+        <a href="{{ url('home') }}" class="btn btn-secondary">
             Cancelar
         </a>
     </div>

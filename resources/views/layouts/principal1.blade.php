@@ -20,6 +20,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{{ asset('css/sidebars.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/tabla.css') }}">
 
 </head>
 

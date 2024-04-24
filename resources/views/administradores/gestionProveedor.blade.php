@@ -13,7 +13,7 @@
 
     <div class="container mt-4">
 
-        <table class="table table-striped table-bordered">
+        <table class="table">
 
             <thead>
                 <tr>
@@ -45,11 +45,11 @@
                         <td>{{ $proveedores[$i]->ciudad }}</td>
                         <td>
                             @if ($proveedores[$i]->logo)
-                                 {{-- <img src="{{ asset('storage/logos/' . $proveedores[$i]->logo) }}" alt="Logo" width="50" height="50">  --}}
-                              <img src="{{ asset('media/img/logos/' . $proveedores[$i]->logo) }}" alt="Logo"
+                                 
+                             <img src="{{ asset('media/img/logos/' . $proveedores[$i]->logo) }}" alt="Logo"
                                     width="50" height="50"> 
-                            @else
-                                Sin 
+                            @else 
+                                Sin LOGO
                             @endif
                         </td>
 
