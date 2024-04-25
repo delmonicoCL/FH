@@ -141,6 +141,7 @@
 
         <div class="b-example-divider b-example-vr"></div>
         <div class="container-fluid" style="overflow-y: auto;">
+            @include('partials.mensajes')
             @yield('contenido')
         </div>
 

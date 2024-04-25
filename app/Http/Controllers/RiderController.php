@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Rider;
 use App\Models\Entrega;
 use App\Models\Reserva;
@@ -60,10 +59,10 @@ class RiderController extends Controller
         //Crear un objeto de la clase que representa un registro a la tabla
         $rider=new Rider();
         //Asignar los valores del formulario a su respectivo campo
-        $rider["id"]=$id;
-        $rider["apellidos"]=$apellidos;
-        $rider["nickname"]=$nickname;
-        $rider["avatar"]=$avatar;
+        $rider->id=$id;
+        $rider->apellidos=$apellidos;
+        $rider->nickname=$nickname;
+        $rider->avatar=$avatar;
 
         try
         {
@@ -101,18 +100,32 @@ class RiderController extends Controller
 
     public function update(Request $request, Rider $rider)
     {
-        $nombreRider=$request->input("riderName");
-        $cantidadRider=$request->input("cantidad");
+        //Recuperar los datos del formulario
+        $tipo=$request->tipo;
+        $id=$request->input("Id");
+        $apellidos=$request->input("Apellidos");
+        $nickname=$request->input("Nickname");
+        $avatar=$request->input("Avatar");
 
-        echo $nombreRider;
-        /*$nombreRider
-
-
-        $reservas=Reserva::class ;
-        $reservas->estado === "finalizada";
-
-        $rider->stock_rider += $request->input("cantidad");
-        $rider->save();*/
+        $rider->apellidos=$apellidos;
+        $rider->nickname=$nickname;
+        $rider->avatar=$avatar;
+        
+        try
+        {
+            //Hacer el insert en la tabla
+            $rider->save();
+            $request->session()->flash("mensaje","Rider modificado correctamente.");
+            $response=redirect("/administradores/gestionRaider");
+        }
+        catch(QueryException $ex)
+        {
+            $usuario=Usuario::where("id", "=", $id)->first();
+            $mensaje=Utilidad::errorMessage($ex);
+            $request->session()->flash("error",$mensaje);
+            $response = redirect()->route("usuarios.edit", compact("tipo","usuario"))->withInput();
+        }
+        return $response;
     }
 
     public function destroy(Rider $rider)

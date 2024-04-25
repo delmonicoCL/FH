@@ -1,5 +1,4 @@
 @extends('layouts.principal1')
-
     @section('contenido')
         <div class="container mt-4" id="contenedorPrincipal">
             <div class="modal fade" tabindex="-1" id="modalCambiarAvatar">

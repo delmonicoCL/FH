@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
-use App\Http\Controllers\ProveedorController;
 
 class UsuarioController extends Controller
 {
@@ -133,7 +132,7 @@ class UsuarioController extends Controller
         {
             $mensaje = Utilidad::errorMessage($ex);
             $request->session()->flash("error", $mensaje);
-            $response = redirect()->action([UsuarioController::class, "create"], ['tipo' => $tipo])->withInput();
+            $response = redirect()->action([UsuarioController::class, "create"],['tipo' => $tipo])->withInput();
         }
 
         return $response;
@@ -147,7 +146,7 @@ class UsuarioController extends Controller
     public function edit(Request $request, Usuario $usuario)
     {
         //Recuperar los datos del formulario
-        $tipo = $request->input("tipo");
+        $tipo=$request->tipo;
 
         if ($tipo === "rider")
         {
@@ -158,7 +157,7 @@ class UsuarioController extends Controller
                 array_push($listaAvatares, $avataresRider[$i]["avatar"]);
             }
             $rider = Rider::where("id", "=", $usuario->id)->first();
-            return view('administradores.updateRIDER', compact('usuario', "rider","listaAvatares"));
+            return view('administradores.updateRIDER', compact('usuario',"rider","listaAvatares"));
         }
         if ($tipo === "proveedor")
         {
@@ -175,130 +174,126 @@ class UsuarioController extends Controller
 
     public function update(Request $request, Usuario $usuario)
     {
-        //Recuperar los datos del formulario
-        $tipo = $request->input("tipo");
+        $tipo=$request->tipo;
 
-        if ($tipo === "rider")
+        $nombre=$request->input("Nombre");
+        $email=$request->input("Email");
+        $telefono=$request->input("Telefono");
+
+        $usuario->nombre=$nombre; 
+        $usuario->email=$email; 
+        $usuario->telefono=$telefono;
+
+        try
+        {
+            //Hacer el insert en la tabla
+            $usuario->save();
+            if ($tipo === "administrador")
+            {
+                $response=app(AdministradorController::class)->update($request);
+            }
+            else if ($tipo === "proveedor")
+            {
+                $proveedore=Proveedor::where("id","=",$usuario->id)->first();
+                $response=app(ProveedorController::class)->update($request,$proveedore);
+            }
+            else if ($tipo === "rider")
+            {
+                $rider=Rider::where("id","=",$usuario->id)->first();
+                $response=app(RiderController::class)->update($request,$rider);
+            }
+        }
+        catch(QueryException $ex)
+        {
+            $mensaje=Utilidad::errorMessage($ex);
+            $request->session()->flash("error",$mensaje);
+            $response=redirect()->action([UsuarioController::class, "edit"],["usuario"=>$usuario,'tipo'=>$tipo])->withInput();
+        }
+
+        return $response;
+
+
+    
+
+        if ($tipo === "proveedor")
+        {
+            // Obtener el rider asociado con el usuario
+            $proveedor = Proveedor::where("id", "=", $usuario->id)->first();
+
+            // Actualizar los datos del usuario
+            $usuario->nombre = $request->input("nombre");
+            $usuario->email = $request->input("email");
+            $usuario->telefono = $request->input("telefono");
+
+            // Actualizar los datos del rider si existe
+            if ($proveedor)
+            {
+                $proveedor->calle = $request->input("calle");
+                $proveedor->numero = $request->input("numero");
+                $proveedor->cp = $request->input("cp");
+                $proveedor->ciudad = $request->input("ciudad");
+                //    $proveedor->logo = $request->input("logo");
+                $proveedor->stock_proveedor = $request->input("stock");
+                $proveedor->save();
+            }
+
+            // Guardar los cambios en el usuario
+            $usuario->save();
+
+            // Redirigir a la página de inicio, o a donde necesites
+            if ($tipo === "proveedor")
+            {
+                return redirect()->route("proveedor2");
+            }
+            else
+            {
+                return redirect()->route("proveedores.index");
+            }
+        }
+
+        /*if ($tipo === "administrador")
         {
 
             // Obtener el rider asociado con el usuario
-            $rider = Rider::where("id", "=", $usuario->id)->first();
+            $administrador = Administrador::where("id", "=", $usuario->id)->first();
 
             // Actualizar los datos del usuario
-            $usuario->nombre = $request->input("Nombre");
-            $usuario->email = $request->input("Email");
-            $usuario->telefono = $request->input("Telefono");
-
-            // Actualizar los datos del rider si existe
-            if ($rider)
-            {
-                $rider->apellidos = $request->input("Apellidos");
-                $rider->nickname = $request->input("Nickname");
-                $rider->avatar = $request->input("Avatar");
-                // $rider->stock_rider = $request->input("Stock");
-                $rider->save();
-            }
-
-            $nombre = $request->input("nombre");
-            $email = $request->input("email");
-            $telefono = $request->input("telefono");
+            $usuario->nombre = $request->input("nombre");
+            $usuario->email = $request->input("email");
+            $usuario->telefono = $request->input("telefono");
+            // $contrasenia = $request->input("contraseña");
+            // $usuario->contrasenia =\bcrypt($contrasenia);
         
-            // Actualizar los datos del usuario
-            $usuario->nombre = $nombre;
-            $usuario->email = $email;
-            $usuario->telefono = $telefono;
-    
-            try {
-                // Guardar los cambios en el usuario
-                $usuario->save();
-        
-                // Redirigir a donde necesites después de actualizar el perfil
-                return redirect()->route("ruta.donde.quieras.redirigir");
-            } catch (\Exception $e) {
-                // Manejar cualquier excepción que pueda ocurrir al guardar los cambios
-                // Puedes mostrar un mensaje de error y redirigir a la página de edición del perfil
-                return redirect()->back()->withInput()->withErrors("Error al actualizar el perfil: " . $e->getMessage());
-            }
+            // Guardar los cambios en el usuario
+            $usuario->save();
 
-            if ($tipo === "proveedor")
-            {
-                // Obtener el rider asociado con el usuario
-                $proveedor = Proveedor::where("id", "=", $usuario->id)->first();
-
-                // Actualizar los datos del usuario
-                $usuario->nombre = $request->input("nombre");
-                $usuario->email = $request->input("email");
-                $usuario->telefono = $request->input("telefono");
-
-                // Actualizar los datos del rider si existe
-                if ($proveedor)
-                {
-                    $proveedor->calle = $request->input("calle");
-                    $proveedor->numero = $request->input("numero");
-                    $proveedor->cp = $request->input("cp");
-                    $proveedor->ciudad = $request->input("ciudad");
-                    //    $proveedor->logo = $request->input("logo");
-                    $proveedor->stock_proveedor = $request->input("stock");
-                    $proveedor->save();
-                }
-
-                // Guardar los cambios en el usuario
-                $usuario->save();
-
-                // Redirigir a la página de inicio, o a donde necesites
-                if ($tipo === "proveedor")
-                {
-                    return redirect()->route("proveedor2");
-                }
-                else
-                {
-                    return redirect()->route("proveedores.index");
-                }
-            }
-
-            if ($tipo === "administrador")
-            {
-
-                // Obtener el rider asociado con el usuario
-                $administrador = Administrador::where("id", "=", $usuario->id)->first();
-
-                // Actualizar los datos del usuario
-                $usuario->nombre = $request->input("nombre");
-                $usuario->email = $request->input("email");
-                $usuario->telefono = $request->input("telefono");
-                // $contrasenia = $request->input("contraseña");
-                // $usuario->contrasenia =\bcrypt($contrasenia);
-            
-                // Guardar los cambios en el usuario
-                $usuario->save();
-
-                // Redirigir a la página de inicio, o a donde necesites
-                // return redirect()->route("administradores/administrador");
-                return view('administradores/administrador');
-            }
-            //  // Obtener el rider asociado con el usuario
-            //  $rider = Rider::where("id","=",$usuario->id)->first();
-
-            //  // Actualizar los datos del usuario
-            //  $usuario->nombre = $request->input("nombre");
-            //  $usuario->email = $request->input("email");
-            //  $usuario->telefono = $request->input("telefono");
-
-            //  // Actualizar los datos del rider si existe
-            //  if ($rider) {
-            //      $rider->apellidos = $request->input("apellido");
-            //      $rider->nickname = $request->input("nickname");
-            //      $rider->avatar = $request->input("avatar");
-            //      $rider->stock_rider = $request->input("stock");
-            //      $rider->save();
-            //  }
-
-            //  // Guardar los cambios en el usuario
-            //  $usuario->save();
-
-            //  // Redirigir a la página de inicio, o a donde necesites
-            //  return redirect()->action([UsuarioController::class, 'index']);
+            // Redirigir a la página de inicio, o a donde necesites
+            // return redirect()->route("administradores/administrador");
+            return view('administradores/administrador');
         }
+        //  // Obtener el rider asociado con el usuario
+        //  $rider = Rider::where("id","=",$usuario->id)->first();
+
+        //  // Actualizar los datos del usuario
+        //  $usuario->nombre = $request->input("nombre");
+        //  $usuario->email = $request->input("email");
+        //  $usuario->telefono = $request->input("telefono");
+
+        //  // Actualizar los datos del rider si existe
+        //  if ($rider) {
+        //      $rider->apellidos = $request->input("apellido");
+        //      $rider->nickname = $request->input("nickname");
+        //      $rider->avatar = $request->input("avatar");
+        //      $rider->stock_rider = $request->input("stock");
+        //      $rider->save();
+        //  }
+
+        //  // Guardar los cambios en el usuario
+        //  $usuario->save();
+
+        //  // Redirigir a la página de inicio, o a donde necesites
+        //  return redirect()->action([UsuarioController::class, 'index']);*/
+        
     }
 
     public function destroy(Request $request, Usuario $usuario)
