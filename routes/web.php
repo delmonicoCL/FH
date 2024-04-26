@@ -49,16 +49,41 @@ Route::middleware(["auth"])->group(function () {
                 $response = view("proveedor/proveedor1", compact("user", "proveedor"));
                 break;
             default:
-                $rider = Rider::where("id", "=", $id)->first();
-                // $reservas = Reserva::where("rider","=",$id)->where("estado","!=","finalizada")->get(); // Aquí se filtran las reservas finalizadas
-                $reservas = DB::table('reservas')
-                    ->join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
-                    ->join('proveedores', 'reservas.proveedor', '=', 'proveedores.id')
-                    ->select('usuarios.nombre AS nombre_proveedor', 'reservas.cantidad', 'proveedores.lat AS latitud', 'proveedores.lng AS longitud')
-                    ->where('reservas.rider', 160)
-                    ->get();
+                        // Obtener el usuario actual (no sé de dónde viene $user, así que lo estoy suponiendo aquí)
+                    $user = Auth::user(); // Suponiendo que utilizas el sistema de autenticación de Laravel
 
-                $response = view("riders/rider", compact("user", "rider", "reservas"));
+                    // Obtener el rider por su ID
+                    $rider = Rider::where("id", "=", $id)->first();
+
+                    // Obtener el total de reservas
+                    $totalReservas = $rider->reservas()->count();
+
+                    // Obtener el total de puas
+                    $totalPuas = $rider->puas()->count();
+
+                    // Obtener el total de entregas
+                    $totalEntregas = $rider->entregas()->count();
+
+                    // Obtener las reservas asociadas al rider
+                    $reservas = DB::table('reservas')
+                        ->join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
+                        ->join('proveedores', 'reservas.proveedor', '=', 'proveedores.id')
+                        ->select('usuarios.nombre AS nombre_proveedor', 'reservas.cantidad', 'proveedores.lat AS latitud', 'proveedores.lng AS longitud')
+                        ->where('reservas.rider', $id) // Usando el ID del rider pasado como parámetro
+                        ->get();
+
+                    $response = view("riders/rider", compact("user", "rider", "reservas", "totalReservas", "totalPuas", "totalEntregas"));
+                    
+                // $rider = Rider::where("id", "=", $id)->first();
+                // // $reservas = Reserva::where("rider","=",$id)->where("estado","!=","finalizada")->get(); // Aquí se filtran las reservas finalizadas
+                // $reservas = DB::table('reservas')
+                //     ->join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
+                //     ->join('proveedores', 'reservas.proveedor', '=', 'proveedores.id')
+                //     ->select('usuarios.nombre AS nombre_proveedor', 'reservas.cantidad', 'proveedores.lat AS latitud', 'proveedores.lng AS longitud')
+                //     ->where('reservas.rider', 160)
+                //     ->get();
+
+                // $response = view("riders/rider", compact("user", "rider", "reservas"));
                 break;
         }
         return $response;
