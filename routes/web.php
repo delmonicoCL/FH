@@ -97,7 +97,6 @@ Route::middleware(["auth"])->group(function () {
             ->orderByDesc('cantidad')
             ->get();
 
-        // consulta para mostrar el totoal de menus entregados por un proveedor
         $entregasFinalizadas = DB::table('reservas')
             ->where('proveedor', '=', $id)
             ->where('estado', '=', 'finalizada')
