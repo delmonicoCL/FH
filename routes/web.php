@@ -183,8 +183,6 @@ Route::middleware(["auth"])->group(function () {
         }
 
     })->name('administradores.gestionProveedor');
-
-
 });
 
 Route::get('/registros/elige_tipo_de_usuario', function () {

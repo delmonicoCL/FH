@@ -3,6 +3,10 @@
     Datos del proveedor
 @endsection
 @section('contenido')
+    {{-- @php
+        namespace App\Http\Controllers;
+        use App\Models\Rider;
+    @endphp --}}
     @include('partials.mensajes')
     {{-- <pre>
             @php
@@ -16,37 +20,46 @@
                     <h2>Proveedor</h2>
                 </div>
                 <hr />
-                <div class="row1">
-                    <div class="nombre">
-                        <h4>{{ $user['nombre'] }}</h4>
+                <div class="containerInfo">
+                    <div class="col1" data-nombreDeLaImagen="{{ $proveedor->logo }}">asd
+                        {{-- <img src="{{ $proveedores['logo'] }}" alt="imgFresa" class="imgFresa"> --}}
                     </div>
-                    <div class="calle">
-                        <h4>Calle: </h4>
-                        <p>{{ $proveedor['calle'] }} {{ $proveedor['numero'] }}</p>
-                    </div>
-                </div>
-                <div class="row2">
-                    <div class="email">
-                        <p>{{ $user['email'] }}</p>
-                    </div>
-                    <div class="ciudad">
-                        <h4>Ciudad: </h4>
-                        <p> {{ $proveedor['ciudad'] }} {{ $proveedor['cp'] }}</p>
-                    </div>
-                </div>
-                <div class="row3">
-                    <div class="telefono">
-                        <h4>Teléfono: </h4>
-                        <p> {{ $user['telefono'] }}</p>
-                    </div>
-                    <div class="icono">
-                        <form action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor]) }}" method="POST">
-                            @method('GET')
-                            <img src="{{ asset('img/Group.svg') }}" alt="svgEditar" class="svgEditar">
-                            <button type="submit" class="btnEditar" id="btnEditar" title="Editar">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </form>
+                    <div class="col2">
+                        <div class="row1">
+                            <div class="nombre">
+                                <h4>{{ $user['nombre'] }}</h4>
+                            </div>
+                            <div class="calle">
+                                <h4>Calle: </h4>
+                                <p>{{ $proveedor['calle'] }} {{ $proveedor['numero'] }}</p>
+                            </div>
+                        </div>
+                        <div class="row2">
+                            <div class="email">
+                                <p>{{ $user['email'] }}</p>
+                            </div>
+                            <div class="ciudad">
+                                <h4>Ciudad: </h4>
+                                <p> {{ $proveedor['ciudad'] }} {{ $proveedor['cp'] }}</p>
+                            </div>
+                        </div>
+                        <div class="row3">
+                            <div class="telefono">
+                                <h4>Teléfono: </h4>
+                                <p> {{ $user['telefono'] }}</p>
+                            </div>
+                            <div class="icono">
+                                <form
+                                    action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor]) }}"
+                                    method="POST">
+                                    @method('GET')
+                                    <img src="{{ asset('img/Group.svg') }}" alt="svgEditar" class="svgEditar">
+                                    <button type="submit" class="btnEditar" id="btnEditar" title="Editar">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -149,26 +162,18 @@
                     </div>
                 </div>
                 <div class="btnConfirm">
-                    <button class="confirmar" id="confirmarBtn" type="submit" form="idFormConfirmar">Confirmar</button>
+                    <button class="confirmar" id="confirmarBtn">Confirmar</button>
                 </div>
 
-                {{-- @php
-                    for ($i=0; $i <$riders; $i++)
-                    {
-                        if($riders["nickname"]===$riderReserva[$riderSeleccionado]["nickname"])
-                        {
-                            $rider=$riders[$i];
-                        }
-                    }
-                @endphp --}}
+                {{-- action="{{ action([App\Http\Controllers\RiderController::class, 'update'], ['rider' => $rider]) }}" --}}
 
-                {{-- <form action="{{ action([App\Http\Controllers\RiderController::class, 'update'], ['rider' => $rider]) }}" id="idFormConfirmar" method="POST"> --}}
-                @csrf
-                @method('PUT')
-                <label for="riderName">Nombre del Rider</label>
-                <input type="text" id="riderName" name="riderName">
-                <label for="cantidad">Cantidad</label>
-                <input type="text" id="cantidad" name="cantidad">
+                <form id="idFormConfirmar" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <label for="riderName">Nombre del Rider</label>
+                    <input type="text" id="riderName" name="riderName">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="text" id="cantidad" name="cantidad">
                 </form>
             </div>
         </div>

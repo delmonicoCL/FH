@@ -35,6 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    
+
     let selectElement = document.getElementById("opciones");
     let inputName = document.getElementById("riderName");
     let inputCantidad = document.getElementById("cantidad");
