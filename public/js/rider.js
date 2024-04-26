@@ -204,17 +204,17 @@ if (closeButtonEditarPerfil) {
     });
 
 
-    var modalHistorial = document.getElementById("modal-historial");
-    var boton_historial = document.getElementById('boton-historial');
+    // var modalHistorial = document.getElementById("modal-historial");
+    // var boton_historial = document.getElementById('boton-historial');
 
-    boton_historial.addEventListener('click', function (){
-        modalHistorial.style.display = "block";
-        var closeButtonHistorial = document.getElementById('closeButtonHistorial');
+    // boton_historial.addEventListener('click', function (){
+    //     modalHistorial.style.display = "block";
+    //     var closeButtonHistorial = document.getElementById('closeButtonHistorial');
 
-        closeButtonHistorial.addEventListener('click', function() {
-            modalHistorial.style.display = "none";
-        });
-    });
+    //     closeButtonHistorial.addEventListener('click', function() {
+    //         modalHistorial.style.display = "none";
+    //     });
+    // });
 
     function updateButtonStyle() {
         if (modoPua) {

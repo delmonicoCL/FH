@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="{{ asset('css/rider.css') }}" />
         <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://fonts.cdnfonts.com/css/luckiest-guy" rel="stylesheet">
         <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.3.1/mapbox-gl-directions.css" type="text/css">
              <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.3.1/mapbox-gl-directions.js"></script>
@@ -25,7 +26,7 @@
         /* Estilos personalizados para el modal redondo */
         .modal-contentREDON {
             border-radius: 50%;
-            /* background-image: url('https://img.freepik.com/vector-gratis/fondo-marco-comico_79603-1916.jpg');
+        background-image: url('https://img.freepik.com/vector-gratis/fondo-marco-comico_79603-1916.jpg');
           background-size: cover;*/
         }
     
@@ -69,7 +70,24 @@
         .modal-footerREDON {
             display: flex;
             justify-content: center;
+            border-color: none !important; 
         }
+
+        .modal-header {
+            border-color: none !important; 
+        }
+
+        .modal-footer {
+            border-color: none !important; 
+        }
+
+        .btn-unstyled {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        cursor: pointer;
+        }
+
     </style>
     <body>
         @yield('contenido')
@@ -132,14 +150,9 @@
                     </button>
                 </div>
                 <div class="navbar-item">
-                    <button id="boton-historial">
+                    <button id="boton-historial" class="btn btn-unstyled" data-bs-toggle="modal" data-bs-target="#modalRounded">
                         <img src="{{ asset('img/historial.png') }}"alt="Historial" class="img-fluid" />
                     </button>
-                </div>
-                <div class="navbar-item">
-                    <button class="" data-bs-toggle="modal" data-bs-target="#modalRounded">
-                        <img src="{{ asset('img/historial.png') }}"alt="Historial" class="img-fluid" />
-    
                 </div>
             </div>
         </nav>
@@ -311,7 +324,7 @@
                 <div class="modal-content-reservas modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h2 class="modal-title">RESERVAS</h2>
+                            <h2 class="modal-title ms-4">RESERVAS</h2>
                             <span class="close" id="closeButtonReservas">&times;</span>
                         </div>
                         <div class="modal-body">
@@ -319,9 +332,9 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>PROVEEDOR</th>
-                                            <th>RESERVAS</th>
-                                            <th></th>
+                                            <th><h5>PROVEEDOR</h5></th>
+                                            <th><h5>RESERVAS</h5></th>
+                                            <th><h5>RUTA</h5></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -422,19 +435,19 @@
                             <div class="row">
                                 <div class="col">
                                     <h4 class="d-inline-block">PUAS CREADAS</h4>
-                                    <h5 class="d-inline-block ml-2">{{ $totalPuas }}</h5>
+                                    <h2 class="d-inline-block ml-2">{{ $totalPuas }}</h2>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <h4 class="d-inline-block">RESERVAS</h4>
-                                    <h5 class="d-inline-block ml-2">{{ $totalReservas }}</h5>
+                                    <h2 class="d-inline-block ml-2">{{ $totalReservas }}</h2>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <h4 class="d-inline-block">ENTREGAS</h4>
-                                    <h5 class="d-inline-block ml-2">{{ $totalEntregas }}</h5>
+                                    <h2 class="d-inline-block ml-2">{{ $totalEntregas }}</h2>
                                 </div>
                             </div>
                         </div>
