@@ -107,6 +107,7 @@ class RiderController extends Controller
         $nickname=$request->input("Nickname");
         $avatar=$request->input("Avatar");
 
+        //Asignar los valores del formulario a su respectivo campo
         $rider->apellidos=$apellidos;
         $rider->nickname=$nickname;
         $rider->avatar=$avatar;

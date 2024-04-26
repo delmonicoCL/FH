@@ -10,7 +10,9 @@
     <meta name="generator" content="Hugo 0.122.0">
     <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>DashBoard - Food Hero</title>
+    <title>
+        @yield("titulo")
+    </title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -126,13 +128,15 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ asset('img/MrSalchicha.png') }}" alt="" width="65" height="90"
                         class="rounded-circle me-2">
-                    <strong class="user-name">{{ Auth::user()['nombre'] }} </strong>
+                    <strong class="user-name">{{ Auth::user()['nombre'] }}@yield("apellidos")</strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="{{ route('actualizarAdmin')}}">Actualizar Perfil</a></li>
+                    <li>
+                        @yield("editarAdministrador")
+                    </li>
                     <li><a class="dropdown-item" href="{{ url('/logout') }}">Cerrar Sesion</a></li>
                 
                 </ul>

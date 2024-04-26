@@ -92,7 +92,7 @@
                                 Nombre @if($tipo==="proveedor") {{"empresa"}} @endif
                             </label>
                             <div class="col-sm-12 mb-3">
-                                <input type="text" @if($tipo==="proveedor") id="nombreEmpresa" name="NombreEmpresa" value="{{old('NombreEmpresa')}}" placeholder="Nombre empresa" @else id="nombre" name="Nombre" value="{{old('Nombre')}}" placeholder="Nombre" autofocus @endif class="form-control">
+                                <input type="text" @if($tipo==="proveedor") id="nombreEmpresa" name="NombreEmpresa" value="{{old('NombreEmpresa')}}" placeholder="Nombre empresa" autofocus @else id="nombre" name="Nombre" value="{{old('Nombre')}}" placeholder="Nombre" autofocus @endif class="form-control">
                                 @if($tipo==="proveedor") <small id="mensajeValidacionNombreEmpresa"></small> @else <small id="mensajeValidacionNombre"></small> @endif 
                             </div>
 
@@ -130,7 +130,7 @@
                                 Email
                             </label>
                             <div class="col-sm-12 mb-3">
-                                <input type="email" id="email" class="form-control" name="Email" value="{{old('Email')}}" placeholder="Email">
+                                <input type="email" id="email" class="form-control" name="Email" value="{{old('Email')}}" placeholder="Email" autocomplete="true">
                                 <small id="mensajeValidacionEmail"></small>
                             </div>
 

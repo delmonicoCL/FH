@@ -147,6 +147,8 @@ class UsuarioController extends Controller
     {
         //Recuperar los datos del formulario
         $tipo=$request->tipo;
+        $idAdministrador=$request->idAdministrador;
+        $administrador=Administrador::where("id","=",$idAdministrador)->first();
 
         if ($tipo === "rider")
         {
@@ -157,13 +159,19 @@ class UsuarioController extends Controller
                 array_push($listaAvatares, $avataresRider[$i]["avatar"]);
             }
             $rider = Rider::where("id", "=", $usuario->id)->first();
-            return view('administradores.updateRIDER', compact('usuario',"rider","listaAvatares"));
+            return view('administradores.updateRIDER', compact('usuario',"rider","listaAvatares","administrador"));
         }
-        if ($tipo === "proveedor")
+        else if ($tipo === "proveedor")
         {
             $proveedor = Proveedor::where("id", "=", $usuario->id)->first();
-            return view('administradores.updatePROVEEDOR', compact('usuario', "proveedor"));
+            return view('administradores.updatePROVEEDOR', compact('usuario', "proveedor","administrador"));
         }
+        else
+        {
+            $administrador = Administrador::where("id", "=", $usuario->id)->first();
+            return view('administradores.updateADMIN', compact('usuario', "administrador"));
+        }
+        
 
         //$rider = Rider::where("id","=",$usuario->id)->first();
         //return view('administradores.updateRIDER', compact('usuario',"rider"));
@@ -176,11 +184,26 @@ class UsuarioController extends Controller
     {
         $tipo=$request->tipo;
 
-        $nombre=$request->input("Nombre");
+        if ($tipo === "proveedor")
+        {
+            $nombreEmpresa = $request->input("NombreEmpresa");
+        }
+        else
+        {
+            $nombre = $request->input("Nombre");
+        }
         $email=$request->input("Email");
         $telefono=$request->input("Telefono");
 
-        $usuario->nombre=$nombre; 
+        //Asignar los valores del formulario a su respectivo campo
+        if ($tipo === "proveedor")
+        {
+            $usuario->nombre = $nombreEmpresa;
+        }
+        else
+        {
+            $usuario->nombre = $nombre;
+        }
         $usuario->email=$email; 
         $usuario->telefono=$telefono;
 
@@ -190,10 +213,12 @@ class UsuarioController extends Controller
             $usuario->save();
             if ($tipo === "administrador")
             {
-                $response=app(AdministradorController::class)->update($request);
+                $administradore=Administrador::where("id","=",$usuario->id)->first();
+                $response=app(AdministradorController::class)->update($request,$administradore);
             }
             else if ($tipo === "proveedor")
             {
+                $request->merge(['tipoDeModificacion' => "edicionGeneralDelProveedor"]);
                 $proveedore=Proveedor::where("id","=",$usuario->id)->first();
                 $response=app(ProveedorController::class)->update($request,$proveedore);
             }
@@ -211,66 +236,6 @@ class UsuarioController extends Controller
         }
 
         return $response;
-
-
-    
-
-        if ($tipo === "proveedor")
-        {
-            // Obtener el rider asociado con el usuario
-            $proveedor = Proveedor::where("id", "=", $usuario->id)->first();
-
-            // Actualizar los datos del usuario
-            $usuario->nombre = $request->input("nombre");
-            $usuario->email = $request->input("email");
-            $usuario->telefono = $request->input("telefono");
-
-            // Actualizar los datos del rider si existe
-            if ($proveedor)
-            {
-                $proveedor->calle = $request->input("calle");
-                $proveedor->numero = $request->input("numero");
-                $proveedor->cp = $request->input("cp");
-                $proveedor->ciudad = $request->input("ciudad");
-                //    $proveedor->logo = $request->input("logo");
-                $proveedor->stock_proveedor = $request->input("stock");
-                $proveedor->save();
-            }
-
-            // Guardar los cambios en el usuario
-            $usuario->save();
-
-            // Redirigir a la página de inicio, o a donde necesites
-            if ($tipo === "proveedor")
-            {
-                return redirect()->route("proveedor2");
-            }
-            else
-            {
-                return redirect()->route("proveedores.index");
-            }
-        }
-
-        /*if ($tipo === "administrador")
-        {
-
-            // Obtener el rider asociado con el usuario
-            $administrador = Administrador::where("id", "=", $usuario->id)->first();
-
-            // Actualizar los datos del usuario
-            $usuario->nombre = $request->input("nombre");
-            $usuario->email = $request->input("email");
-            $usuario->telefono = $request->input("telefono");
-            // $contrasenia = $request->input("contraseña");
-            // $usuario->contrasenia =\bcrypt($contrasenia);
-        
-            // Guardar los cambios en el usuario
-            $usuario->save();
-
-            // Redirigir a la página de inicio, o a donde necesites
-            // return redirect()->route("administradores/administrador");
-            return view('administradores/administrador');
-        }
         //  // Obtener el rider asociado con el usuario
         //  $rider = Rider::where("id","=",$usuario->id)->first();
 
@@ -292,8 +257,7 @@ class UsuarioController extends Controller
         //  $usuario->save();
 
         //  // Redirigir a la página de inicio, o a donde necesites
-        //  return redirect()->action([UsuarioController::class, 'index']);*/
-        
+        //  return redirect()->action([UsuarioController::class, 'index']);
     }
 
     public function destroy(Request $request, Usuario $usuario)

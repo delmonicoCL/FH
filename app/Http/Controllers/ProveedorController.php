@@ -105,20 +105,83 @@ class ProveedorController extends Controller
     public function update(Request $request, Proveedor $proveedore)
     {
         $tipoDeModificacion = $request->tipoDeModificacion;
-        if ($tipoDeModificacion === "crearMenu") {
+        if ($tipoDeModificacion === "crearMenu")
+        {
             $cant = $request->input("Cant");
             $stok = $proveedore->stock_proveedor;
             $nuevoStok = $cant + $stok;
             $proveedore->stock_proveedor = $nuevoStok;
-            try {
+            try
+            {
                 //Hacer el insert en la tabla
                 $proveedore->save();
                 $request->session()->flash("mensaje", "Menus creados exitosamente.");
                 $response = redirect()->route('proveedor2');
-            } catch (QueryException $ex) {
+            }
+            catch (QueryException $ex)
+            {
                 $mensaje = Utilidad::errorMessage($ex);
                 $request->session()->flash("error", $mensaje);
                 $response = redirect()->route('proveedor2');
+            }
+        }
+        else if($tipoDeModificacion==="edicionGeneralDelProveedor")
+        {
+            //Recuperar los valores del request
+            $tipo = $request->tipo;
+            $tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor=$request->tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor;
+            $id = $proveedore->id;
+            $calle=$request->input("Calle");
+            $numero=$request->input("Numero");
+            $cp=$request->input("Cp");
+            $ciudad=$request->input("Ciudad");
+            if($request->file("Logo")!==null)
+            {
+                $logo = $request->file("Logo");
+                $nombreDelArchivoDelLogo = $id . "." . $logo->getClientOriginalExtension();
+                $logo->storeAs('storage/logos', $nombreDelArchivoDelLogo);
+            }
+            $latitud = $request->input("Latitud");
+            $longitud = $request->input("Longitud");
+
+            //Asignar los valores del formulario a su respectivo campo
+            $proveedore->calle = $calle;
+            $proveedore->numero = $numero;
+            $proveedore->cp = $cp;
+            $proveedore->ciudad = $ciudad;
+            if($request->file("Logo")!==null)
+            {
+                $proveedore->logo = $nombreDelArchivoDelLogo;
+            }
+            $proveedore->lat = $latitud;
+            $proveedore->lng = $longitud;
+            try
+            {
+                //Hacer el insert en la tabla
+                $proveedore->save();
+                $request->session()->flash("mensaje","Proveedor modificado correctamente.");
+                if($tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor==="administrador")
+                {
+                    $response=redirect("/administradores/gestionProveedor");
+                }
+                else
+                {
+                    $response=redirect("/proveedor2");
+                }
+            }
+            catch(QueryException $ex)
+            {
+                $usuario=Usuario::where("id", "=", $id)->first();
+                $mensaje=Utilidad::errorMessage($ex);
+                $request->session()->flash("error",$mensaje);
+                if($tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor==="administrador")
+                {
+                    $response=redirect()->route("usuarios.edit", compact("tipo","usuario"))->withInput();
+                }
+                else
+                {
+                    $response=redirect()->action([ProveedorController::class, "edit"],["proveedore"=>$proveedore])->withInput();
+                }
             }
         }
         return $response;

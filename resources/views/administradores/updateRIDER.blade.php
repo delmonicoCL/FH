@@ -1,4 +1,16 @@
 @extends('layouts.principal1')
+    @section("titulo")
+        Editar Rider
+    @endsection
+    @section("apellidos")
+        {{$administrador->apellidos}}
+    @endsection
+    @section("editarAdministrador")
+        <form action="{{action([App\Http\Controllers\UsuarioController::class,'edit'],['usuario'=>Auth::user(),'tipo'=>Auth::user()->tipo,"idAdministrador"=>$administrador->id])}}"  method="POST">
+            @method('GET')
+            <input class="dropdown-item" type="submit" value="Actualizar perfil">
+        </form>
+    @endsection
     @section('contenido')
         <div class="container mt-4" id="contenedorPrincipal">
             <div class="modal fade" tabindex="-1" id="modalCambiarAvatar">
@@ -43,44 +55,38 @@
 
                     <div class="form-group mt-2">
                         <label for="nombre">ID:</label>
-                        <input type="text" class="form-control" id="id" name="Id" value="{{ $usuario->id }}" readonly>
+                        <input type="text" class="form-control" id="id" name="Id" value="{{$usuario->id}}" readonly>
                     </div>
 
                     <div class="form-group mt-2">
                         <label for="nickname">NickName:</label>
-                        <input type="text" class="form-control" id="nickname" name="Nickname" value="{{ $rider->nickname }}">
+                        <input type="text" class="form-control" id="nickname" name="Nickname" value="{{$rider->nickname}}" autofocus>
                         <small id="mensajeValidacionNickname"></small>
                     </div>
                 
                     <div class="form-group mt-2">
                         <label for="nombre">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" name="Nombre" value="{{ $usuario->nombre }}">
+                        <input type="text" class="form-control" id="nombre" name="Nombre" value="{{$usuario->nombre}}">
                         <small id="mensajeValidacionNombre"></small>
                     </div>
 
                     <div class="form-group mt-2">
                         <label for="apellido">Apellido:</label>
-                        <input type="text" class="form-control" id="apellidos" name="Apellidos" value="{{ $rider->apellidos }}">
+                        <input type="text" class="form-control" id="apellidos" name="Apellidos" value="{{$rider->apellidos}}">
                         <small id="mensajeValidacionApellidos"></small>
                     </div>
 
                     <div class="form-group mt-2">
                         <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" name="Email" value="{{ $usuario->email }}">
+                        <input type="email" class="form-control" id="email" name="Email" value="{{$usuario->email}}" autocomplete="true">
                         <small id="mensajeValidacionEmail"></small>
                     </div>
                     
                     <div class="form-group mt-2">
                         <label for="telefono">Telefono:</label>
-                        <input type="text" class="form-control" id="telefono" name="Telefono" value="{{ $usuario->telefono }}">
+                        <input type="text" class="form-control" id="telefono" name="Telefono" value="{{$usuario->telefono}}">
                         <small id="mensajeValidacionTelefono"></small>
                     </div>
-
-                    {{-- <div class="form-group mt-2">
-                        <label for="telefono">Stock:</label>
-                        <input type="text" class="form-control" id="stock" name="Stock" value="{{ $rider->stock_rider }}">
-                        <small id="mensajeValidacionStock"></small>
-                    </div> --}}
 
                 </form>
             </div>

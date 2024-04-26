@@ -1,4 +1,16 @@
 @extends('layouts.principal1')
+    @section("titulo")
+        Gestionar Riders
+    @endsection
+    @section("apellidos")
+        {{$administrador->apellidos}}
+    @endsection
+    @section("editarAdministrador")
+        <form action="{{action([App\Http\Controllers\UsuarioController::class,'edit'],['usuario'=>$usuario,'tipo'=>$usuario->tipo,"idAdministrador"=>$administrador->id])}}"  method="POST">
+            @method('GET')
+            <input class="dropdown-item" type="submit" value="Actualizar perfil">
+        </form>
+    @endsection
     @section('contenido')
         <div class="container mt-5">
             <H2> RIDERS </H2>
@@ -57,9 +69,7 @@
                                 </script>
                             </td>
                             <td class="text-center">
-                                <form
-                                    action="{{ action([App\Http\Controllers\UsuarioController::class, 'edit'], ['usuario' => $usuarios[$i]->id, 'tipo' => $usuarios[$i]->tipo]) }}"
-                                    method="POST" class="float-right">
+                                <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'edit'], ['usuario' => $usuarios[$i]->id,'tipo'=>$usuarios[$i]->tipo,"idAdministrador"=>$administrador->id]) }}" method="POST" class="float-right">
                                     @method('GET')
                                     <button type="submit" class="btn btn-sm btn-warning">
                                         <i class="fa fa-edit" aria-hidden="true"></i> Editar

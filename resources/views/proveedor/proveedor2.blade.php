@@ -9,9 +9,6 @@
                 print_r($reservas);
             @endphp
         </pre> --}}
-    @php
-        $rider;
-    @endphp
     <div class="contenedor col-lg-12">
         <div class="fila1 col-lg-12">
             <div class="infoProveedor col-lg-7">
@@ -43,9 +40,7 @@
                         <p> {{ $user['telefono'] }}</p>
                     </div>
                     <div class="icono">
-                        <form
-                            action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor]) }}"
-                            method="POST">
+                        <form action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor]) }}" method="POST">
                             @method('GET')
                             <img src="{{ asset('img/Group.svg') }}" alt="svgEditar" class="svgEditar">
                             <button type="submit" class="btnEditar" id="btnEditar" title="Editar">

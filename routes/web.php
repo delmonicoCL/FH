@@ -43,7 +43,8 @@ Route::middleware(["auth"])->group(function () {
         switch ($user["tipo"]) {
             case "administrador":
                 $administrador = Administrador::where("id", "=", $id)->first();
-                $response = view("administradores/administrador", compact("user", "administrador"));
+                $usuario=Usuario::where("id","=",$id)->first();
+                $response = view("administradores/administrador", compact("usuario", "administrador"));
                 break;
             case "proveedor":
                 $proveedor = Proveedor::where("id", "=", $id)->first();
@@ -125,6 +126,7 @@ Route::middleware(["auth"])->group(function () {
         $id = $user["id"];
 
         if ($user["tipo"] === "administrador") {
+            $usuario=Usuario::where("id","=",$id)->first();
             $usuarios = Usuario::where("tipo", "=", "rider")->paginate(5);
             $riders = Rider::paginate(5);
             $administrador = Administrador::where("id", "=", $id)->first();
@@ -145,7 +147,7 @@ Route::middleware(["auth"])->group(function () {
                 $datosPuas[$raider->nickname] = $cantidadPuas;
             }
 
-            return view("administradores.gestionRaider", compact("usuarios", "riders", "administrador", "datosEntregas", "datosReservas", "datosPuas"));
+            return view("administradores.gestionRaider", compact("usuarios", "riders", "administrador", "datosEntregas", "datosReservas", "datosPuas","usuario"));
         } else {
             return view('auth.login');
         }
@@ -156,6 +158,9 @@ Route::middleware(["auth"])->group(function () {
         $id = $user["id"];
 
         if ($user["tipo"] === "administrador") {
+            $usuario=Usuario::where("id","=",$id)->first();
+
+
             // Obtener usuarios y proveedores paginados
             $usuarios = Usuario::where("tipo", "=", "proveedor")->paginate(5);
             $proveedores = Proveedor::paginate(5);
@@ -173,7 +178,7 @@ Route::middleware(["auth"])->group(function () {
                 $dataProveedor[$reserva->proveedor][$reserva->estado] = $reserva->total;
             }
 
-            return view("administradores.gestionProveedor", compact("usuarios", "proveedores", "administrador", "dataProveedor"));
+            return view("administradores.gestionProveedor", compact("usuarios", "proveedores", "administrador", "dataProveedor","usuario"));
         } else {
             return view('auth.login');
         }
