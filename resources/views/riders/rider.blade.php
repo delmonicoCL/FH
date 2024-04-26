@@ -93,6 +93,10 @@
         @yield('contenido')
         <div id="map">
             <img src="{{ asset('img/superhero.png') }}" alt="" id="super">
+            
+            
+            {{-- MODAL CREA PUA --}}
+            
             <div id="myModal" class="modal-pua">
                 <div class="modal-content-pua">
                     <span class="close" id="closeButton">&times;</span>
@@ -319,8 +323,8 @@
                 </div>
             </div>            
             
-                <!-- Modal Reservas -->
-            <div id="modal-reservas" class="modal-reservas">
+            <!-- Modal Reservas -->
+            <div id="modal-reservas" class="modal-reservas ">
                 <div class="modal-content-reservas modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -330,7 +334,7 @@
                         <div class="modal-body">
                             <div class="table-responsive" style="display: flex; justify-content: center !important; align-items: center !important;">
                                 <table class="table table-bordered">
-                                    <thead>
+                                    <thead style="background-color: blueviolet; color: white;">
                                         <tr>
                                             <th><h5>PROVEEDOR</h5></th>
                                             <th><h5>RESERVAS</h5></th>
