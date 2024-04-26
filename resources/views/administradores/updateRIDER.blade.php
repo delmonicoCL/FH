@@ -99,5 +99,5 @@
                 </a>
             </div>
         </div>
-        <script src="{{asset('js/updateRIDERBladePhp.js')}}"></script>
+        <script src="{{asset('js/validacionesEditarRider.js')}}"></script>
     @endsection

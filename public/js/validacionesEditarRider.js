@@ -10,7 +10,7 @@ document.addEventListener
         {
             let inputAvatar=document.getElementById("avatar");
             inputAvatar.setAttribute("value","avatar1.png");
-            generarAvatares();
+            //generarAvatares();
             contenedorPrincipal.addEventListener
             (
                 "click",
@@ -26,13 +26,13 @@ document.addEventListener
                         imagenGrandeAvatar.setAttribute("src","../../media/img/avatares/"+event.target.id);
                         inputAvatar.setAttribute("value",event.target.id);
                     }
-                    if(event.target.id==="aceptar")
+                    /*if(event.target.id==="aceptar")
                     {
                         if(!validaciones())
                         {
                             event.preventDefault();
                         }
-                    }
+                    }*/
                 }
             );
         }
