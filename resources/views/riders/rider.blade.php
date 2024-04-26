@@ -8,10 +8,49 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset('css/rider.css') }}" />
         <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.3.1/mapbox-gl-directions.css" type="text/css">
         <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.3.1/mapbox-gl-directions.js"></script>
     </head>
+
+    <style>
+
+    /* Estilos personalizados para el modal redondo */
+    .modal-contentREDON {
+      border-radius: 50%;
+      /* background-image: url('https://img.freepik.com/vector-gratis/fondo-marco-comico_79603-1916.jpg');
+      background-size: contain;
+      background:no-repeat; */
+    }
+
+    .modal-dialogREDON {
+      width: 400px; /* Tamaño fijo para el modal */
+      height: 400px; /* Tamaño fijo para el modal */
+      margin: auto;
+      border-radius: 50%;
+    }
+
+    .modal-bodyREDON {
+      padding: 30px; /* Ajusta el relleno según sea necesario */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .modal-titleREDON {
+      margin-bottom: 20px;
+    }
+
+    .modal-footerREDON {
+      display: flex;
+      justify-content: center;
+    }
+   
+
+  </style>
     <body>
         @yield('contenido')
         <div id="map">
@@ -77,6 +116,9 @@
                         <img src="{{ asset('img/historial.png') }}"alt="Historial" class="img-fluid" />
                     </button>
                 </div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRounded">
+                    Modal Redondo
+                </button>
             </div>
         </nav>
             <!-- Modal de reservar -->
@@ -104,7 +146,7 @@
                 </div>
             </div> --}}
 
-            
+            {{-- Modal Perfil --}}
             <div class="modal-perfil" id="modal-perfil">
                 <div class="modal-content-perfil modal-lg mt-3">
                     <div class="modal-content px-5 pt-3 pb-3">
@@ -199,10 +241,7 @@
                 });
             </script>
             
-            
-            
-                
-                <!-- Modal Reservas -->
+           <!-- Modal Reservas -->
             <div id="modal-reservas" class="modal-reservas">
                 <div class="modal-content-reservas modal-lg">
                     <div class="modal-content">
@@ -245,7 +284,7 @@
                     </div>
                 </div>
             </div>
-                
+            <!-- Modal Historial -->    
             <div class="modal-historial" id="modal-historial">
                 <div class="modal-content-historial modal-lg mt-3">
                     <div class="modal-content px-5 pt-3 pb-3">
@@ -303,7 +342,36 @@
                     </div>
                 </div>
             </div> 
+             <!-- Modal Redondo -->  
+
+            <div class="modal fade" id="modalRounded" tabindex="-1" aria-labelledby="modalRoundedLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialogREDON">
+                <div class="modal-content modal-contentREDON">
+                <div class="modal-header">
+                    <h2 class="modal-titleREDON " id="modalRoundedLabel">HISTORIAL</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-bodyREDON">
+                    <h2>PUAS CREADAS</h2>
+                    <p>2</p>
+                    <p>¡Este es un modal redondo!</p>
+                    <p>Aquí puedes agregar cualquier contenido que desees.</p>
+                </div>
+                <div class="modal-footer modal-footerREDON">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
+
         </div> 
+
+
+
         <script src="{{ asset('js/rider.js') }}"></script>
+        <!-- Bootstrap JS y dependencias -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     </body>
 </html>

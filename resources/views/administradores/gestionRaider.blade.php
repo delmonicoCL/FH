@@ -11,7 +11,7 @@
 
             <thead style="background-color: yellow;">
                 <tr >
-                    <th scope="col">IDd</th>
+                    <th scope="col">ID</th>
                     <th scope="col">NickName</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
