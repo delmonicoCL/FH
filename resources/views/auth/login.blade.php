@@ -77,7 +77,7 @@
                                     Correo Electronico
                                 </label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="correoElectronico" name="CorreoElectronico" value="{{old("CorreoElectronico")}}" placeholder="Correo Electrónico" autofocus>
+                                    <input type="email" class="form-control" id="correoElectronico" name="CorreoElectronico" value="{{old("CorreoElectronico")}}" placeholder="Correo Electrónico" autofocus autocomplete="true">
                                 </div>
                             </div>
 

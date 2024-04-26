@@ -10,7 +10,9 @@
     <meta name="generator" content="Hugo 0.122.0">
     <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>DashBoard - Food Hero</title>
+    <title>
+        @yield("titulo")
+    </title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,6 +22,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{{ asset('css/sidebars.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/tabla.css') }}">
 
 </head>
 
@@ -125,26 +128,34 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ asset('img/MrSalchicha.png') }}" alt="" width="65" height="90"
                         class="rounded-circle me-2">
-                    <strong class="user-name">{{ Auth::user()['nombre'] }} </strong>
+                    <strong class="user-name">{{ Auth::user()['nombre'] }}@yield("apellidos")</strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li>
                         <hr class="dropdown-divider">
                     </li>
+                    <li>
+                        @yield("editarAdministrador")
+                    </li>
                     <li><a class="dropdown-item" href="{{ url('/logout') }}">Cerrar Sesion</a></li>
+                
                 </ul>
             </div>
         </div>
 
         <div class="b-example-divider b-example-vr"></div>
         <div class="container-fluid" style="overflow-y: auto;">
+            @include('partials.mensajes')
             @yield('contenido')
         </div>
 
     </main>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
+
+
 
     <script src="{{ asset('js/sidebars.js') }}"></script>
 

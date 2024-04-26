@@ -17,6 +17,7 @@
     </head>
 
     <body>
+        @include('partials.mensajes')
         @yield("contenido")
     </body>
 

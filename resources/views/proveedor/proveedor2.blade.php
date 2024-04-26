@@ -9,9 +9,6 @@
                 print_r($reservas);
             @endphp
         </pre> --}}
-    @php
-        $rider;
-    @endphp
     <div class="contenedor col-lg-12">
         <div class="fila1 col-lg-12">
             <div class="infoProveedor col-lg-7">
@@ -43,9 +40,7 @@
                         <p> {{ $user['telefono'] }}</p>
                     </div>
                     <div class="icono">
-                        <form
-                            action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor]) }}"
-                            method="POST">
+                        <form action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor]) }}" method="POST">
                             @method('GET')
                             <img src="{{ asset('img/Group.svg') }}" alt="svgEditar" class="svgEditar">
                             <button type="submit" class="btnEditar" id="btnEditar" title="Editar">
@@ -71,13 +66,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($reservas as $index => $reserva)
+                                @for ($i = 0; $i < count($rankingProveedor); $i++)
                                     <tr>
-                                        <th scope="row">{{ $index + 1 }}</th>
-                                        <td>{{ $reserva->nombreProveedor }}</td>
-                                        <td>{{ $reserva->cantidad }}</td>
+                                        <th scope="row">{{ $i + 1 }}</th>
+                                        <td>{{ $rankingProveedor[$i]->nombreProveedor }}</td>
+                                        <td>{{ $rankingProveedor[$i]->cantidad }}</td>
                                     </tr>
-                                @endforeach
+                                @endfor
                             </tbody>
                         </table>
                     </div>
@@ -117,7 +112,7 @@
                 </div>
                 <form id="idFormCrear"
                     action="{{ action([App\Http\Controllers\ProveedorController::class, 'update'], ['proveedore' => $proveedor, 'tipoDeModificacion' => 'crearMenu']) }}"
-                    method="POST">
+                    method="POST" hidden>
                     @csrf
                     @method('PUT')
                     <label for="cant">cant</label>
@@ -193,7 +188,7 @@
                     <div class="selectHistorico">
                         @yield('contenidoHistorico')
                         <h4>Historial Menús entregados:</h4>
-                        <p class="num">{{ $proveedor['stock_proveedor'] }}</p>
+                        <p class="num">{{ $entregasFinalizadas }}</p>
                     </div>
                 </div>
             </div>

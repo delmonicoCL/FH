@@ -43,7 +43,8 @@ Route::middleware(["auth"])->group(function () {
         switch ($user["tipo"]) {
             case "administrador":
                 $administrador = Administrador::where("id", "=", $id)->first();
-                $response = view("administradores/administrador", compact("user", "administrador"));
+                $usuario=Usuario::where("id","=",$id)->first();
+                $response = view("administradores/administrador", compact("usuario", "administrador"));
                 break;
             case "proveedor":
                 $proveedor = Proveedor::where("id", "=", $id)->first();
@@ -88,26 +89,22 @@ Route::middleware(["auth"])->group(function () {
             ->get();
         $riders = Rider::all();
 
-        // select usuarios.nombre as nombreProveedor,
-        // sum(reservas.cantidad) as cantidad
-        // from reservas
-        // join usuarios on reservas.proveedor=usuarios.id
-        // where reservas.estado="finalizada"
-        // group by usuarios.id
-        // order by reservas.cantidad desc;
-
-        $reservas = Reserva::join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
-            ->select('usuarios.nombre as nombreProveedor', DB::raw('SUM(reservas.cantidad) as cantidad'))
-            ->where('reservas.estado', 'finalizada')
-            ->groupBy('usuarios.id')
-            ->orderByDesc(DB::raw('SUM(reservas.cantidad)'))
+        $rankingProveedor = DB::table('reservas')
+            ->join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
+            ->select('usuarios.nombre as nombreProveedor', DB::raw('sum(reservas.cantidad) as cantidad'))
+            ->where('reservas.estado', '=', 'finalizada')
+            ->groupBy('usuarios.id', 'usuarios.nombre')
+            ->orderByDesc('cantidad')
             ->get();
 
-        $listaProveedores = [];
-
+        // consulta para mostrar el totoal de menus entregados por un proveedor
+        $entregasFinalizadas = DB::table('reservas')
+            ->where('proveedor', '=', $id)
+            ->where('estado', '=', 'finalizada')
+            ->sum('cantidad');
 
         if ($user["tipo"] === "proveedor") {
-            return view('proveedor/proveedor2', compact("user", "proveedor", "ridersReservas", "riders"));
+            return view('proveedor/proveedor2', compact("user", "proveedor", "ridersReservas", "riders", "rankingProveedor","entregasFinalizadas"));
         } else {
             return view('auth.login');
         }
@@ -129,8 +126,9 @@ Route::middleware(["auth"])->group(function () {
         $id = $user["id"];
 
         if ($user["tipo"] === "administrador") {
-            $usuarios = Usuario::where("tipo", "=", "rider")->get();
-            $riders = Rider::all();
+            $usuario=Usuario::where("id","=",$id)->first();
+            $usuarios = Usuario::where("tipo", "=", "rider")->paginate(5);
+            $riders = Rider::paginate(5);
             $administrador = Administrador::where("id", "=", $id)->first();
 
             // Obtener las estadísticas
@@ -148,7 +146,8 @@ Route::middleware(["auth"])->group(function () {
                 $cantidadPuas = Pua::where('rider_creador', $raider->id)->count();
                 $datosPuas[$raider->nickname] = $cantidadPuas;
             }
-            return view("administradores.gestionRaider", compact("usuarios", "riders", "administrador", "datosEntregas", "datosReservas", "datosPuas", ));
+
+            return view("administradores.gestionRaider", compact("usuarios", "riders", "administrador", "datosEntregas", "datosReservas", "datosPuas","usuario"));
         } else {
             return view('auth.login');
         }
@@ -159,9 +158,12 @@ Route::middleware(["auth"])->group(function () {
         $id = $user["id"];
 
         if ($user["tipo"] === "administrador") {
-            // Obtener usuarios y proveedores
-            $usuarios = Usuario::where("tipo", "=", "proveedor")->get();
-            $proveedores = Proveedor::all();
+            $usuario=Usuario::where("id","=",$id)->first();
+
+
+            // Obtener usuarios y proveedores paginados
+            $usuarios = Usuario::where("tipo", "=", "proveedor")->paginate(5);
+            $proveedores = Proveedor::paginate(5);
             $administrador = Administrador::where("id", "=", $id)->first();
 
             // Reservas por proveedor
@@ -175,10 +177,12 @@ Route::middleware(["auth"])->group(function () {
             foreach ($reservasPorProveedor as $reserva) {
                 $dataProveedor[$reserva->proveedor][$reserva->estado] = $reserva->total;
             }
-            return view("administradores.gestionProveedor", compact("usuarios", "proveedores", "administrador", "dataProveedor"));
+
+            return view("administradores.gestionProveedor", compact("usuarios", "proveedores", "administrador", "dataProveedor","usuario"));
         } else {
             return view('auth.login');
         }
+
     })->name('administradores.gestionProveedor');
 
 
@@ -206,3 +210,8 @@ Route::resource("reservas", ReservaController::class);
 // ROUTES DE CHART.JS //
 
 Route::get('/estadisticas/resumen', [EstadisticasController::class, 'estadisticas'])->name('estadisticas.resumen');
+
+
+Route::get('/updateADMIN', function () {
+    return view("administradores.updateADMIN");
+})->name('actualizarAdmin');

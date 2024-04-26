@@ -1,0 +1,32 @@
+
+table {
+    color: #0e0404;
+    /* table-layout: fixed; */
+    border-collapse: collapse;
+    font-size: 15px;
+    
+}
+
+
+th {
+    border-color: aquamarine;
+ 
+}
+
+td {
+   
+    border-bottom: solid 15px rgba(255, 255, 255, 0.2);
+    border-color: aquamarine;
+ 
+}
+
+tbody tr {
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+}
+
+tbody tr:hover {
+    background-color: rgb(253, 206, 106); /* Cambio de color al pasar el cursor */
+    transform: scale(1.02); /* Aumento ligeramente el tamaño de la fila */
+    border: 15px;
+}

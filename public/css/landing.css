@@ -95,7 +95,34 @@ background-repeat: no-repeat;  */
 }
 
 
-.livechat-launcher {
-  width: 200px; /* Ajusta el ancho del botón según tus preferencias */
-  height: 200px; /* Ajusta la altura del botón según tus preferencias */
-}
+.is-launcher__avatar{
+
+  width: 100% !important;
+  
+  height: 100% !important;
+  
+  }
+  
+  .launcher__bubble{
+  
+  width: 90px;
+  
+  height: 90px;
+  
+  }
+  
+  .LivechatLauncher{
+  
+  bottom:15px!important;
+  
+  right:10px!important
+  
+  }
+  
+  .is-launcher__avatar img{
+  
+  width: 100% !important;
+  
+  height: 100% !important;
+  
+  }
