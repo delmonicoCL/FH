@@ -102,7 +102,8 @@ class RiderController extends Controller
     {
         //Recuperar los datos del formulario
         $tipo=$request->tipo;
-        $id=$request->input("Id");
+        $tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor=$request->tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor;
+        $id = $rider->id;
         $apellidos=$request->input("Apellidos");
         $nickname=$request->input("Nickname");
         $avatar=$request->input("Avatar");
@@ -118,6 +119,16 @@ class RiderController extends Controller
             $rider->save();
             $request->session()->flash("mensaje","Rider modificado correctamente.");
             $response=redirect("/administradores/gestionRaider");
+
+
+            if($tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor==="administrador")
+            {
+                $response=redirect("/administradores/gestionRaider");
+            }
+            else
+            {
+                $response=redirect("/home");
+            }
         }
         catch(QueryException $ex)
         {
@@ -125,6 +136,17 @@ class RiderController extends Controller
             $mensaje=Utilidad::errorMessage($ex);
             $request->session()->flash("error",$mensaje);
             $response = redirect()->route("usuarios.edit", compact("tipo","usuario"))->withInput();
+
+
+
+            if($tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor==="administrador")
+            {
+                $response=redirect()->route("usuarios.edit", compact("tipo","usuario"))->withInput();
+            }
+            else
+            {
+                $response=redirect()->action([RiderController::class, "edit"],["rider"=>$rider])->withInput();
+            }
         }
         return $response;
     }

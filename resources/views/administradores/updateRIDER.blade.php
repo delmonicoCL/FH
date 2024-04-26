@@ -32,10 +32,10 @@
             </div>
             <div class="card-header">
                 <H2>EDITAR RIDER</H2>
-                <small id="mensajeValidacionFormularioCrearRider"></small>
+                <small id="mensajeValidacionFormularioActualizarRider"></small>
             </div>
             <div class="card-body">
-                <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=> $usuario->id,'tipo'=> $usuario->tipo])}}" id="formularioinscripcion" method="POST">
+                <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=> $usuario->id,'tipo'=> $usuario->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeRider'=>'administrador'])}}" id="formularioinscripcion" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="form-group mt-2">
-                        <label for="apellido">Apellido:</label>
+                        <label for="apellidos">Apellidos:</label>
                         <input type="text" class="form-control" id="apellidos" name="Apellidos" value="{{$rider->apellidos}}">
                         <small id="mensajeValidacionApellidos"></small>
                     </div>
