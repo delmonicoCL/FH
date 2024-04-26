@@ -4,28 +4,14 @@ document.addEventListener
     function()
     {
         let contenedorPrincipal=document.getElementById("contenedorPrincipal");
-        let imagenGrandeAvatar=document.getElementById("imagenAvatar");
         principal();
         function principal()
         {
-            let inputAvatar=document.getElementById("avatar");
-            inputAvatar.setAttribute("value","avatar1.png");
-            generarAvatares();
             contenedorPrincipal.addEventListener
             (
                 "click",
                 function(event)
                 {
-                    let rutaDelAvatarSeleccionada =imagenGrandeAvatar.getAttribute("src");
-                    let nombreDelArchivoDelAvatarSeleccionado = rutaDelAvatarSeleccionada.split("/").pop();
-                    if(event.target.className==="imagenAvatarPequenia"&&event.target.id!==nombreDelArchivoDelAvatarSeleccionado)
-                    {
-                        let imagenSeleccionada=document.getElementById(nombreDelArchivoDelAvatarSeleccionado);
-                        imagenSeleccionada.removeAttribute("style");
-                        event.target.setAttribute("style","border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;");
-                        imagenGrandeAvatar.setAttribute("src","../../media/img/avatares/"+event.target.id);
-                        inputAvatar.setAttribute("value",event.target.id);
-                    }
                     if(event.target.id==="aceptar")
                     {
                         if(!validaciones())
@@ -33,41 +19,13 @@ document.addEventListener
                             event.preventDefault();
                         }
                     }
+
                 }
             );
         }
-        function generarAvatares()
-        {
-            let contenedorAvatares=document.getElementById("contenedorAvatares");
-            let avatares=JSON.parse(imagenGrandeAvatar.getAttribute("data-avatares"));
-            let rutaDelAvatarSeleccionada =imagenGrandeAvatar.getAttribute("src");
-            let nombreDelArchivoDelAvatarSeleccionado = rutaDelAvatarSeleccionada.split("/").pop();
-            for (let i = 0; i < avatares.length; i++)
-            {
-                let imagenAvatar=document.createElement("img");
-                imagenAvatar.setAttribute("src","../../media/img/avatares/"+avatares[i]);
-                imagenAvatar.setAttribute("alt","imagenAvatar "+avatares[i]);
-                imagenAvatar.setAttribute("height","150");
-                imagenAvatar.setAttribute("width","150");
-                imagenAvatar.setAttribute("class","imagenAvatarPequenia");
-                imagenAvatar.setAttribute("id",avatares[i]);
-                imagenAvatar.setAttribute("draggable","false");
-
-                if(avatares[i]===nombreDelArchivoDelAvatarSeleccionado)
-                {
-                    imagenAvatar.setAttribute("style","border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;")
-                }
-                
-                let contenedorImagenAvatar=document.createElement("div");
-                contenedorImagenAvatar.setAttribute("class","col-sm-6 text-center mb-4");
-                contenedorImagenAvatar.appendChild(imagenAvatar);
-                contenedorAvatares.appendChild(contenedorImagenAvatar);
-            }
-        }
         function validaciones()
         {
-            let mensajeValidacionFormulario=document.getElementById("mensajeValidacionFormularioActualizarRider")
-            let nickname=document.getElementById("nickname");
+            let mensajeValidacionFormulario=document.getElementById("mensajeValidacionFormularioCrearProveedor")
             let nombre=document.getElementById("nombre");
             let apellidos=document.getElementById("apellidos");
             let email=document.getElementById("email");
@@ -77,12 +35,6 @@ document.addEventListener
             principal();
             function principal()
             {
-                let validacionCampoVacioNickname=false;
-                let validacionLongitudNickname=false;
-                let campoNicknamePasoTodasLasValidaciones=false;
-                validacionCampoVacioNickname=verificarQueElCampoNoEsteVacio(validacionCampoVacioNickname,nickname);
-                validacionLongitudNickname=verificarLongitud(validacionLongitudNickname,nickname,1,13);
-
                 let validacionCampoVacioNombre=false;
                 let validacionCaracteresExtraniosNombre=false;
                 let validacionLongitudNombre=false;
@@ -109,12 +61,6 @@ document.addEventListener
                 validacionLongitudTelefono=verificarLongitud(validacionLongitudTelefono,telefono,9,9);
                 validacionSoloNumerosTelefono=verificarQueElCampoSoloContengaNumeros(validacionSoloNumerosTelefono,telefono);
 
-                if(validacionCampoVacioNickname&&validacionLongitudNickname)
-                {
-                    let mensajeError = document.getElementById("mensajeValidacionNickname");
-                    mensajeError.textContent = "";
-                    campoNicknamePasoTodasLasValidaciones=true;
-                }
 
                 if(validacionCampoVacioNombre&&validacionCaracteresExtraniosNombre&&validacionLongitudNombre)
                 {
@@ -122,21 +68,21 @@ document.addEventListener
                     mensajeError.textContent = "";
                     campoNombrePasoTodasLasValidaciones=true;
                 }
-                
+
                 if(validacionCampoVacioApellidos&&validacionCaracteresExtraniosApellidos&&validacionLongitudApellidos)
                 {
                     let mensajeError = document.getElementById("mensajeValidacionApellidos");
                     mensajeError.textContent = "";
                     campoApellidosPasoTodasLasValidaciones=true;
                 }
-                
+
                 if(validacionCorreoElectronico)
                 {
                     let mensajeError = document.getElementById("mensajeValidacionEmail");
                     mensajeError.textContent = "";
                     campoCorreoElectronicoPasoTodasLasValidaciones=true;
                 }
-                
+
                 if(validacionSoloNumerosTelefono&&validacionLongitudTelefono)
                 {
                     let mensajeError = document.getElementById("mensajeValidacionTelefono");
@@ -144,8 +90,7 @@ document.addEventListener
                     campoTelefonoPasoTodasLasValidaciones=true;
                 }
 
-                
-                if(campoNicknamePasoTodasLasValidaciones&&campoNombrePasoTodasLasValidaciones&&campoApellidosPasoTodasLasValidaciones&&campoCorreoElectronicoPasoTodasLasValidaciones&&campoTelefonoPasoTodasLasValidaciones)
+                if(campoNombrePasoTodasLasValidaciones&&campoApellidosPasoTodasLasValidaciones&&campoCorreoElectronicoPasoTodasLasValidaciones&&campoTelefonoPasoTodasLasValidaciones)
                 {
                     mensajeValidacionFormulario.textContent="";
                     laTareaPasoTodasLasValidaciones=true;

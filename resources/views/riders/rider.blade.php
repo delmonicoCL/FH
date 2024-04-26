@@ -119,20 +119,38 @@
                                             <h3>PERFIL</h3>
                                             <p class="lead text-muted fw-light">Información de usuario.</p>
                                         </div>
-                                        <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $user->id, 'tipo' => $user->tipo]) }}" method="POST">
+                                        <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=>$user->id,'tipo'=>$user->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeRider'=>'rider']) }}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <div class="row mb-4">
+                                                <div hidden>
+                                                    <label for="avatar">
+                                                        Avatar
+                                                    </label>
+                                                    <input type="text" id="avatar" name="Avatar" value="{{$rider->avatar}}" readonly>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Nickname</h4>
+                                                        <input type="text" class="form-control" name="Nickname" value="{{$rider->nickname}}" readonly>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-6">
                                                     <div class="text-center">
                                                         <h4>Nombre</h4>
-                                                        <input type="text" class="form-control" name="nombre" value="{{ $user->nombre }}" readonly>
+                                                        <input type="text" class="form-control" name="Nombre" value="{{$user->nombre}}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Apellidos</h4>
+                                                        <input type="text" class="form-control" name="Apellidos" value="{{$rider->apellidos}}" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="text-center">
                                                         <h4>Correo</h4>
-                                                        <input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly>
+                                                        <input type="email" class="form-control" name="Email" value="{{$user->email}}" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,7 +158,7 @@
                                                 <div class="col-md-6">
                                                     <div class="text-center">
                                                         <h4>Teléfono</h4>
-                                                        <input type="text" class="form-control" name="telefono" value="{{ $user->telefono }}" readonly>
+                                                        <input type="text" class="form-control" name="Telefono" value="{{$user->telefono}}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -173,16 +191,34 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="row mb-4">
+                                                <div hidden>
+                                                    <label for="avatar">
+                                                        Avatar
+                                                    </label>
+                                                    <input type="text" id="avatar" name="Avatar" value="{{$rider->avatar}}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Nickname</h4>
+                                                        <input type="text" class="form-control" name="Nickname" value="{{$rider->nickname}}">
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-6">
                                                     <div class="text-center">
                                                         <h4>Nombre</h4>
-                                                        <input type="text" class="form-control" name="nombre" value="{{ $user->nombre }}">
+                                                        <input type="text" class="form-control" name="Nombre" value="{{$user->nombre}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="text-center">
+                                                        <h4>Apellidos</h4>
+                                                        <input type="text" class="form-control" name="Apellidos" value="{{$rider->apellidos}}">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="text-center">
                                                         <h4>Correo</h4>
-                                                        <input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly>
+                                                        <input type="email" class="form-control" name="Email" value="{{ $user->email }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -190,7 +226,7 @@
                                                 <div class="col-md-6">
                                                     <div class="text-center">
                                                         <h4>Teléfono</h4>
-                                                        <input type="text" class="form-control" name="telefono" value="{{ $user->telefono }}">
+                                                        <input type="text" class="form-control" name="Telefono" value="{{ $user->telefono }}">
                                                     </div>
                                                 </div>
                                             </div>

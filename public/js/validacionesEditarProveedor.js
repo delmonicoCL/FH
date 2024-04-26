@@ -25,7 +25,7 @@ document.addEventListener
         }
         function validaciones()
         {
-            let mensajeValidacionFormulario=document.getElementById("mensajeValidacionFormularioCrearProveedor")
+            let mensajeValidacionFormulario=document.getElementById("mensajeValidacionFormularioActualizarProveedor")
             let nombreEmpresa=document.getElementById("nombreEmpresa");
             let email=document.getElementById("email");
             let telefono=document.getElementById("telefono");

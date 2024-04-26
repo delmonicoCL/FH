@@ -15,7 +15,7 @@
         <div class="container mt-4" id="contenedorPrincipal">
             <div class="card-header">
                 <H2>EDITAR PROVEEDOR</H2>
-                <small id="mensajeValidacionFormularioCrearProveedor"></small>
+                <small id="mensajeValidacionFormularioActualizarProveedor"></small>
             </div>
             <div class="card-body">
                 <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $usuario->id, 'tipo' => $usuario->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor'=>'administrador']) }}" id="formularioinscripcion" method="POST" enctype="multipart/form-data">

@@ -1,6 +1,6 @@
 @extends('layouts.principal1')
     @section("titulo")
-    Editar Administrador
+        Editar Administrador
     @endsection
     @section("apellidos")
         {{$administrador->apellidos}}
@@ -12,9 +12,10 @@
         </form>
     @endsection
     @section('contenido')
-        <div class="container mt-4">
+        <div class="container mt-4" id="contenedorPrincipal">
             <div class="card-header">
-                <H2>EDITAR ADMIN</H2>
+                <H2>EDITAR ADMINISTRADOR</H2>
+                <small id="mensajeValidacionFormularioCrearProveedor"></small>
             </div>
             <div class="card-body" style="">
                 <form  action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $usuario->id, 'tipo' =>$usuario->tipo]) }}"        
@@ -31,21 +32,25 @@
                     <div class="form-group mt-2">
                         <label for="nombre">Nombre:</label>
                         <input type="text" class="form-control" id="nombre" name="Nombre" value="{{$usuario->nombre}}" autofocus>
+                        <small id="mensajeValidacionNombre"></small>
                     </div>
 
                     <div class="form-group mt-2">
                         <label for="apellidos">Apellidos:</label>
                         <input type="text" class="form-control" id="apellidos" name="Apellidos" value="{{$administrador->apellidos}}">
+                        <small id="mensajeValidacionApellidos"></small>
                     </div>
 
                     <div class="form-group mt-2">
                         <label for="email">Email:</label>
                         <input type="email" class="form-control" id="email" name="Email" value="{{$usuario->email}}" autocomplete="true">
+                        <small id="mensajeValidacionEmail"></small>
                     </div>
 
                     <div class="form-group mt-2">
                         <label for="telefono">Teléfono:</label>
                         <input type="tel" class="form-control" id="telefono" name="Telefono" value="{{$usuario->telefono}}">
+                        <small id="mensajeValidacionTelefono"></small>
                     </div>
 
                 </form>
@@ -59,6 +64,5 @@
                 </a>
             </div>
         </div>
-
-
+        <script src="{{asset('js/updateADMINBladePhp.js')}}"></script>
     @endsection
