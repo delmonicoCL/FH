@@ -14,7 +14,9 @@ class RiderController extends Controller
      */
     public function index()
     {
-        //
+        $riders=Rider::all();
+
+        return RiderResource::collection($riders);
     }
 
     /**
@@ -30,7 +32,7 @@ class RiderController extends Controller
      */
     public function show(Rider $rider)
     {
-        //
+        return new RiderResource($rider);
     }
 
     /**
@@ -39,16 +41,16 @@ class RiderController extends Controller
     public function update(Request $request, Rider $rider)
     {
         //Recuperar los datos del formulario
-        $apellidos=$request->input("Apellidos");
-        $nickname=$request->input("Nickname");
-        $stock_rider=$request->input("Stock_Rider");
-        $avatar=$request->input("Avatar");
+        /*$apellidos=$request->input("Apellidos");
+        $nickname=$request->input("Nickname");*/
+        $stock_rider=$request->input("Stock_rider");
+        /*$avatar=$request->input("Avatar");*/
         
         //Asignar los valores del formulario a su respectivo campo
-        $rider->apellidos=$apellidos;
-        $rider->nickname=$nickname;
+        /*$rider->apellidos=$apellidos;
+        $rider->nickname=$nickname;*/
         $rider->stock_rider=$stock_rider;
-        $rider->avatar=$avatar;
+        //$rider->avatar=$avatar;
 
         try
         {

@@ -148,10 +148,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 var longitud = e.lngLat.lng;
                 var rider_creador= rider_creadorInput.value;
                 // rider_creador=Number(rider_creador);
-                console.log(typeof(cantidad_de_personas));
+                /*console.log(typeof(cantidad_de_personas));
                 console.log(cantidad_de_personas);
                 console.log(typeof(rider_creador));
-                console.log(rider_creador);
+                console.log(rider_creador);*/
                 createPua(latitud, longitud, cantidad_de_personas, rider_creador);
                 modoPua = false;
                 modal.style.display = "none";

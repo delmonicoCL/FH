@@ -39,13 +39,17 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
     let selectElement = document.getElementById("opciones");
-    let inputName = document.getElementById("riderName");
-    let inputCantidad = document.getElementById("cantidad");
+    let inputIdRider = document.getElementById("idRider");
+    let inputNicknameRider=document.getElementById("nicknameRider");
+    let inputCantidadDeMenusReservados = document.getElementById("cantidadDeMenusReservados");
+    let inputIdReserva=document.getElementById("idReserva");
 
     selectElement.addEventListener("change", function () {
         let selectedOption = selectElement.options[selectElement.selectedIndex].value;
-        let [name, cantidad] = selectedOption.split(",");
-        inputName.value = name.trim();
-        inputCantidad.value = cantidad.trim();
+        let [idRider,nicknameRider,cantidadDeMenusReservados,idReserva] = selectedOption.split(",");
+        inputIdRider.value=idRider.trim();
+        inputNicknameRider.value=nicknameRider.trim();
+        inputCantidadDeMenusReservados.value=cantidadDeMenusReservados.trim();
+        inputIdReserva.value=idReserva.trim();
     });
 });

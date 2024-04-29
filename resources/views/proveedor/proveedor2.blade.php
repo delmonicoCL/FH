@@ -3,17 +3,8 @@
     Datos del proveedor
 @endsection
 @section('contenido')
-    {{-- @php
-        namespace App\Http\Controllers;
-        use App\Models\Rider;
-    @endphp --}}
     @include('partials.mensajes')
-    {{-- <pre>
-            @php
-                print_r($reservas);
-            @endphp
-        </pre> --}}
-    <div class="contenedor col-lg-12">
+    <div class="contenedor col-lg-12" id="contenedorPrincipal">
         <div class="fila1 col-lg-12">
             <div class="infoProveedor col-lg-7">
                 <div class="titulo">
@@ -21,13 +12,12 @@
                 </div>
                 <hr />
                 <div class="containerInfo">
-                    <div class="col1" data-nombreDeLaImagen="{{ $proveedor->logo }}">asd
-                        {{-- <img src="{{ $proveedores['logo'] }}" alt="imgFresa" class="imgFresa"> --}}
-                    </div>
+                    <div class="col1" data-nombreDeLaImagen="{{$proveedor->logo}}" id="contenedorLogo"></div>
                     <div class="col2">
                         <div class="row1">
                             <div class="nombre">
-                                <h4>{{ $user['nombre'] }}</h4>
+                                <h4>Nombre empresa:</h4>
+                                <p>{{ $user['nombre'] }}</p>
                             </div>
                             <div class="calle">
                                 <h4>Calle: </h4>
@@ -36,7 +26,8 @@
                         </div>
                         <div class="row2">
                             <div class="email">
-                                <p>{{ $user['email'] }}</p>
+                                <h4>Correo Electronico:</h4>
+                                <p>{{$user['email']}}</p>
                             </div>
                             <div class="ciudad">
                                 <h4>Ciudad: </h4>
@@ -49,11 +40,9 @@
                                 <p> {{ $user['telefono'] }}</p>
                             </div>
                             <div class="icono">
-                                <form
-                                    action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor]) }}"
-                                    method="POST">
+                                <form action="{{ action([App\Http\Controllers\ProveedorController::class, 'edit'], ['proveedore' => $proveedor]) }}" method="POST">
                                     @method('GET')
-                                    <img src="{{ asset('img/Group.svg') }}" alt="svgEditar" class="svgEditar">
+                                    <img src="{{ asset('img/Group.svg') }}" alt="svgEditar" class="svgEditar" draggable="false">
                                     <button type="submit" class="btnEditar" id="btnEditar" title="Editar">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
@@ -114,7 +103,7 @@
                         </div>
                     </div>
                     <div class="imgFresa">
-                        <img src="{{ asset('img/fresa.svg') }}" alt="imgFresa" class="imgFresa">
+                        <img src="{{ asset('img/fresa.svg') }}" alt="imgFresa" class="imgFresa" draggable="false">
                     </div>
                 </div>
 
@@ -123,9 +112,7 @@
                         Crear Menú(s)
                     </button>
                 </div>
-                <form id="idFormCrear"
-                    action="{{ action([App\Http\Controllers\ProveedorController::class, 'update'], ['proveedore' => $proveedor, 'tipoDeModificacion' => 'crearMenu']) }}"
-                    method="POST" hidden>
+                <form id="idFormCrear" action="{{ action([App\Http\Controllers\ProveedorController::class, 'update'], ['proveedore' => $proveedor, 'tipoDeModificacion' => 'crearMenu']) }}" method="POST" hidden>
                     @csrf
                     @method('PUT')
                     <label for="cant">cant</label>
@@ -144,11 +131,9 @@
                         <select id="opciones" name="opciones">
                             <option value="opcion">-- Select --</option>
                             @foreach ($ridersReservas as $riderReserva)
-                                <option
-                                    value="{{ $riderReserva->nickname }},
-                                    {{ $riderReserva->cantidad }}">
-                                    {{ $riderReserva->nickname }},
-                                    {{ $riderReserva->cantidad }}</option>
+                                <option value="{{$riderReserva->idRider}},{{$riderReserva->nicknameRider}},{{$riderReserva->cantidadMenusReservados}},{{$riderReserva->idReserva}}">
+                                    {{$riderReserva->idRider}},{{$riderReserva->nicknameRider}},{{$riderReserva->cantidadMenusReservados}},{{$riderReserva->idReserva}}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -158,23 +143,25 @@
                                 Selecciona el nombre del rider que ha llegado y confirma la entrega
                             </p>
                         </div>
-                        <img src="{{ asset('img/texto.svg') }}" alt="imgTexto" class="imgTexto">
+                        <img src="{{ asset('img/texto.svg') }}" alt="imgTexto" class="imgTexto" draggable="false">
                     </div>
                 </div>
+
                 <div class="btnConfirm">
-                    <button class="confirmar" id="confirmarBtn">Confirmar</button>
+                    <button class="confirmar" id="botonConfirmarEntrega">Confirmar</button>
                 </div>
 
-                {{-- action="{{ action([App\Http\Controllers\RiderController::class, 'update'], ['rider' => $rider]) }}" --}}
+                <div>
+                    <label for="idRider">Id rider</label>
+                    <input type="text" id="idRider">
+                    <label for="nicknameRider">Nickname rider</label>
+                    <input type="text" id="nicknameRider">
+                    <label for="cantidadDeMenusReservados">Cantidad</label>
+                    <input type="text" id="cantidadDeMenusReservados">
+                    <label for="idReserva">Id Reserva</label>
+                    <input type="text" id="idReserva">
+                </div>
 
-                <form id="idFormConfirmar" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <label for="riderName">Nombre del Rider</label>
-                    <input type="text" id="riderName" name="riderName">
-                    <label for="cantidad">Cantidad</label>
-                    <input type="text" id="cantidad" name="cantidad">
-                </form>
             </div>
         </div>
 
@@ -216,9 +203,8 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="{{ asset('js/proveedor.js') }}"></script>
     <script src="{{ asset('js/proveedorMapa.js') }}"></script>
+    <script src="{{asset('js/proveedor2BladePhp.js')}}"></script>
 @endsection
