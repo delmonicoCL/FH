@@ -3,10 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Mapa con Mapbox</title>
+        <title>Rider- FoodHero APP</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset('css/rider.css') }}" />
+        <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
         <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.cdnfonts.com/css/luckiest-guy" rel="stylesheet">
@@ -21,6 +22,10 @@
         h2 {
             font-family: 'Luckiest Guy', cursive;
             /* Usa la fuente 'Luckiest Guy' */
+        }
+        
+        td{
+        font-family: 'Luckiest Guy', cursive;
         }
     
         /* Estilos personalizados para el modal redondo */
@@ -131,35 +136,40 @@
             </form>
         </div>          
 
-        <div id="stockRider">
-            <h3>{{ $rider->stock_rider }} Menus</h3>    
-        </div>
+            <div id="stockRider">
+                <h3>{{ $rider->stock_rider }} Menus</h3>    
+            </div>
 
         <!-- Navbar Inferior -->
-        <nav class="navbar-bottom">
-            <div class="container text-center d-flex ">
-                <div class="navbar-item">
-                    <button id="boton-perfil">
-                        <img src="{{ asset('img/perfil.png') }}" alt="Perfil" class="img-fluid" />
-                    </button>
+            <nav class="navbar-bottom">
+                <div class="container text-center d-flex ">
+                    <div class="navbar-item">
+                        <button id="boton-perfil">
+                            <img src="{{ asset('img/perfil.png') }}" alt="Perfil" class="img-fluid" />
+                        </button>
+                    </div>
+                    <div class="navbar-item">
+                        <button id="createMarkerButton">
+                            <img src="{{ asset('img/crear_pua.png') }}"alt="Crear Pua" class="img-fluid" />
+                        </button>
+                    </div>
+                    <div class="navbar-item">
+                        <button id="boton-reservas">
+                            <img src="{{ asset('img/reservas.png') }}" alt="Reservar" class="img-fluid" />
+                        </button>
+                    </div>
+                    <div class="navbar-item">
+                        <button id="boton-historial" class="btn btn-unstyled" data-bs-toggle="modal" data-bs-target="#modalRounded">
+                            <img src="{{ asset('img/historial.png') }}"alt="Historial" class="img-fluid" />
+                        </button>
+                    </div>
+                     <div class="navbar-item">
+                        <button id="createMarkerButton">
+                            <img src="{{ asset('img/crear_pua.png') }}"alt="Crear Pua" class="img-fluid" />
+                        </button>
+                    </div>
                 </div>
-                <div class="navbar-item">
-                    <button id="createMarkerButton">
-                        <img src="{{ asset('img/crear_pua.png') }}"alt="Crear Pua" class="img-fluid" />
-                    </button>
-                </div>
-                <div class="navbar-item">
-                    <button id="boton-reservas">
-                        <img src="{{ asset('img/reservas.png') }}" alt="Reservar" class="img-fluid" />
-                    </button>
-                </div>
-                <div class="navbar-item">
-                    <button id="boton-historial" class="btn btn-unstyled" data-bs-toggle="modal" data-bs-target="#modalRounded">
-                        <img src="{{ asset('img/historial.png') }}"alt="Historial" class="img-fluid" />
-                    </button>
-                </div>
-            </div>
-        </nav>
+            </nav>
             <!-- Modal de reservar -->
             <div id="modal-reservar" class="modal-reservar">
                 <div class="modal-content-reservar modal-lg">
@@ -198,7 +208,7 @@
                                         </div>
                                         <div class="card-title text-center pb-3">
                                             <h3>PERFIL</h3>
-                                            <p class="lead text-muted fw-light">Información de usuario.</p>
+                                          
                                         </div>
                                         <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=>$user->id,'tipo'=>$user->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeRider'=>'rider']) }}" method="POST">
                                             @csrf
@@ -212,7 +222,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="text-center">
-                                                        <h4>Nickname</h4>
+                                                        <h4>NickNAME</h4>
                                                         <input type="text" class="form-control" name="Nickname" value="{{$rider->nickname}}" readonly>
                                                     </div>
                                                 </div>
@@ -271,46 +281,53 @@
                                         <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $user->id, 'tipo' => $user->tipo]) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <div class="row mb-4">
-                                                <div hidden>
-                                                    <label for="avatar">
-                                                        Avatar
-                                                    </label>
-                                                    <input type="text" id="avatar" name="Avatar" value="{{$rider->avatar}}">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="text-center">
-                                                        <h4>Nickname</h4>
-                                                        <input type="text" class="form-control" name="Nickname" value="{{$rider->nickname}}">
+                                            <div class="row">
+                                                    <div hidden>
+                                                        <label for="avatar">
+                                                            Avatar
+                                                        </label>
+                                                        <input type="text" id="avatar" name="Avatar" value="{{$rider->avatar}}">
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="text-center">
-                                                        <h4>Nombre</h4>
-                                                        <input type="text" class="form-control" name="Nombre" value="{{$user->nombre}}">
+                                                    <div class="col-6">
+                                                        <div class="text-center">
+                                                            <h4>Nickname</h4>
+                                                            <input type="text" class="form-control" name="Nickname" value="{{$rider->nickname}}">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
+                                                    <div class="col-6">
+                                                        <div class="text-center">
+                                                            <h4>Nombre</h4>
+                                                            <input type="text" class="form-control" name="Nombre" value="{{$user->nombre}}">
+                                                        </div>
+                                                     </div>
+                                            </div>
+
+                                            <div class="row">
+                                                
+                                                </div class="col-2">
                                                     <div class="text-center">
                                                         <h4>Apellidos</h4>
                                                         <input type="text" class="form-control" name="Apellidos" value="{{$rider->apellidos}}">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-10">
                                                     <div class="text-center">
                                                         <h4>Correo</h4>
                                                         <input type="email" class="form-control" name="Email" value="{{ $user->email }}">
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <div class="col-md-6">
+                                            </div>   
+
+                                            <div class="row">
+                                                <div class="col-12">
                                                     <div class="text-center">
                                                         <h4>Teléfono</h4>
                                                         <input type="text" class="form-control" name="Telefono" value="{{ $user->telefono }}">
                                                     </div>
                                                 </div>
                                             </div>
+
+
                                             <div class="text-center">
                                                 <button type="submit" class="btn btn-primary" id="editarPerfilEnviar">Guardar cambios</button>
                                             </div>
@@ -334,7 +351,7 @@
                         <div class="modal-body">
                             <div class="table-responsive" style="display: flex; justify-content: center !important; align-items: center !important;">
                                 <table class="table table-bordered">
-                                    <thead style="background-color: blueviolet; color: white;">
+                                    <thead style="background-color: rgb(226, 43, 43); color: white;">
                                         <tr>
                                             <th><h5>PROVEEDOR</h5></th>
                                             <th><h5>RESERVAS</h5></th>
@@ -353,7 +370,7 @@
                                                 <td>{{ $reserva->nombre_proveedor }}</td>
                                                 <td>{{ $reserva->cantidad }}</td>
                                                 <td>
-                                                    <input type="button" data-latitud="{{$reserva->latitud}}" data-longitud="{{$reserva->longitud}}" value="Marcar ruta" id="botonMarcarRuta">
+                                                    <input type="button" class="btn btn-warning" data-latitud="{{$reserva->latitud}}" data-longitud="{{$reserva->longitud}}" value="Marcar ruta" id="botonMarcarRuta">
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -457,7 +474,7 @@
                         </div>
 
                         <div class="modal-footer modal-footerREDON">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>
