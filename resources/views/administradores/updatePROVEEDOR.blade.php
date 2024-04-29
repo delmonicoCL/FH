@@ -18,7 +18,7 @@
                 <small id="mensajeValidacionFormularioActualizarProveedor"></small>
             </div>
             <div class="card-body">
-                <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $usuario->id, 'tipo' => $usuario->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor'=>'administrador']) }}" id="formularioinscripcion" method="POST" enctype="multipart/form-data">
+                <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=>$usuario->id,'tipo'=>$usuario->tipo])}}" id="formularioinscripcion" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 

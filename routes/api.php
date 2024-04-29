@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PuaController;
 use App\Http\Controllers\Api\ProveedorController;
+use App\Http\Controllers\Api\RiderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('puas', PuaController::class);
 
 Route::apiResource("proveedores",ProveedorController::class);
+
+Route::apiResource("riders",RiderController::class);

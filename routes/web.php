@@ -7,6 +7,7 @@ use App\Models\Reserva;
 use App\Models\Usuario;
 use App\Models\Proveedor;
 use App\Models\Administrador;
+use App\Models\AvatarRider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiderController;
@@ -74,18 +75,13 @@ Route::middleware(["auth"])->group(function () {
                         ->where('reservas.rider', $id) // Usando el ID del rider pasado como parámetro
                         ->get();
 
-                    $response = view("riders/rider", compact("user", "rider", "reservas", "totalReservas", "totalPuas", "totalEntregas"));
-                    
-                // $rider = Rider::where("id", "=", $id)->first();
-                // // $reservas = Reserva::where("rider","=",$id)->where("estado","!=","finalizada")->get(); // Aquí se filtran las reservas finalizadas
-                // $reservas = DB::table('reservas')
-                //     ->join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
-                //     ->join('proveedores', 'reservas.proveedor', '=', 'proveedores.id')
-                //     ->select('usuarios.nombre AS nombre_proveedor', 'reservas.cantidad', 'proveedores.lat AS latitud', 'proveedores.lng AS longitud')
-                //     ->where('reservas.rider', 160)
-                //     ->get();
-
-                // $response = view("riders/rider", compact("user", "rider", "reservas"));
+                    $avataresRider = AvatarRider::all();
+                    $listaAvatares=[];
+                    for ($i = 0; $i < count($avataresRider); $i++)
+                    {
+                        array_push($listaAvatares, $avataresRider[$i]["avatar"]);
+                    }
+                    $response = view("riders/rider", compact("user", "rider", "reservas", "totalReservas", "totalPuas", "totalEntregas","listaAvatares"));
                 break;
         }
         return $response;

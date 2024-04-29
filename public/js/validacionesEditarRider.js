@@ -5,11 +5,12 @@ document.addEventListener
     {
         let contenedorPrincipal=document.getElementById("contenedorPrincipal");
         let imagenGrandeAvatar=document.getElementById("imagenAvatar");
+        let usuarioQueEditaAlRider=imagenGrandeAvatar.getAttribute("data-usuarioQueEditaAlRider");
         principal();
         function principal()
         {
             let inputAvatar=document.getElementById("avatar");
-            inputAvatar.setAttribute("value","avatar1.png");
+            inputAvatar.setAttribute("value",imagenGrandeAvatar.getAttribute("src").split("/").pop());
             generarAvatares();
             contenedorPrincipal.addEventListener
             (
@@ -23,7 +24,14 @@ document.addEventListener
                         let imagenSeleccionada=document.getElementById(nombreDelArchivoDelAvatarSeleccionado);
                         imagenSeleccionada.removeAttribute("style");
                         event.target.setAttribute("style","border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;");
-                        imagenGrandeAvatar.setAttribute("src","../../media/img/avatares/"+event.target.id);
+                        if(usuarioQueEditaAlRider==="administrador")
+                        {
+                            imagenGrandeAvatar.setAttribute("src","../../media/img/avatares/"+event.target.id);
+                        }
+                        else
+                        {
+                            imagenGrandeAvatar.setAttribute("src","media/img/avatares/"+event.target.id);
+                        }
                         inputAvatar.setAttribute("value",event.target.id);
                     }
                     if(event.target.id==="aceptar")
@@ -45,7 +53,14 @@ document.addEventListener
             for (let i = 0; i < avatares.length; i++)
             {
                 let imagenAvatar=document.createElement("img");
-                imagenAvatar.setAttribute("src","../../media/img/avatares/"+avatares[i]);
+                if(usuarioQueEditaAlRider==="administrador")
+                {
+                    imagenAvatar.setAttribute("src","../../media/img/avatares/"+avatares[i]);
+                }
+                else
+                {
+                    imagenAvatar.setAttribute("src","media/img/avatares/"+avatares[i]);
+                }
                 imagenAvatar.setAttribute("alt","imagenAvatar "+avatares[i]);
                 imagenAvatar.setAttribute("height","150");
                 imagenAvatar.setAttribute("width","150");
