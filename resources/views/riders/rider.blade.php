@@ -12,7 +12,7 @@
         <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.3.1/mapbox-gl-directions.js"></script>
     </head>
-    <body>
+    <body id="contenedorPrincipal">
         @yield('contenido')
         <div id="map">
             <div class="col-md-6">
@@ -97,15 +97,6 @@
                 </div>
             </div>
             
-            {{-- <div class="container text-center d-flex ">
-                <div class="navbar-item">
-                    <button id="boton-perfil">
-                        <img src="{{ asset('img/perfil.png') }}" alt="Stock" class="img-fluid" />
-                    </button>
-                </div>
-            </div> --}}
-
-            
             <div class="modal-perfil" id="modal-perfil">
                 <div class="modal-content-perfil modal-lg mt-3">
                     <div class="modal-content px-5 pt-3 pb-3">
@@ -122,50 +113,41 @@
                                         </div>
                                     </div>
                                     <div class="card-body" style="height: 300px; overflow-y: auto;">
-                                        <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=>$user->id,'tipo'=>$user->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeRider'=>'rider']) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="row mb-4">
-                                                <div hidden>
-                                                    <label for="avatar">
-                                                        Avatar
-                                                    </label>
-                                                    <input type="text" id="avatar" name="Avatar" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="text-center">
-                                                        <p>Nickname: {{$rider->nickname}}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="text-center">
-                                                        <p>Nombre: {{$user->nombre}}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="text-center">
-                                                        <label>Apellidos</label>
-                                                        <input type="text" class="form-control" name="Apellidos" value="{{$rider->apellidos}}" readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="text-center">
-                                                        <label>Correo</label>
-                                                        <input type="email" class="form-control" name="Email" value="{{$user->email}}" readonly>
-                                                    </div>
+                                        <div class="row mb-4">
+                                            <div class="col-md-6">
+                                                <img src="{{asset('media/img/avatares')}}{{'/'.$rider->avatar}}" alt="imagen avatar" height="150vh" width="150vw" draggable="false">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="text-center">
+                                                    <p>Nickname: {{$rider->nickname}}</p>
                                                 </div>
                                             </div>
-                                            <div class="row mb-4">
-                                                <div class="col-md-6">
-                                                    <div class="text-center">
-                                                        <label>Teléfono</label>
-                                                        <input type="text" class="form-control" name="Telefono" value="{{$user->telefono}}">
-                                                    </div>
+                                            <div class="col-md-6">
+                                                <div class="text-center">
+                                                    <p>Nombre: {{$user->nombre}}</p>
                                                 </div>
                                             </div>
-                                            <div class="text-center">
-                                                <button type="button" class="btn btn-primary" id="editarPerfil">Editar</button>                                            </div>
-                                        </form>
+                                            <div class="col-md-6">
+                                                <div class="text-center">
+                                                    <p>Apellidos: {{$rider->apellidos}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="text-center">
+                                                    <p>Correo: {{$user->email}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-md-6">
+                                                <div class="text-center">
+                                                    <p>Teléfono: {{$user->telefono}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-primary" id="editarPerfil">Editar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +161,7 @@
                     <div class="modal-content px-5 pt-3 pb-3">
                         <div class="row">
                             <div class="col-lg-12 contact-form">
-                                <div class="card border-0" id="contenedorPrincipal" style="height: 455px;">
+                                <div class="card border-0" style="height: 455px;">
                                     <div class="card-header">
                                         <div class="text-end">
                                             <span class="close" id="closeButtonEditarPerfil">&times;</span>
@@ -187,10 +169,11 @@
                                         <div class="card-title text-center pb-3">
                                             <h3>EDITAR PERFIL</h3>
                                             <p class="lead text-muted fw-light">Modifica tu información de usuario.</p>
+                                            <small id="mensajeValidacionFormularioActualizarRider"></small>
                                         </div>
                                     </div>
                                     <div class="card-body" style="height: 300px; overflow-y: auto;">
-                                        <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $user->id, 'tipo' => $user->tipo]) }}" method="POST">
+                                        <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=>$user->id,'tipo'=>$user->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeRider'=>'rider'])}}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <div class="row mb-4">
@@ -198,7 +181,7 @@
                                                     @php
                                                         $listaAvatares=json_encode($listaAvatares);
                                                     @endphp
-                                                    <img src="{{asset('media/img/avatares')}}{{'/'.$rider->avatar}}" alt="imagen avatar" height="150vh" width="150vw" id="imagenAvatar" data-avatares="{{$listaAvatares}}" data-bs-toggle="modal" data-bs-target="#modalCambiarAvatar" style="border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;" draggable="false">
+                                                    <img src="{{asset('media/img/avatares')}}{{'/'.$rider->avatar}}" alt="imagen avatar" height="150vh" width="150vw" id="imagenAvatar" data-avatares="{{$listaAvatares}}" data-usuarioQueEditaAlRider="rider" style="border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;" draggable="false">
                                                 </div>
                                                 <div hidden>
                                                     <label for="avatar">
@@ -211,34 +194,39 @@
                                                         <label for="nickname">Nickname</label>
                                                         <input type="text" class="form-control" id="nickname" name="Nickname" value="{{$rider->nickname}}">
                                                     </div>
+                                                    <small id="mensajeValidacionNickname"></small>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="text-center">
                                                         <label for="nombre">Nombre</label>
                                                         <input type="text" class="form-control" id="nombre" name="Nombre" value="{{$user->nombre}}">
                                                     </div>
+                                                    <small id="mensajeValidacionNombre"></small>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="text-center">
                                                         <label for="apellidos">Apellidos</label>
                                                         <input type="text" class="form-control" id="apellidos" name="Apellidos" value="{{$rider->apellidos}}">
                                                     </div>
+                                                    <small id="mensajeValidacionApellidos"></small>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="text-center">
                                                         <label for="email">Correo</label>
                                                         <input type="email" class="form-control" id="email" name="Email" value="{{$user->email}}">
                                                     </div>
+                                                    <small id="mensajeValidacionEmail"></small>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="text-center">
                                                         <label for="telefono">Teléfono</label>
                                                         <input type="text" class="form-control" id="telefono" name="Telefono" value="{{$user->telefono}}">
                                                     </div>
+                                                    <small id="mensajeValidacionTelefono"></small>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="text-center">
-                                                        <button type="submit" class="btn btn-primary" id="editarPerfilEnviar">Guardar cambios</button>
+                                                        <button type="submit" class="btn btn-primary" id="aceptar">Guardar cambios</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -255,9 +243,9 @@
             <div id="modal-reservas" class="modal-reservas">
                 <div class="modal-content-reservas modal-lg">
                     <div class="modal-content">
+                        <span class="close" id="closeButtonReservas">&times;</span>
                         <div class="modal-header">
                             <h2 class="modal-title">RESERVAS</h2>
-                            <span class="close" id="closeButtonReservas">&times;</span>
                         </div>
                         <div class="modal-body">
                             <div class="table-responsive" style="display: flex; justify-content: center !important; align-items: center !important;">
@@ -270,12 +258,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @for ($i = 0; $i < count($reservas); $i++)
-                                            <tr>
-                                                <td>{{ $reservas[$i]->nombre }}</td>
-                                                <td>{{ $reservas[$i]->cantidad }}</td>
-                                            </tr>
-                                        @endfor --}}
                                         @foreach ($reservas as $reserva)
                                             <tr>
                                                 <td>{{ $reserva->nombre_proveedor }}</td>
@@ -351,7 +333,23 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
+
+            <div id="modal-avatares" class="modal-avatares">
+                <div class="modal-content-avatares modal-lg">
+                    <div class="modal-content" style="height: 455px;">
+                        <span class="close" id="closeButtonAvatares">&times;</span>
+                        <div class="modal-header">
+                            <h2 class="modal-title">AVATARES</h2>
+                        </div>
+                        <div class="modal-body" style="height: 300px; overflow-y: auto;">
+                            <div class="row" id="contenedorAvatares"></div>
+                        </div>
+                        <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+            
         </div> 
         <script src="{{ asset('js/rider.js') }}"></script>
     </body>

@@ -35,7 +35,7 @@
                 <small id="mensajeValidacionFormularioActualizarRider"></small>
             </div>
             <div class="card-body">
-                <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=> $usuario->id,'tipo'=> $usuario->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeRider'=>'administrador'])}}" id="formularioinscripcion" method="POST">
+                <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=> $usuario->id,'tipo'=> $usuario->tipo])}}" id="formularioinscripcion" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -43,7 +43,7 @@
                         $listaAvatares=json_encode($listaAvatares);
                     @endphp
                     <div class="col-sm-12 mb-3 text-center">
-                        <img src="{{asset('media/img/avatares')}}{{'/'.$rider->avatar}}" alt="imagen avatar" height="150vh" width="150vw" id="imagenAvatar" data-avatares="{{$listaAvatares}}" data-bs-toggle="modal" data-bs-target="#modalCambiarAvatar" style="border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;" draggable="false">
+                        <img src="{{asset('media/img/avatares')}}{{'/'.$rider->avatar}}" alt="imagen avatar" height="150vh" width="150vw" id="imagenAvatar" data-avatares="{{$listaAvatares}}" data-usuarioQueEditaAlRider="administrador" data-bs-toggle="modal" data-bs-target="#modalCambiarAvatar" style="border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;" draggable="false">
                     </div>
 
                     <div hidden>

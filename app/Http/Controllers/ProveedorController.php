@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reserva;
 use App\Models\Proveedor;
+use App\Models\Administrador;
 use App\Clases\Utilidad;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProveedorController extends Controller
@@ -129,7 +130,6 @@ class ProveedorController extends Controller
         {
             //Recuperar los valores del request
             $tipo = $request->tipo;
-            $tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor=$request->tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor;
             $id = $proveedore->id;
             $calle=$request->input("Calle");
             $numero=$request->input("Numero");
@@ -160,7 +160,7 @@ class ProveedorController extends Controller
                 //Hacer el insert en la tabla
                 $proveedore->save();
                 $request->session()->flash("mensaje","Proveedor modificado correctamente.");
-                if($tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor==="administrador")
+                if(Auth::user()->tipo==="administrador")
                 {
                     $response=redirect("/administradores/gestionProveedor");
                 }
@@ -174,9 +174,11 @@ class ProveedorController extends Controller
                 $usuario=Usuario::where("id", "=", $id)->first();
                 $mensaje=Utilidad::errorMessage($ex);
                 $request->session()->flash("error",$mensaje);
-                if($tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor==="administrador")
+                if(Auth::user()->tipo==="administrador")
                 {
-                    $response=redirect()->route("usuarios.edit", compact("tipo","usuario"))->withInput();
+                    $administrador=Administrador::where("id","=",Auth::user()->id)->first();
+                    $idAdministrador=$administrador->id;
+                    $response=redirect()->route("usuarios.edit", compact("tipo","usuario","idAdministrador"))->withInput();
                 }
                 else
                 {

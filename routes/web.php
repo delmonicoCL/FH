@@ -76,12 +76,11 @@ Route::middleware(["auth"])->group(function () {
                         ->get();
 
                     $avataresRider = AvatarRider::all();
-                    $listaAvatares = [];
+                    $listaAvatares=[];
                     for ($i = 0; $i < count($avataresRider); $i++)
                     {
                         array_push($listaAvatares, $avataresRider[$i]["avatar"]);
                     }
-
                     $response = view("riders/rider", compact("user", "rider", "reservas", "totalReservas", "totalPuas", "totalEntregas","listaAvatares"));
                 break;
         }

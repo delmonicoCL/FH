@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rider;
-use App\Models\Reserva;
 use App\Models\Usuario;
 use App\Models\Administrador;
-use App\Clases\Utilidad;
 use App\Models\Proveedor;
-use App\Models\AvatarRider;
+use App\Clases\Utilidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -232,32 +230,24 @@ class UsuarioController extends Controller
         {
             $mensaje=Utilidad::errorMessage($ex);
             $request->session()->flash("error",$mensaje);
-            $response=redirect()->action([UsuarioController::class, "edit"],["usuario"=>$usuario,'tipo'=>$tipo])->withInput();
+            if(Auth::user()->tipo==="administrador")
+            {
+                $administrador=Administrador::where("id","=",Auth::user()->id)->first();
+                $response=redirect()->action([UsuarioController::class, "edit"],["usuario"=>$usuario,'tipo'=>$tipo,"idAdministrador"=>$administrador->id])->withInput();
+            }
+            else if(Auth::user()->tipo==="proveedor")
+            {
+                $proveedore=Proveedor::where("id","=",$usuario->id)->first();
+                $response=redirect()->route("proveedores.edit", compact("proveedore"))->withInput();
+            }
+            else
+            {
+                $rider=Rider::where("id","=",$usuario->id)->first();
+                $response=redirect("/home");
+            }
         }
 
         return $response;
-        //  // Obtener el rider asociado con el usuario
-        //  $rider = Rider::where("id","=",$usuario->id)->first();
-
-        //  // Actualizar los datos del usuario
-        //  $usuario->nombre = $request->input("nombre");
-        //  $usuario->email = $request->input("email");
-        //  $usuario->telefono = $request->input("telefono");
-
-        //  // Actualizar los datos del rider si existe
-        //  if ($rider) {
-        //      $rider->apellidos = $request->input("apellido");
-        //      $rider->nickname = $request->input("nickname");
-        //      $rider->avatar = $request->input("avatar");
-        //      $rider->stock_rider = $request->input("stock");
-        //      $rider->save();
-        //  }
-
-        //  // Guardar los cambios en el usuario
-        //  $usuario->save();
-
-        //  // Redirigir a la página de inicio, o a donde necesites
-        //  return redirect()->action([UsuarioController::class, 'index']);
     }
 
     public function destroy(Request $request, Usuario $usuario)

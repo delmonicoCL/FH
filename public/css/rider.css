@@ -92,6 +92,7 @@ html {
 .modal-perfil,
 .modal-pua,
 .modal-reservas,
+.modal-avatares,
 .modal-reservar,
 .modal-historial,
 .modal-carga,
@@ -111,6 +112,7 @@ html {
 .modal-content-perfil,
 .modal-content-pua,
 .modal-content-reservas,
+.modal-content-avatares,
 .modal-content-reservar,
 .modal-content-historial,
 .modal-content-editar-perfil {
@@ -159,7 +161,7 @@ html {
 }
 
 /* BOTÓN DE ENVIAR EDITAR */
-#editarPerfilEnviar {
+#aceptar {
     background-color: #007bff;
     color: white;
     border: none;
@@ -169,7 +171,7 @@ html {
     transition: background-color 0.3s;
 }
 
-#editarPerfilEnviar:hover {
+#aceptar:hover {
     background-color: #0056b3;
 }
 

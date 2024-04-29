@@ -407,6 +407,7 @@ if (closeButtonEditarPerfil) {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     let etiquetaBody=document.getElementsByTagName("body")[0];
+    var modalAvatares = document.getElementById("modal-avatares");
 
     let panelRutas;
 
@@ -487,6 +488,15 @@ if (closeButtonEditarPerfil) {
 
                 event.target.setAttribute("value","Marcar ruta");
                 event.target.setAttribute("id","botonMarcarRuta");
+            }
+
+            if(event.target.id==="imagenAvatar")
+            {
+                modalAvatares.style.display = "block";
+            }
+            if(event.target.id==="closeButtonAvatares")
+            {
+                modalAvatares.style.display = "none";
             }
         }
     );

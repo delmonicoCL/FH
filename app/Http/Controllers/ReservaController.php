@@ -2,7 +2,6 @@
 // ReservaController
 namespace App\Http\Controllers;
 
-use App\Models\Rider;
 use App\Models\Reserva;
 use App\Clases\Utilidad;
 use App\Models\Proveedor;
