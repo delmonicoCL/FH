@@ -15,7 +15,6 @@
              <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.3.1/mapbox-gl-directions.js"></script>
     </head>
-    <body id="contenedorPrincipal">
 
     <style>
         h4,
@@ -98,41 +97,6 @@
     <body>
         @yield('contenido')
         <div id="map">
-            <div class="col-md-6">
-                <img src="{{asset('media/img/avatares')}}{{'/'.$rider->avatar}}" id="super" alt="imagen avatar" height="150vh" width="150vw" draggable="false">
-                <div id="myModal" class="modal-pua">
-                    <div class="modal-content-pua">
-                        <span class="close" id="closeButton">&times;</span>
-                        <h2>Crear Pua</h2>
-                        <form id="puaForm">
-                            <input type="hidden" id="lng" name="lng">
-                            <input type="hidden" id="lat" name="lat">
-                            <label for="cantidad_de_personas">Cuantas personas hay?:</label><br>
-                            <input type="number" id="cantidad_de_personas" name="cantidad_de_personas"><br><br>
-                            <input type="number" id="rider_creador" name="rider_creador" value="{{$rider->id}}" hidden>
-                            <button type="button" id="submitForm">Crear Pua</button>
-                        </form>
-                    </div>
-                </div>
-                <form class="d-flex" role="search">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        @if (Auth::check())
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    @if(Auth::user()["tipo"]==="rider") {{$rider["nickname"]}} @else {{Auth::user()["nombre"]}} @if (Auth::check()&&Auth::user()["tipo"]==="administrador") {{$administrador["apellidos"]}} @endif @endif
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" id="logout" href="{{url('/logout')}}">Cerrar sesion</a>
-                                </div>
-                            </li>
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="{{url('/login')}}">Iniciar Sesion</a>
-                            </li>
-                        @endif
-                    </ul>
-                </form>
-            </div>          
             <img src="{{ asset('img/superhero.png') }}" alt="" id="super">
             
             
@@ -175,35 +139,7 @@
             <div id="stockRider">
                 <h3>{{ $rider->stock_rider }} Menus</h3>    
             </div>
-            <div id="stockRider">
-                <h3>{{ $rider->stock_rider }} Menus</h3>    
-            </div>
 
-            <!-- Navbar Inferior -->
-            <nav class="navbar-bottom">
-                <div class="container text-center d-flex ">
-                    <div class="navbar-item">
-                        <button id="boton-perfil">
-                            <img src="{{ asset('img/perfil.png') }}" alt="Perfil" class="img-fluid" />
-                        </button>
-                    </div>
-                    <div class="navbar-item">
-                        <button id="createMarkerButton">
-                            <img src="{{ asset('img/crear_pua.png') }}"alt="Crear Pua" class="img-fluid" />
-                        </button>
-                    </div>
-                    <div class="navbar-item">
-                        <button id="boton-reservas">
-                            <img src="{{ asset('img/reservas.png') }}" alt="Reservar" class="img-fluid" />
-                        </button>
-                    </div>
-                    <div class="navbar-item">
-                        <button id="boton-historial">
-                            <img src="{{ asset('img/historial.png') }}"alt="Historial" class="img-fluid" />
-                        </button>
-                    </div>
-                </div>
-            </nav>
         <!-- Navbar Inferior -->
             <nav class="navbar-bottom">
                 <div class="container text-center d-flex ">
@@ -227,11 +163,7 @@
                             <img src="{{ asset('img/historial.png') }}"alt="Historial" class="img-fluid" />
                         </button>
                     </div>
-                     <div class="navbar-item">
-                        <button id="createMarkerButton">
-                            <img src="{{ asset('img/crear_pua.png') }}"alt="Crear Pua" class="img-fluid" />
-                        </button>
-                    </div>
+                    
                 </div>
             </nav>
             <!-- Modal de reservar -->
@@ -251,56 +183,28 @@
                 </div>
             </div>
             
+            {{-- <div class="container text-center d-flex ">
+                <div class="navbar-item">
+                    <button id="boton-perfil">
+                        <img src="{{ asset('img/perfil.png') }}" alt="Stock" class="img-fluid" />
+                    </button>
+                </div>
+            </div> --}}
+
+            
             <div class="modal-perfil" id="modal-perfil">
                 <div class="modal-content-perfil modal-lg mt-3">
                     <div class="modal-content px-5 pt-3 pb-3">
                         <div class="row">
                             <div class="col-lg-12 contact-form">
-                                <div class="card border-0" style="height: 455px;">
-                                    <div class="card-header">
+                                <div class="card border-0">
+                                    <div class="card-body">
                                         <div class="text-end">
                                             <span class="close" id="closeButtonPerfil">&times;</span>
                                         </div>
                                         <div class="card-title text-center pb-3">
                                             <h3>PERFIL</h3>
                                           
-                                        </div>
-                                    </div>
-                                    <div class="card-body" style="height: 300px; overflow-y: auto;">
-                                        <div class="row mb-4">
-                                            <div class="col-md-6">
-                                                <img src="{{asset('media/img/avatares')}}{{'/'.$rider->avatar}}" alt="imagen avatar" height="150vh" width="150vw" draggable="false">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="text-center">
-                                                    <p>Nickname: {{$rider->nickname}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="text-center">
-                                                    <p>Nombre: {{$user->nombre}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="text-center">
-                                                    <p>Apellidos: {{$rider->apellidos}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="text-center">
-                                                    <p>Correo: {{$user->email}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-4">
-                                            <div class="col-md-6">
-                                                <div class="text-center">
-                                                    <p>Teléfono: {{$user->telefono}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="button" class="btn btn-primary" id="editarPerfil">Editar</button>
                                         </div>
                                         <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=>$user->id,'tipo'=>$user->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeRider'=>'rider']) }}" method="POST">
                                             @csrf
@@ -361,49 +265,18 @@
                     <div class="modal-content px-5 pt-3 pb-3">
                         <div class="row">
                             <div class="col-lg-12 contact-form">
-                                <div class="card border-0" style="height: 455px;">
-                                    <div class="card-header">
+                                <div class="card border-0">
+                                    <div class="card-body">
                                         <div class="text-end">
                                             <span class="close" id="closeButtonEditarPerfil">&times;</span>
                                         </div>
                                         <div class="card-title text-center pb-3">
                                             <h3>EDITAR PERFIL</h3>
                                             <p class="lead text-muted fw-light">Modifica tu información de usuario.</p>
-                                            <small id="mensajeValidacionFormularioActualizarRider"></small>
                                         </div>
-                                    </div>
-                                    <div class="card-body" style="height: 300px; overflow-y: auto;">
-                                        <form action="{{action([App\Http\Controllers\UsuarioController::class,'update'],['usuario'=>$user->id,'tipo'=>$user->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeRider'=>'rider'])}}" method="POST">
+                                        <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $user->id, 'tipo' => $user->tipo]) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <div class="row mb-4">
-                                                <div class="col-md-6">
-                                                    @php
-                                                        $listaAvatares=json_encode($listaAvatares);
-                                                    @endphp
-                                                    <img src="{{asset('media/img/avatares')}}{{'/'.$rider->avatar}}" alt="imagen avatar" height="150vh" width="150vw" id="imagenAvatar" data-avatares="{{$listaAvatares}}" data-usuarioQueEditaAlRider="rider" style="border:2px solid #018780; box-shadow: 0 0 20px 2px #018780;" draggable="false">
-                                                </div>
-                                                <div hidden>
-                                                    <label for="avatar">
-                                                        Avatar
-                                                    </label>
-                                                    <input type="text" id="avatar" name="Avatar" value="{{$rider->avatar}}">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="text-center">
-                                                        <label for="nickname">Nickname</label>
-                                                        <input type="text" class="form-control" id="nickname" name="Nickname" value="{{$rider->nickname}}">
-                                                    </div>
-                                                    <small id="mensajeValidacionNickname"></small>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="text-center">
-                                                        <label for="nombre">Nombre</label>
-                                                        <input type="text" class="form-control" id="nombre" name="Nombre" value="{{$user->nombre}}">
-                                                    </div>
-                                                    <small id="mensajeValidacionNombre"></small>
-                                                </div>
-                                                <div class="col-md-6">
                                             <div class="row">
                                                     <div hidden>
                                                         <label for="avatar">
@@ -429,32 +302,23 @@
                                                 
                                                 </div class="col-2">
                                                     <div class="text-center">
-                                                        <label for="apellidos">Apellidos</label>
-                                                        <input type="text" class="form-control" id="apellidos" name="Apellidos" value="{{$rider->apellidos}}">
+                                                        <h4>Apellidos</h4>
+                                                        <input type="text" class="form-control" name="Apellidos" value="{{$rider->apellidos}}">
                                                     </div>
-                                                    <small id="mensajeValidacionApellidos"></small>
                                                 </div>
                                                 <div class="col-10">
                                                     <div class="text-center">
-                                                        <label for="email">Correo</label>
-                                                        <input type="email" class="form-control" id="email" name="Email" value="{{$user->email}}">
+                                                        <h4>Correo</h4>
+                                                        <input type="email" class="form-control" name="Email" value="{{ $user->email }}">
                                                     </div>
-                                                    <small id="mensajeValidacionEmail"></small>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="text-center">
-                                                        <label for="telefono">Teléfono</label>
-                                                        <input type="text" class="form-control" id="telefono" name="Telefono" value="{{$user->telefono}}">
-                                                    </div>
-                                                    <small id="mensajeValidacionTelefono"></small>
-                                                </div>
-                                                <div class="col-md-6">
                                             </div>   
 
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="text-center">
-                                                        <button type="submit" class="btn btn-primary" id="aceptar">Guardar cambios</button>
+                                                        <h4>Teléfono</h4>
+                                                        <input type="text" class="form-control" name="Telefono" value="{{ $user->telefono }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -476,9 +340,7 @@
             <div id="modal-reservas" class="modal-reservas ">
                 <div class="modal-content-reservas modal-lg">
                     <div class="modal-content">
-                        <span class="close" id="closeButtonReservas">&times;</span>
                         <div class="modal-header">
-                            <h2 class="modal-title">RESERVAS</h2>
                             <h2 class="modal-title ms-4">RESERVAS</h2>
                             <span class="close" id="closeButtonReservas">&times;</span>
                         </div>
@@ -493,6 +355,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{-- @for ($i = 0; $i < count($reservas); $i++)
+                                            <tr>
+                                                <td>{{ $reservas[$i]->nombre }}</td>
+                                                <td>{{ $reservas[$i]->cantidad }}</td>
+                                            </tr>
+                                        @endfor --}}
                                         @foreach ($reservas as $reserva)
                                             <tr>
                                                 <td>{{ $reserva->nombre_proveedor }}</td>
@@ -569,23 +437,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div id="modal-avatares" class="modal-avatares">
-                <div class="modal-content-avatares modal-lg">
-                    <div class="modal-content" style="height: 455px;">
-                        <span class="close" id="closeButtonAvatares">&times;</span>
-                        <div class="modal-header">
-                            <h2 class="modal-title">AVATARES</h2>
-                        </div>
-                        <div class="modal-body" style="height: 300px; overflow-y: auto;">
-                            <div class="row" id="contenedorAvatares"></div>
-                        </div>
-                        <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-            
             </div> 
 
             {{-- MODAL HISTORIAL REDONDO --}}
@@ -633,5 +484,4 @@
         <!-- jQuery (Necesario para el JavaScript de Bootstrap) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </body>
-    <script src="{{asset('js/validacionesEditarRider.js')}}"></script>
 </html>
