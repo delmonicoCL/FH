@@ -22,14 +22,17 @@ document.addEventListener
                         {
                             /*console.log(idRider.value);
                             console.log(cantidadDeMenusReservados.value);*/
-                            modificarRider(idRider.value,cantidadDeMenusReservados.value);
-                            //pasarResevaAFinalizada();
+                            let stockRider;
+                            obtenerStockRider(idRider.value);
+                            sumarMenusAlRider(idRider.value,cantidadDeMenusReservados.value);
+                            pasarReservaAFinalizada(idReserva.value);
+                            location.reload();
                         }
                     }
                 }
             );
         }
-        function modificarRider(idRider,cantidadDeMenusReservados)
+        function sumarMenusAlRider(idRider,cantidadDeMenusReservados)
         {
             fetch
             (
@@ -79,6 +82,86 @@ document.addEventListener
             logo.setAttribute("id","logo"+contenedorLogo.getAttribute("data-nombreDeLaImagen"));
             logo.setAttribute("draggable","false");
             contenedorLogo.appendChild(logo);
+        }
+        function pasarReservaAFinalizada(idReserva)
+        {
+            fetch
+            (
+                '/FH/public/api/reservas/'+idReserva,
+                {
+                    method: "PUT", // Utilizando el método PUT para actualizar recursos en el servidor
+                    body: JSON.stringify
+                    (
+                        {
+                            Estado: "finalizada"
+                        }
+                    ), // Los datos que se enviarán al servidor, convertidos a JSON
+                    headers:
+                    {
+                        "Content-Type": "application/json", // Especificando que el cuerpo de la solicitud está en formato JSON
+                    },
+                }
+            )
+            .then
+            (
+                (res) => res.json()
+            ) // Convirtiendo la respuesta en JSON
+            .catch
+            (
+                (error) => console.error
+                (
+                    "Error:",
+                    error
+                )
+            ) // Manejando errores
+            .then
+            (
+                (
+                    response
+                ) => console.log("Success:", response)
+            ); // Manejando la respuesta exitosa
+        }
+        function obtenerStockRider()
+        {
+            let data;
+            fetch
+            (
+                '/FH/public/api/riders/'+idRider,
+                {
+                    method: "GET",
+                    headers:
+                    {
+                        "Content-Type": "application/json",
+                    },
+                }
+            )
+            .then
+            (
+                (res) =>
+                {
+                    if (!res.ok)
+                    {
+                        throw new Error("Network response was not ok");
+                    }
+                    return res.json();
+                }
+            )
+            .then
+            (
+                (data) =>
+                {
+                    console.log("Data received:", data);
+                }
+            )
+            .catch
+            (
+                (error) =>
+                {
+                    console.error("Error:", error);
+                }
+            );
+
+            return data;
         }
     }
 );

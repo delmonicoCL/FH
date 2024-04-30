@@ -107,6 +107,7 @@ Route::middleware(["auth"])->group(function () {
             ->join('riders', 'reservas.rider', '=', 'riders.id')
             ->select('riders.nickname AS nicknameRider', "reservas.id AS idReserva", "reservas.rider AS idRider", "reservas.cantidad AS cantidadMenusReservados", "reservas.estado AS estadoReserva")
             ->where('reservas.proveedor', "=", $id)
+            ->where('reservas.estado', "=", "en_curso")
             ->get();
         $riders = Rider::all();
 
