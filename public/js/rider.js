@@ -411,6 +411,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let panelRutas;
 
+    let numeroDeBotonesDesmarcarRutaPua=0;
+
+    let botonDesmarcarRutaPuaSeleccionado;
+
     etiquetaBody.addEventListener
     (
         "click",
@@ -451,7 +455,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     let botonDesmarcarRuta=document.getElementsByClassName("btn btn-warning botonDesmarcarRuta")[0];
                     botonDesmarcarRuta.click();
 
-                    if(verificarSiSeEstaMostrandoRutaParaPua())
+                    botonDesmarcarRutaPuaSeleccionado=event.target;
+                    iniciarProcesoPrevioAGenerarRutaPua(event.target);
+                    generarRuta(event.target);
+                    /*if(verificarSiSeEstaMostrandoRutaParaPua())
                     {
                         let botonDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua")[0];
                         botonDesmarcarRutaPua.click();
@@ -463,23 +470,37 @@ document.addEventListener('DOMContentLoaded', function () {
                     {
                         iniciarProcesoPrevioAGenerarRutaPua(event.target);
                         generarRuta(event.target);
-                    }
+                    }*/
                 }
                 else
                 {
                     if(verificarSiSeEstaMostrandoRutaParaPua())
                     {
-                        let botonDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua")[0];
-                        botonDesmarcarRutaPua.click();
+                        /*let botonDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua")[0];
+                        botonDesmarcarRutaPua.click();*/
+                        botonDesmarcarRutaPuaSeleccionado.setAttribute("class","btn btn-warning botonMarcarRutaPua");
+                        botonDesmarcarRutaPuaSeleccionado.setAttribute("value","Marcar ruta");
 
+                        map.removeControl(panelRutas);
+
+                        map.removeLayer("ruta");
+                        map.removeSource('ruta');
+
+                        numeroDeBotonesDesmarcarRutaPua--;
+
+                        botonDesmarcarRutaPuaSeleccionado=event.target;
                         iniciarProcesoPrevioAGenerarRutaPua(event.target);
                         generarRuta(event.target);
                     }
                     else
                     {
+                        //console.log(panelRutas);
+                        botonDesmarcarRutaPuaSeleccionado=event.target;
                         iniciarProcesoPrevioAGenerarRutaPua(event.target);
                         generarRuta(event.target);
-                    }c
+                        /*let botonesDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua");
+                        console.log(botonesDesmarcarRutaPua.length);*/
+                    }
                 }
             }
             else if(event.target.className==="btn btn-warning botonDesmarcarRutaPua")
@@ -488,6 +509,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 map.removeLayer("ruta");
                 map.removeSource('ruta');
+
+                numeroDeBotonesDesmarcarRutaPua--;
 
                 desbloquearBotonesMarcarRuta();
                 event.target.setAttribute("class","btn btn-warning botonMarcarRutaPua");
@@ -586,9 +609,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     function verificarSiSeEstaMostrandoRutaParaPua()
     {
-        let botonesDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua");
+        //let botonesDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua");
         let seEstaMostrandoRutaParaPua=true;
-        if(botonesDesmarcarRutaPua.length===0)
+        //console.log(botonesDesmarcarRutaPua.length);
+        if(numeroDeBotonesDesmarcarRutaPua===0)
         {
             seEstaMostrandoRutaParaPua=false;
         }
@@ -600,6 +624,7 @@ document.addEventListener('DOMContentLoaded', function () {
         elementoTarget.setAttribute("class","btn btn-warning botonDesmarcarRutaPua");
         bloquearBotonesMarcarRuta();
         elementoTarget.setAttribute("value","Desmarcar ruta");
+        numeroDeBotonesDesmarcarRutaPua++;
     }
     function bloquearBotonesMarcarRutaPua()
     {
