@@ -173,21 +173,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     var botonEditarPerfil = document.getElementById('editarPerfil');
-if (botonEditarPerfil) {
-    botonEditarPerfil.addEventListener('click', function () {
-        var modalEditarPerfil = document.getElementById("modal-editar-perfil");
-        modalPerfil.style.display = "none";
-        modalEditarPerfil.style.display = "block";
-    });
-}
+    if (botonEditarPerfil) {
+        botonEditarPerfil.addEventListener('click', function () {
+            var modalEditarPerfil = document.getElementById("modal-editar-perfil");
+            modalPerfil.style.display = "none";
+            modalEditarPerfil.style.display = "block";
+        });
+    }
 
-var closeButtonEditarPerfil = document.getElementById('closeButtonEditarPerfil');
-if (closeButtonEditarPerfil) {
-    closeButtonEditarPerfil.addEventListener('click', function () {
-        var modalEditarPerfil = document.getElementById("modal-editar-perfil");
-        modalEditarPerfil.style.display = "none";
-    });
-}
+    var closeButtonEditarPerfil = document.getElementById('closeButtonEditarPerfil');
+    if (closeButtonEditarPerfil) {
+        closeButtonEditarPerfil.addEventListener('click', function () {
+            var modalEditarPerfil = document.getElementById("modal-editar-perfil");
+            modalEditarPerfil.style.display = "none";
+        });
+    }
 
     
 
@@ -267,7 +267,7 @@ if (closeButtonEditarPerfil) {
         .addTo(map);
     
         var description = "<h2><p>Numero de personas: " + pua.cantidad_de_personas + "</p></h2>" +
-            "<button class='boton-entregar'>Entregar</button>";
+            "<div style='display:flex; align-items: center; justify-content: space-around'><button class='btn btn-success botonEntregar'>Entregar</button><input type='button' class='btn btn-warning botonMarcarRutaPua' data-latitud='"+pua.lat+"' data-longitud='"+pua.lng+"' value='Marcar ruta'></div>";
     
         var popup = new mapboxgl.Popup()
             .setHTML(description);
@@ -275,9 +275,9 @@ if (closeButtonEditarPerfil) {
         marker.setPopup(popup);
     
         popup.on('open', function() {
-            var botonEntregar = document.querySelector('.boton-entregar');
+            var botonesEntregar = document.getElementsByClassName('btn btn-success botonEntregar');
     
-            botonEntregar.addEventListener('click', function (){
+            /*botonEntregar.addEventListener('click', function (){
                 // Obtener la ID de la PUA
                 var puaId = pua.id;
             
@@ -302,7 +302,7 @@ if (closeButtonEditarPerfil) {
                     console.error('Error al realizar la solicitud POST:', error);
                     alert('Error al realizar la solicitud POST.');
                 }
-            });             
+            });*/            
         });
     }    
 
@@ -416,78 +416,23 @@ if (closeButtonEditarPerfil) {
         "click",
         function(event)
         {
-            if(event.target.id==="botonMarcarRuta")
+            if(event.target.className==="btn btn-warning botonMarcarRuta")
             {
+                event.target.setAttribute("class","btn btn-warning botonDesmarcarRuta");
+                bloquearBotonesMarcarRuta();
                 event.target.setAttribute("value","Desmarcar ruta");
-                event.target.setAttribute("id","botonDesmarcarRuta");
-                navigator.geolocation.getCurrentPosition
-                (
-                    function(position)
-                    {
-                        panelRutas=new MapboxDirections(
-                            {
-                                accessToken: 'pk.eyJ1IjoiZG5lcml6IiwiYSI6ImNsdHJrN3ppZjAxYmsya3BqcWRsYzdkam8ifQ.gjTWrYyirEhh94V_agnuhQ'
-                            }
-                        );
-
-                        map.addControl(
-                            panelRutas,
-                            'top-left'
-                        );
-
-                        let latitudOrigen = position.coords.latitude;
-                        let longitudOrigen = position.coords.longitude;
-
-                        panelRutas.setOrigin([longitudOrigen, latitudOrigen]);
-                        panelRutas.setDestination([event.target.getAttribute("data-longitud"), event.target.getAttribute("data-latitud")]);
-                          
-                        panelRutas.on(
-                            'route',
-                            function(e)
-                            {
-                                var route = e.route[0];
-                                // Puedes trabajar con la ruta aquí, por ejemplo, mostrarla en el mapa.
-                                map.addLayer(
-                                    {
-                                        id: 'ruta',
-                                        type: 'line',
-                                        source:
-                                        {
-                                            type: 'geojson',
-                                            data:
-                                            {
-                                                type: 'Feature',
-                                                properties: {},
-                                                geometry: route.geometry
-                                            }
-                                        },
-                                        layout:
-                                        {
-                                            'line-join': 'round',
-                                            'line-cap': 'round'
-                                        },
-                                        paint:
-                                        {
-                                            'line-color': '#3887be',
-                                            'line-width': 8,
-                                            'line-opacity': 0.75
-                                        }
-                                    }
-                                );
-                            }
-                        );
-                    }
-                );
+                generarRuta(event.target);
             }
-            else if(event.target.id==="botonDesmarcarRuta")
+            else if(event.target.className==="btn btn-warning botonDesmarcarRuta")
             {
                 map.removeControl(panelRutas);
 
                 map.removeLayer("ruta");
                 map.removeSource('ruta');
 
+                desbloquearBotonesMarcarRuta();
+                event.target.setAttribute("class","btn btn-warning botonMarcarRuta");
                 event.target.setAttribute("value","Marcar ruta");
-                event.target.setAttribute("id","botonMarcarRuta");
             }
 
             if(event.target.id==="imagenAvatar")
@@ -498,6 +443,178 @@ if (closeButtonEditarPerfil) {
             {
                 modalAvatares.style.display = "none";
             }
+
+            if(event.target.className==="btn btn-warning botonMarcarRutaPua")
+            {
+                if(verificarSiSeEstaMostrandoRutaParaProveedor())
+                {
+                    let botonDesmarcarRuta=document.getElementsByClassName("btn btn-warning botonDesmarcarRuta")[0];
+                    botonDesmarcarRuta.click();
+
+                    if(verificarSiSeEstaMostrandoRutaParaPua())
+                    {
+                        let botonDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua")[0];
+                        botonDesmarcarRutaPua.click();
+
+                        iniciarProcesoPrevioAGenerarRutaPua(event.target);
+                        generarRuta(event.target);
+                    }
+                    else
+                    {
+                        iniciarProcesoPrevioAGenerarRutaPua(event.target);
+                        generarRuta(event.target);
+                    }
+                }
+                else
+                {
+                    if(verificarSiSeEstaMostrandoRutaParaPua())
+                    {
+                        let botonDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua")[0];
+                        botonDesmarcarRutaPua.click();
+
+                        iniciarProcesoPrevioAGenerarRutaPua(event.target);
+                        generarRuta(event.target);
+                    }
+                    else
+                    {
+                        iniciarProcesoPrevioAGenerarRutaPua(event.target);
+                        generarRuta(event.target);
+                    }c
+                }
+            }
+            else if(event.target.className==="btn btn-warning botonDesmarcarRutaPua")
+            {
+                map.removeControl(panelRutas);
+
+                map.removeLayer("ruta");
+                map.removeSource('ruta');
+
+                desbloquearBotonesMarcarRuta();
+                event.target.setAttribute("class","btn btn-warning botonMarcarRutaPua");
+                event.target.setAttribute("value","Marcar ruta");
+            }
         }
     );
+
+    function bloquearBotonesMarcarRuta()
+    {
+        let botonesMarcarRuta=document.getElementsByClassName("btn btn-warning botonMarcarRuta")
+        for (let botonMarcarRuta of botonesMarcarRuta)
+        {
+            botonMarcarRuta.setAttribute("disabled","true");
+        }
+    }
+    function desbloquearBotonesMarcarRuta()
+    {
+        let botonesMarcarRuta=document.getElementsByClassName("btn btn-warning botonMarcarRuta")
+        for (let botonMarcarRuta of botonesMarcarRuta)
+        {
+            botonMarcarRuta.removeAttribute("disabled");
+        }
+    }
+    function verificarSiSeEstaMostrandoRutaParaProveedor()
+    {
+        let botonesDesmarcarRuta=document.getElementsByClassName("btn btn-warning botonDesmarcarRuta");
+        let seEstaMostrandoRutaParaProveedor=true;
+        if(botonesDesmarcarRuta.length===0)
+        {
+            seEstaMostrandoRutaParaProveedor=false;
+        }
+        return seEstaMostrandoRutaParaProveedor;
+    }
+    function generarRuta(elementoTarget)
+    {
+        navigator.geolocation.getCurrentPosition
+        (
+            function(position)
+            {
+                panelRutas=new MapboxDirections(
+                    {
+                        accessToken: 'pk.eyJ1IjoiZG5lcml6IiwiYSI6ImNsdHJrN3ppZjAxYmsya3BqcWRsYzdkam8ifQ.gjTWrYyirEhh94V_agnuhQ',
+                        interactive: false
+                    }
+                );
+
+                map.addControl(
+                    panelRutas,
+                    'top-left'
+                );
+
+                let latitudOrigen = position.coords.latitude;
+                let longitudOrigen = position.coords.longitude;
+
+                panelRutas.setOrigin([longitudOrigen, latitudOrigen]);
+                panelRutas.setDestination([elementoTarget.getAttribute("data-longitud"),elementoTarget.getAttribute("data-latitud")]);
+                  
+                panelRutas.on(
+                    'route',
+                    function(e)
+                    {
+                        var route = e.route[0];
+                        // Puedes trabajar con la ruta aquí, por ejemplo, mostrarla en el mapa.
+                        map.addLayer(
+                            {
+                                id: 'ruta',
+                                type: 'line',
+                                source:
+                                {
+                                    type: 'geojson',
+                                    data:
+                                    {
+                                        type: 'Feature',
+                                        properties: {},
+                                        geometry: route.geometry
+                                    }
+                                },
+                                layout:
+                                {
+                                    'line-join': 'round',
+                                    'line-cap': 'round'
+                                },
+                                paint:
+                                {
+                                    'line-color': '#3887be',
+                                    'line-width': 8,
+                                    'line-opacity': 0.75
+                                }
+                            }
+                        );
+                    }
+                );
+            }
+        );
+    }
+    function verificarSiSeEstaMostrandoRutaParaPua()
+    {
+        let botonesDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua");
+        let seEstaMostrandoRutaParaPua=true;
+        if(botonesDesmarcarRutaPua.length===0)
+        {
+            seEstaMostrandoRutaParaPua=false;
+        }
+        console.log(seEstaMostrandoRutaParaPua);
+        return seEstaMostrandoRutaParaPua;
+    }
+    function iniciarProcesoPrevioAGenerarRutaPua(elementoTarget)
+    {
+        elementoTarget.setAttribute("class","btn btn-warning botonDesmarcarRutaPua");
+        bloquearBotonesMarcarRuta();
+        elementoTarget.setAttribute("value","Desmarcar ruta");
+    }
+    function bloquearBotonesMarcarRutaPua()
+    {
+        let botonesMarcarRutaPua=document.getElementsByClassName("btn btn-warning botonMarcarRutaPua")
+        for (let botonMarcarRutaPua of botonesMarcarRutaPua)
+        {
+            botonMarcarRutaPua.setAttribute("disabled","true");
+        }
+    }
+    function desbloquearBotonesMarcarRutaPua()
+    {
+        let botonesMarcarRutaPua=document.getElementsByClassName("btn btn-warning botonMarcarRutaPua")
+        for (let botonMarcarRutaPua of botonesMarcarRutaPua)
+        {
+            botonMarcarRutaPua.removeAttribute("disabled");
+        }
+    }
 });
