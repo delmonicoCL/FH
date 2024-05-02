@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Reserva;
 use Illuminate\Http\Request;
 use App\Http\Resources\ReservaResource;
+use App\Clases\Utilidad;
+use Illuminate\Database\QueryException;
 
 class ReservaController extends Controller
 {
@@ -56,7 +58,7 @@ class ReservaController extends Controller
         {
             //Hacer el insert en la tabla
             $reserva->save();
-            $response=(new RiderResource($reserva))->response()->setStatusCode(201);
+            $response=(new ReservaResource($reserva))->response()->setStatusCode(201);
         }
         catch(QueryException $ex)
         {

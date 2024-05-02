@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\PuaController;
 use App\Http\Controllers\Api\ProveedorController;
 use App\Http\Controllers\Api\RiderController;
 use App\Http\Controllers\Api\ReservaController;
+use App\Http\Controllers\Api\EntregaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,5 @@ Route::apiResource("proveedores",ProveedorController::class);
 Route::apiResource("riders",RiderController::class);
 
 Route::apiResource("reservas",ReservaController::class);
+
+Route::apiResource("entregas",EntregaController::class);

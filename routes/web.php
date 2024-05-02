@@ -73,6 +73,7 @@ Route::middleware(["auth"])->group(function () {
                         ->join('proveedores', 'reservas.proveedor', '=', 'proveedores.id')
                         ->select('usuarios.nombre AS nombre_proveedor', 'reservas.cantidad', 'proveedores.lat AS latitud', 'proveedores.lng AS longitud')
                         ->where('reservas.rider', $id) // Usando el ID del rider pasado como parámetro
+                        ->where('reservas.estado', "=", "en_curso")
                         ->get();
 
                     $avataresRider = AvatarRider::all();

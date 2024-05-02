@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Rider;
 use Illuminate\Http\Request;
 use App\Http\Resources\RiderResource;
+use App\Clases\Utilidad;
+use Illuminate\Database\QueryException;
 
 class RiderController extends Controller
 {
@@ -43,7 +45,7 @@ class RiderController extends Controller
         //Recuperar los datos del formulario
         /*$apellidos=$request->input("Apellidos");
         $nickname=$request->input("Nickname");*/
-        $stock_rider=$request->input("Stock_rider");
+        $stock_rider=$request->input("StockRider");
         /*$avatar=$request->input("Avatar");*/
         
         //Asignar los valores del formulario a su respectivo campo

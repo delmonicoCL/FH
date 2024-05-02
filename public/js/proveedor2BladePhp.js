@@ -20,20 +20,34 @@ document.addEventListener
                     {
                         if(idRider.value!=="")
                         {
-                            /*console.log(idRider.value);
-                            console.log(cantidadDeMenusReservados.value);*/
-                            let stockRider;
-                            obtenerStockRider(idRider.value);
-                            sumarMenusAlRider(idRider.value,cantidadDeMenusReservados.value);
-                            pasarReservaAFinalizada(idReserva.value);
-                            location.reload();
+                            obtenerStockRider(idRider.value)
+                            .then
+                            (
+                                (stockRider) =>
+                                {
+                                    sumarMenusAlRider(idRider.value,cantidadDeMenusReservados.value,stockRider);
+                                    pasarReservaAFinalizada(idReserva.value);
+                                    crearEntrega(idRider.value);
+                                    location.reload();
+                                }
+                            )
+                            .catch
+                            (
+                                (error) => 
+                                {
+                                    console.error("Error al obtener el stock del rider:", error);
+                                    // Haz algo si ocurre un error al obtener el stock del rider
+                                }
+                            );
                         }
                     }
                 }
             );
         }
-        function sumarMenusAlRider(idRider,cantidadDeMenusReservados)
+        function sumarMenusAlRider(idRider,cantidadDeMenusReservados,stockRider)
         {
+            let agregarReservasAlStock;
+            agregarReservasAlStock=Number(stockRider)+Number(cantidadDeMenusReservados);
             fetch
             (
                 '/FH/public/api/riders/'+idRider,
@@ -42,7 +56,7 @@ document.addEventListener
                     body: JSON.stringify
                     (
                         {
-                            Stock_rider: cantidadDeMenusReservados
+                            StockRider: agregarReservasAlStock
                         }
                     ), // Los datos que se enviarán al servidor, convertidos a JSON
                     headers:
@@ -121,10 +135,9 @@ document.addEventListener
                 ) => console.log("Success:", response)
             ); // Manejando la respuesta exitosa
         }
-        function obtenerStockRider()
+        function obtenerStockRider(idRider)
         {
-            let data;
-            fetch
+            return fetch
             (
                 '/FH/public/api/riders/'+idRider,
                 {
@@ -150,7 +163,9 @@ document.addEventListener
             (
                 (data) =>
                 {
-                    console.log("Data received:", data);
+                    console.log("Data received:");
+                    let stockRider = data.stock_rider;
+                    return stockRider;
                 }
             )
             .catch
@@ -158,10 +173,47 @@ document.addEventListener
                 (error) =>
                 {
                     console.error("Error:", error);
+                    throw error; // Re-lanzamos el error para que pueda ser manejado externamente si es necesario
                 }
             );
-
-            return data;
+        }
+        function crearEntrega(idRider)
+        {
+            fetch
+            (
+                '/FH/public/api/entregas',
+                {
+                    method: "POST", // Utilizando el método PUT para actualizar recursos en el servidor
+                    body: JSON.stringify
+                    (
+                        {
+                            Rider: idRider,
+                        }
+                    ), // Los datos que se enviarán al servidor, convertidos a JSON
+                    headers:
+                    {
+                        "Content-Type": "application/json", // Especificando que el cuerpo de la solicitud está en formato JSON
+                    },
+                }
+            )
+            .then
+            (
+                (res) => res.json()
+            ) // Convirtiendo la respuesta en JSON
+            .catch
+            (
+                (error) => console.error
+                (
+                    "Error:",
+                    error
+                )
+            ) // Manejando errores
+            .then
+            (
+                (
+                    response
+                ) => console.log("Success:", response)
+            ); // Manejando la respuesta exitosa
         }
     }
 );

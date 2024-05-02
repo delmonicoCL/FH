@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Rider- FoodHero APP</title>
+        <title>FoodHero</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ asset('css/rider.css') }}" />
-        <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
+        <link rel="stylesheet" href="{{asset('css/rider.css')}}" />
+        <link rel="shortcut icon" href="{{asset('img/favicon.png')}}" type="image/x-icon">
         <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.cdnfonts.com/css/luckiest-guy" rel="stylesheet">
@@ -108,7 +108,6 @@
                         <input type="hidden" id="lat" name="lat">
                         <label for="cantidad_de_personas">Cuantas personas hay?:</label><br>
                         <input type="number" id="cantidad_de_personas" name="cantidad_de_personas"><br><br>
-                        <input type="number" id="rider_creador" name="rider_creador" value="{{$rider->id}}" hidden>
                         <button type="button" id="submitForm">Crear Pua</button>
                     </form>
                 </div>
@@ -131,10 +130,6 @@
                     @endif
                 </ul>
             </form>
-        </div>          
-
-        <div id="stockRider">
-            <h3>{{ $rider->stock_rider }} Menus</h3>    
         </div>
 
         <!-- Navbar Inferior -->
@@ -212,6 +207,12 @@
                                       {{$rider->nickname}}
                                 </p>
 
+                                <p class="col-sm-12 text-center">
+                                    <strong>
+                                        Menus:
+                                    </strong>
+                                      {{$rider->stock_rider}}
+                                </p>
 
                                 <p class="col-sm-12 text-center">
                                     <strong>
@@ -240,6 +241,10 @@
                                     </strong>
                                       {{$user->telefono}}
                                 </p>
+
+                                <p id="idRider" hidden>{{$rider->id}}</p>
+
+                                <p id="stockRider" hidden>{{$rider->stock_rider}}</p>
 
                                 <div class="col-sm-12 mb-3">
                                     <button type="button" class="btn btn-primary" id="editarPerfil">
@@ -378,12 +383,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @for ($i = 0; $i < count($reservas); $i++)
-                                        <tr>
-                                            <td>{{ $reservas[$i]->nombre }}</td>
-                                            <td>{{ $reservas[$i]->cantidad }}</td>
-                                        </tr>
-                                    @endfor --}}
                                     @foreach ($reservas as $reserva)
                                         <tr>
                                             <td>{{ $reserva->nombre_proveedor }}</td>

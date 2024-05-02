@@ -151,7 +151,7 @@
                     <button class="confirmar" id="botonConfirmarEntrega">Confirmar</button>
                 </div>
 
-                <div>
+                <div hidden>
                     <label for="idRider">Id rider</label>
                     <input type="text" id="idRider">
                     <label for="nicknameRider">Nickname rider</label>

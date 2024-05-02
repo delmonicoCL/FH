@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+    let idRider;
+    let stockRider;
+    idRider=document.getElementById("idRider").textContent;
+    stockRider=Number(document.getElementById("stockRider").textContent);
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiZG5lcml6IiwiYSI6ImNsdHJrN3ppZjAxYmsya3BqcWRsYzdkam8ifQ.gjTWrYyirEhh94V_agnuhQ';
     var modoPua = false;
@@ -140,18 +144,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 modal.style.display = "none";
             }
             var cantidad_de_personasInput = document.getElementById("cantidad_de_personas");
-            var rider_creadorInput = document.getElementById("rider_creador");
             var submitButton = document.getElementById("submitForm");
             submitButton.onclick = function () {
                 var cantidad_de_personas = cantidad_de_personasInput.value;
                 var latitud = e.lngLat.lat;
                 var longitud = e.lngLat.lng;
-                var rider_creador= rider_creadorInput.value;
-                // rider_creador=Number(rider_creador);
-                /*console.log(typeof(cantidad_de_personas));
-                console.log(cantidad_de_personas);
-                console.log(typeof(rider_creador));
-                console.log(rider_creador);*/
+                var rider_creador= idRider;
                 createPua(latitud, longitud, cantidad_de_personas, rider_creador);
                 modoPua = false;
                 modal.style.display = "none";
@@ -237,7 +235,10 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 data.forEach(pua => {
-                    addMarkerToMap(pua);
+                    if(stockRider>=pua.cantidad_de_personas)
+                    {
+                        addMarkerToMap(pua);
+                    }
                 });
             })
             .catch(error => console.error('Error fetching PUAs:', error));
@@ -267,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .addTo(map);
     
         var description = "<h2><p>Numero de personas: " + pua.cantidad_de_personas + "</p></h2>" +
-            "<div style='display:flex; align-items: center; justify-content: space-around'><button class='btn btn-success botonEntregar'>Entregar</button><input type='button' class='btn btn-warning botonMarcarRutaPua' data-latitud='"+pua.lat+"' data-longitud='"+pua.lng+"' value='Marcar ruta'></div>";
+            "<div style='display:flex; align-items: center; justify-content: space-around'><input type='button' class='btn btn-success botonEntregar' data-idPua='"+pua.id+"' data-cantidadDePersonas='"+pua.cantidad_de_personas+"' value='Entregar'><input type='button' class='btn btn-warning botonMarcarRutaPua' data-latitud='"+pua.lat+"' data-longitud='"+pua.lng+"' value='Marcar ruta'></div>";
     
         var popup = new mapboxgl.Popup()
             .setHTML(description);
@@ -275,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
         marker.setPopup(popup);
     
         popup.on('open', function() {
-            var botonesEntregar = document.getElementsByClassName('btn btn-success botonEntregar');
+            //var botonesEntregar = document.getElementsByClassName('btn btn-success botonEntregar');
     
             /*botonEntregar.addEventListener('click', function (){
                 // Obtener la ID de la PUA
@@ -458,26 +459,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     botonDesmarcarRutaPuaSeleccionado=event.target;
                     iniciarProcesoPrevioAGenerarRutaPua(event.target);
                     generarRuta(event.target);
-                    /*if(verificarSiSeEstaMostrandoRutaParaPua())
-                    {
-                        let botonDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua")[0];
-                        botonDesmarcarRutaPua.click();
-
-                        iniciarProcesoPrevioAGenerarRutaPua(event.target);
-                        generarRuta(event.target);
-                    }
-                    else
-                    {
-                        iniciarProcesoPrevioAGenerarRutaPua(event.target);
-                        generarRuta(event.target);
-                    }*/
                 }
                 else
                 {
                     if(verificarSiSeEstaMostrandoRutaParaPua())
                     {
-                        /*let botonDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua")[0];
-                        botonDesmarcarRutaPua.click();*/
                         botonDesmarcarRutaPuaSeleccionado.setAttribute("class","btn btn-warning botonMarcarRutaPua");
                         botonDesmarcarRutaPuaSeleccionado.setAttribute("value","Marcar ruta");
 
@@ -494,12 +480,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     else
                     {
-                        //console.log(panelRutas);
                         botonDesmarcarRutaPuaSeleccionado=event.target;
                         iniciarProcesoPrevioAGenerarRutaPua(event.target);
                         generarRuta(event.target);
-                        /*let botonesDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua");
-                        console.log(botonesDesmarcarRutaPua.length);*/
                     }
                 }
             }
@@ -515,6 +498,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 desbloquearBotonesMarcarRuta();
                 event.target.setAttribute("class","btn btn-warning botonMarcarRutaPua");
                 event.target.setAttribute("value","Marcar ruta");
+            }
+
+            if(event.target.className==="btn btn-success botonEntregar")
+            {
+                obtenerLosIdsDeLasEntregas()
+                .then
+                (
+                    (idsDeLasEntregas) =>
+                    {
+                        let idPua;
+                        idPua=event.target.getAttribute("data-idPua");
+                        pasarEntregaAFinalizada(idsDeLasEntregas[0],idPua);
+                        //restarLosMenusEntregadosDelStockDelRider();
+                        location.reload();
+                    }
+                )
+                .catch
+                (
+                    (error) => 
+                    {
+                        console.error("Error al obtener el stock del rider:", error);
+                        // Haz algo si ocurre un error al obtener el stock del rider
+                    }
+                );
             }
         }
     );
@@ -609,14 +616,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     function verificarSiSeEstaMostrandoRutaParaPua()
     {
-        //let botonesDesmarcarRutaPua=document.getElementsByClassName("btn btn-warning botonDesmarcarRutaPua");
         let seEstaMostrandoRutaParaPua=true;
-        //console.log(botonesDesmarcarRutaPua.length);
         if(numeroDeBotonesDesmarcarRutaPua===0)
         {
             seEstaMostrandoRutaParaPua=false;
         }
-        console.log(seEstaMostrandoRutaParaPua);
         return seEstaMostrandoRutaParaPua;
     }
     function iniciarProcesoPrevioAGenerarRutaPua(elementoTarget)
@@ -626,20 +630,89 @@ document.addEventListener('DOMContentLoaded', function () {
         elementoTarget.setAttribute("value","Desmarcar ruta");
         numeroDeBotonesDesmarcarRutaPua++;
     }
-    function bloquearBotonesMarcarRutaPua()
+    function pasarEntregaAFinalizada(idEntrega,idPua)
     {
-        let botonesMarcarRutaPua=document.getElementsByClassName("btn btn-warning botonMarcarRutaPua")
-        for (let botonMarcarRutaPua of botonesMarcarRutaPua)
-        {
-            botonMarcarRutaPua.setAttribute("disabled","true");
-        }
+        fetch
+        (
+            '/FH/public/api/entregas/'+idEntrega,
+            {
+                method: "PUT", // Utilizando el método PUT para actualizar recursos en el servidor
+                body: JSON.stringify
+                (
+                    {
+                        Pua:idPua,
+                        Estado:"entregado"
+                    }
+                ), // Los datos que se enviarán al servidor, convertidos a JSON
+                headers:
+                {
+                    "Content-Type": "application/json", // Especificando que el cuerpo de la solicitud está en formato JSON
+                },
+            }
+        )
+        .then
+        (
+            (res) => res.json()
+        ) // Convirtiendo la respuesta en JSON
+        .catch
+        (
+            (error) => console.error
+            (
+                "Error:",
+                error
+            )
+        ) // Manejando errores
+        .then
+        (
+            (
+                response
+            ) => console.log("Success:", response)
+        ); // Manejando la respuesta exitosa
     }
-    function desbloquearBotonesMarcarRutaPua()
+    function obtenerLosIdsDeLasEntregas()
     {
-        let botonesMarcarRutaPua=document.getElementsByClassName("btn btn-warning botonMarcarRutaPua")
-        for (let botonMarcarRutaPua of botonesMarcarRutaPua)
-        {
-            botonMarcarRutaPua.removeAttribute("disabled");
-        }
+        return fetch
+        (
+            '/FH/public/api/entregas?EscalaDeConsulta=consultarLasEntregasDeUnRiderEnEspecifico&IdRider='+idRider,
+            {
+                method: "GET",
+                headers:
+                {
+                    "Content-Type": "application/json",
+                },
+            }
+        )
+        .then
+        (
+            (res) =>
+            {
+                if (!res.ok)
+                {
+                    throw new Error("Network response was not ok");
+                }
+                return res.json();
+            }
+        )
+        .then
+        (
+            (data) =>
+            {
+                console.log("Data received:");
+                let idsDeLasEntregas=[];
+                for (let i = 0; i < data.length; i++)
+                {
+                    idsDeLasEntregas.push(data[i].id);    
+                }
+                return idsDeLasEntregas;
+            }
+        )
+        .catch
+        (
+            (error) =>
+            {
+                console.error("Error:", error);
+                throw error; // Re-lanzamos el error para que pueda ser manejado externamente si es necesario
+            }
+        );
     }
 });
