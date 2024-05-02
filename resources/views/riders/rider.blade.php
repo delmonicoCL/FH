@@ -137,22 +137,22 @@
             <div class="container text-center d-flex ">
                 <div class="navbar-item">
                     <button id="boton-perfil">
-                        <img src="{{ asset('img/perfil.png') }}" alt="Perfil" class="img-fluid" />
+                        <img src="{{ asset('img/perfil.png') }}" alt="Perfil" class="img-fluid" draggable="false"/>
                     </button>
                 </div>
                 <div class="navbar-item">
                     <button id="createMarkerButton">
-                        <img src="{{ asset('img/crear_pua.png') }}"alt="Crear Pua" class="img-fluid" />
+                        <img src="{{ asset('img/crear_pua.png') }}"alt="Crear Pua" class="img-fluid" draggable="false"/>
                     </button>
                 </div>
                 <div class="navbar-item">
                     <button id="boton-reservas">
-                        <img src="{{ asset('img/reservas.png') }}" alt="Reservar" class="img-fluid" />
+                        <img src="{{ asset('img/reservas.png') }}" alt="Reservar" class="img-fluid" draggable="false"/>
                     </button>
                 </div>
                 <div class="navbar-item">
                     <button id="boton-historial" class="btn btn-unstyled" data-bs-toggle="modal" data-bs-target="#modalRounded">
-                        <img src="{{ asset('img/historial.png') }}"alt="Historial" class="img-fluid" />
+                        <img src="{{ asset('img/historial.png') }}"alt="Historial" class="img-fluid" draggable="false"/>
                     </button>
                 </div>
                 
@@ -170,8 +170,7 @@
                     <input type="number" id="cantidad" name="cantidad"><br><br>
                     <input type="text" id="proveedor" name="proveedor" value="" hidden>
                     <input type="text" id="rider" name="rider" value={{$rider["id"]}} hidden>
-                    <input type="text" id="estado" name="estado" value="en_curso" hidden>
-                    <button type="submit" id="enviarReserva" class="enviarReserva">Enviar Reserva</button>
+                    <button type="submit" class="btn btn-success" id="enviarReserva" class="enviarReserva">Enviar Reserva</button>
                 </form>
             </div>
         </div>

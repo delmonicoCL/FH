@@ -150,7 +150,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 var latitud = e.lngLat.lat;
                 var longitud = e.lngLat.lng;
                 var rider_creador= idRider;
-                createPua(latitud, longitud, cantidad_de_personas, rider_creador);
+                if(Number(cantidad_de_personas)>0)
+                {
+                    createPua(latitud, longitud, cantidad_de_personas, rider_creador);
+                }
+                else
+                {
+                    alert("La cantidad de personas debe ser mayor a 0.");
+                }
                 modoPua = false;
                 modal.style.display = "none";
             };
@@ -317,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         ).setLngLat(lngLat).addTo(map);
     
-        var description = "<h2>" + proveedor.logo + "</h2>" +
+        var description = "<img src='../storage/app/storage/logos/"+proveedor.logo+"' alt='imagen proveedor' width='100vw' height='100vh' draggable='false'>" +
             "<h2><p>Stock proveedor: " + proveedor.stock_proveedor + "</p></h2>" +
             "<button class='boton-reservar'>Reservar</button>";
     
@@ -333,6 +340,8 @@ document.addEventListener('DOMContentLoaded', function () {
             var enviarReservaBtn = document.getElementById('enviarReserva'); // Cambiado a enviarReserva
         
             botonReservar.addEventListener('click', function (){
+                botonReservar.setAttribute("disabled","true");
+
                 // Obtener la cantidad de personas a reservar
                 var cantidadReserva = parseInt(cantidadInput.value);
         
@@ -508,9 +517,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     (idsDeLasEntregas) =>
                     {
                         let idPua;
+                        let cantidadDePersonas;
+                        cantidadDePersonas=event.target.getAttribute("data-cantidadDePersonas");
+                        cantidadDePersonas=Number(cantidadDePersonas);
                         idPua=event.target.getAttribute("data-idPua");
                         pasarEntregaAFinalizada(idsDeLasEntregas[0],idPua);
-                        //restarLosMenusEntregadosDelStockDelRider();
+                        restarLosMenusEntregadosDelStockDelRider(cantidadDePersonas);
                         location.reload();
                     }
                 )
@@ -561,7 +573,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 panelRutas=new MapboxDirections(
                     {
                         accessToken: 'pk.eyJ1IjoiZG5lcml6IiwiYSI6ImNsdHJrN3ppZjAxYmsya3BqcWRsYzdkam8ifQ.gjTWrYyirEhh94V_agnuhQ',
-                        interactive: false
+                        interactive: false,
+                        showInputs: false
                     }
                 );
 
@@ -714,5 +727,45 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw error; // Re-lanzamos el error para que pueda ser manejado externamente si es necesario
             }
         );
+    }
+    function restarLosMenusEntregadosDelStockDelRider(cantidadDePersonas)
+    {
+        let restarMenusAlStock;
+        restarMenusAlStock=stockRider-cantidadDePersonas;
+        fetch
+        (
+            '/FH/public/api/riders/'+idRider,
+            {
+                method: "PUT", // Utilizando el método PUT para actualizar recursos en el servidor
+                body: JSON.stringify
+                (
+                    {
+                        StockRider: restarMenusAlStock
+                    }
+                ), // Los datos que se enviarán al servidor, convertidos a JSON
+                headers:
+                {
+                    "Content-Type": "application/json", // Especificando que el cuerpo de la solicitud está en formato JSON
+                },
+            }
+        )
+        .then
+        (
+            (res) => res.json()
+        ) // Convirtiendo la respuesta en JSON
+        .catch
+        (
+            (error) => console.error
+            (
+                "Error:",
+                error
+            )
+        ) // Manejando errores
+        .then
+        (
+            (
+                response
+            ) => console.log("Success:", response)
+        ); // Manejando la respuesta exitosa
     }
 });

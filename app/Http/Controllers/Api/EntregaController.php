@@ -37,15 +37,12 @@ class EntregaController extends Controller
     {
         //Recuperar los datos del formulario
         $rider=$request->input("Rider");
-        /*$pua=$request->input("Pua");*/
-        /*$estado=$request->input("Estado");*/
 
         //Crear un objeto de la clase que representa una consulta a la tabla
         $entrega=new Entrega();
         //Asignar los valores del formulario a su respectivo campo
         $entrega->rider=$rider;
         /*$entrega->pua=$pua;*/
-        /*$entrega->estado=$estado;*/
         
         try
         {

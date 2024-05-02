@@ -20,6 +20,7 @@ document.addEventListener
                     {
                         if(idRider.value!=="")
                         {
+                            event.target.setAttribute("disabled","true");
                             obtenerStockRider(idRider.value)
                             .then
                             (
@@ -40,6 +41,10 @@ document.addEventListener
                                 }
                             );
                         }
+                    }
+                    if(event.target.id==="crearBtn")
+                    {
+                        event.target.setAttribute("disables","true");
                     }
                 }
             );

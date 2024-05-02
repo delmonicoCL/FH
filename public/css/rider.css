@@ -333,3 +333,8 @@ label {
 #createMarkerButton:not(.active):hover {
     padding-top: 0px;
 }
+
+.mapboxgl-ctrl-directions mapboxgl-ctrl
+{
+    display: none;
+}

@@ -54,7 +54,7 @@
             </div>
             <div class="estadisticas col-lg-4">
                 <div class="titulo">
-                    <h2>Estadisticas</h2>
+                    <h2>Ranking proveedores</h2>
                 </div>
                 <hr />
                 <div class="mostrarRanking">
