@@ -6,6 +6,7 @@ use App\Models\Rider;
 use App\Models\Usuario;
 use App\Models\Administrador;
 use App\Models\Proveedor;
+use App\Models\AvatarRider;
 use App\Clases\Utilidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
