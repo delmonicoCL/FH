@@ -55,13 +55,8 @@
                             <td>@if(strlen($proveedores[$i]->cp)===4){{'0'.$proveedores[$i]->cp}} @else {{$proveedores[$i]->cp}} @endif</td>
                             <td>{{ $proveedores[$i]->ciudad }}</td>
                             <td>
-                                @if ($proveedores[$i]->logo)
-                                    
-                                <img src="{{ asset('media/img/logos/' . $proveedores[$i]->logo) }}" alt="Logo"
-                                        width="50" height="50"> 
-                                @else 
-                                    Sin LOGO
-                                @endif
+                                <div id="contenedorLogoEmpresa{{$i}}" class="contenedorLogo" data-imagenDentro="{{$proveedores[$i]->logo}}"></div>
+                                <!--<img src="" alt="Logo" width="50" height="50">-->
                             </td>
 
 
@@ -167,4 +162,5 @@
                 }
             });
         </script>
+        <script src="{{asset('js/gestionProveedorBladePhp.js')}}"></script>
     @endsection

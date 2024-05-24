@@ -7,6 +7,7 @@ use App\Models\Reserva;
 use App\Models\Usuario;
 use App\Models\Proveedor;
 use App\Models\Administrador;
+use App\Models\AvatarRider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiderController;
@@ -72,20 +73,16 @@ Route::middleware(["auth"])->group(function () {
                         ->join('proveedores', 'reservas.proveedor', '=', 'proveedores.id')
                         ->select('usuarios.nombre AS nombre_proveedor', 'reservas.cantidad', 'proveedores.lat AS latitud', 'proveedores.lng AS longitud')
                         ->where('reservas.rider', $id) // Usando el ID del rider pasado como parámetro
+                        ->where('reservas.estado', "=", "en_curso")
                         ->get();
 
-                    $response = view("riders/rider", compact("user", "rider", "reservas", "totalReservas", "totalPuas", "totalEntregas"));
-                    
-                // $rider = Rider::where("id", "=", $id)->first();
-                // // $reservas = Reserva::where("rider","=",$id)->where("estado","!=","finalizada")->get(); // Aquí se filtran las reservas finalizadas
-                // $reservas = DB::table('reservas')
-                //     ->join('usuarios', 'reservas.proveedor', '=', 'usuarios.id')
-                //     ->join('proveedores', 'reservas.proveedor', '=', 'proveedores.id')
-                //     ->select('usuarios.nombre AS nombre_proveedor', 'reservas.cantidad', 'proveedores.lat AS latitud', 'proveedores.lng AS longitud')
-                //     ->where('reservas.rider', 160)
-                //     ->get();
-
-                // $response = view("riders/rider", compact("user", "rider", "reservas"));
+                    $avataresRider = AvatarRider::all();
+                    $listaAvatares=[];
+                    for ($i = 0; $i < count($avataresRider); $i++)
+                    {
+                        array_push($listaAvatares, $avataresRider[$i]["avatar"]);
+                    }
+                    $response = view("riders/rider", compact("user", "rider", "reservas", "totalReservas", "totalPuas", "totalEntregas","listaAvatares"));
                 break;
         }
         return $response;
@@ -109,8 +106,9 @@ Route::middleware(["auth"])->group(function () {
 
         $ridersReservas = DB::table('reservas')
             ->join('riders', 'reservas.rider', '=', 'riders.id')
-            ->select('riders.nickname AS nickname', "reservas.id", "reservas.rider", "reservas.cantidad", "reservas.estado")
+            ->select('riders.nickname AS nicknameRider', "reservas.id AS idReserva", "reservas.rider AS idRider", "reservas.cantidad AS cantidadMenusReservados", "reservas.estado AS estadoReserva")
             ->where('reservas.proveedor', "=", $id)
+            ->where('reservas.estado', "=", "en_curso")
             ->get();
         $riders = Rider::all();
 
@@ -122,7 +120,6 @@ Route::middleware(["auth"])->group(function () {
             ->orderByDesc('cantidad')
             ->get();
 
-        // consulta para mostrar el totoal de menus entregados por un proveedor
         $entregasFinalizadas = DB::table('reservas')
             ->where('proveedor', '=', $id)
             ->where('estado', '=', 'finalizada')
@@ -209,8 +206,6 @@ Route::middleware(["auth"])->group(function () {
         }
 
     })->name('administradores.gestionProveedor');
-
-
 });
 
 Route::get('/registros/elige_tipo_de_usuario', function () {

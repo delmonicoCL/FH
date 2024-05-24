@@ -2,7 +2,6 @@
 // ReservaController
 namespace App\Http\Controllers;
 
-use App\Models\Rider;
 use App\Models\Reserva;
 use App\Clases\Utilidad;
 use App\Models\Proveedor;
@@ -53,7 +52,6 @@ class ReservaController extends Controller
         $reserva->cantidad = $request->cantidad;
         $reserva->proveedor = $request->proveedor; // Aquí se guarda el ID del proveedor
         $reserva->rider = $request->rider;
-        $reserva->estado = $request->estado;
         $reserva->save();
 
         // Actualizar el stock del proveedor

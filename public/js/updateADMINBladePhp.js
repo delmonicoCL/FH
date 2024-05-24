@@ -12,11 +12,11 @@ document.addEventListener
                 "click",
                 function(event)
                 {
-                    if(event.target.id==="falsoBotonSubmit")
+                    if(event.target.id==="aceptar")
                     {
-                        if(validaciones())
+                        if(!validaciones())
                         {
-                            generarCoordenadas();
+                            event.preventDefault();
                         }
                     }
 
@@ -25,24 +25,31 @@ document.addEventListener
         }
         function validaciones()
         {
-            let mensajeValidacionFormulario=document.getElementById("mensajeValidacionFormularioActualizarProveedor")
-            let nombreEmpresa=document.getElementById("nombreEmpresa");
+            let mensajeValidacionFormulario=document.getElementById("mensajeValidacionFormularioCrearProveedor")
+            let nombre=document.getElementById("nombre");
+            let apellidos=document.getElementById("apellidos");
             let email=document.getElementById("email");
             let telefono=document.getElementById("telefono");
-            let calle=document.getElementById("calle");
-            let numero=document.getElementById("numero");
-            let cp=document.getElementById("cp");
-            let ciudad=document.getElementById("ciudad");
 
             let laTareaPasoTodasLasValidaciones=false;
             principal();
             function principal()
             {
-                let validacionCampoVacioNombreEmpresa=false;
-                let validacionLongitudNombreEmpresa=false;
-                let campoNombreEmpresaPasoTodasLasValidaciones=false;
-                validacionCampoVacioNombreEmpresa=verificarQueElCampoNoEsteVacio(validacionCampoVacioNombreEmpresa,nombreEmpresa);
-                validacionLongitudNombreEmpresa=verificarLongitud(validacionLongitudNombreEmpresa,nombreEmpresa,2,30);
+                let validacionCampoVacioNombre=false;
+                let validacionCaracteresExtraniosNombre=false;
+                let validacionLongitudNombre=false;
+                let campoNombrePasoTodasLasValidaciones=false;
+                validacionCampoVacioNombre=verificarQueElCampoNoEsteVacio(validacionCampoVacioNombre,nombre);
+                validacionCaracteresExtraniosNombre=verificarQueElCampoNoContengaCaracteresExtranios(validacionCaracteresExtraniosNombre,nombre);
+                validacionLongitudNombre=verificarLongitud(validacionLongitudNombre,nombre,2,30);
+
+                let validacionCampoVacioApellidos=false;
+                let validacionCaracteresExtraniosApellidos=false;
+                let validacionLongitudApellidos=false;
+                let campoApellidosPasoTodasLasValidaciones=false;
+                validacionCampoVacioApellidos=verificarQueElCampoNoEsteVacio(validacionCampoVacioApellidos,apellidos);
+                validacionCaracteresExtraniosApellidos=verificarQueElCampoNoContengaCaracteresExtranios(validacionCaracteresExtraniosApellidos,apellidos);
+                validacionLongitudApellidos=verificarLongitud(validacionLongitudApellidos,apellidos,2,30);
 
                 let validacionCorreoElectronico=false;
                 let campoCorreoElectronicoPasoTodasLasValidaciones=false;
@@ -54,33 +61,19 @@ document.addEventListener
                 validacionLongitudTelefono=verificarLongitud(validacionLongitudTelefono,telefono,9,9);
                 validacionSoloNumerosTelefono=verificarQueElCampoSoloContengaNumeros(validacionSoloNumerosTelefono,telefono);
 
-                let validacionCampoVacioCalle=false;
-                let validacionLongitudCalle=false;
-                let campoCallePasoTodasLasValidaciones=false;
-                validacionCampoVacioCalle=verificarQueElCampoNoEsteVacio(validacionCampoVacioCalle,calle);
-                validacionLongitudCalle=verificarLongitud(validacionLongitudCalle,calle,2,30);
 
-                let validacionLongitudNumero=false;
-                let campoNumeroPasoTodasLasValidaciones=false;
-                validacionLongitudNumero=verificarLongitud(validacionLongitudNumero,numero,1,4);
-
-                let validacionLongitudCp=false;
-                let campoCpPasoTodasLasValidaciones=false;
-                validacionLongitudCp=verificarLongitud(validacionLongitudCp,cp,5,5);
-
-                let validacionCampoVacioCiudad=false;
-                let validacionCaracteresExtraniosCiudad=false;
-                let validacionLongitudCiudad=false;
-                let campoCiudadPasoTodasLasValidaciones=false;
-                validacionCampoVacioCiudad=verificarQueElCampoNoEsteVacio(validacionCampoVacioCiudad,ciudad);
-                validacionCaracteresExtraniosCiudad=verificarQueElCampoNoContengaCaracteresExtranios(validacionCaracteresExtraniosCiudad,ciudad);
-                validacionLongitudCiudad=verificarLongitud(validacionLongitudCiudad,ciudad,2,30);
-
-                if(validacionCampoVacioNombreEmpresa&&validacionLongitudNombreEmpresa)
+                if(validacionCampoVacioNombre&&validacionCaracteresExtraniosNombre&&validacionLongitudNombre)
                 {
-                    let mensajeError = document.getElementById("mensajeValidacionNombreEmpresa");
+                    let mensajeError = document.getElementById("mensajeValidacionNombre");
                     mensajeError.textContent = "";
-                    campoNombreEmpresaPasoTodasLasValidaciones=true;
+                    campoNombrePasoTodasLasValidaciones=true;
+                }
+
+                if(validacionCampoVacioApellidos&&validacionCaracteresExtraniosApellidos&&validacionLongitudApellidos)
+                {
+                    let mensajeError = document.getElementById("mensajeValidacionApellidos");
+                    mensajeError.textContent = "";
+                    campoApellidosPasoTodasLasValidaciones=true;
                 }
 
                 if(validacionCorreoElectronico)
@@ -97,36 +90,7 @@ document.addEventListener
                     campoTelefonoPasoTodasLasValidaciones=true;
                 }
 
-                if(validacionCampoVacioCalle&&validacionLongitudCalle)
-                {
-                    let mensajeError = document.getElementById("mensajeValidacionCalle");
-                    mensajeError.textContent = "";
-                    campoCallePasoTodasLasValidaciones=true;
-                }
-
-                if(validacionLongitudNumero)
-                {
-                    let mensajeError = document.getElementById("mensajeValidacionNumero");
-                    mensajeError.textContent = "";
-                    campoNumeroPasoTodasLasValidaciones=true;
-                }
-                
-                if(validacionLongitudCp)
-                {
-                    let mensajeError = document.getElementById("mensajeValidacionCp");
-                    mensajeError.textContent = "";
-                    campoCpPasoTodasLasValidaciones=true;
-                }
-
-                if(validacionCampoVacioCiudad&&validacionCaracteresExtraniosCiudad&&validacionLongitudCiudad)
-                {
-                    let mensajeError = document.getElementById("mensajeValidacionCiudad");
-                    mensajeError.textContent = "";
-                    campoCiudadPasoTodasLasValidaciones=true;
-                }
-
-
-                if(campoNombreEmpresaPasoTodasLasValidaciones&&campoCorreoElectronicoPasoTodasLasValidaciones&&campoTelefonoPasoTodasLasValidaciones&&campoCallePasoTodasLasValidaciones&&campoNumeroPasoTodasLasValidaciones&&campoCpPasoTodasLasValidaciones&&campoCiudadPasoTodasLasValidaciones)
+                if(campoNombrePasoTodasLasValidaciones&&campoApellidosPasoTodasLasValidaciones&&campoCorreoElectronicoPasoTodasLasValidaciones&&campoTelefonoPasoTodasLasValidaciones)
                 {
                     mensajeValidacionFormulario.textContent="";
                     laTareaPasoTodasLasValidaciones=true;
@@ -241,42 +205,6 @@ document.addEventListener
                 return validacionNumeros; 
             }
             return laTareaPasoTodasLasValidaciones;
-        }
-        function generarCoordenadas()
-        {
-            let inputLatitud=document.getElementById("latitud");
-            let inputLongitud=document.getElementById("longitud");
-            let verdaderoBotonSubmit=document.getElementById("verdaderoBotonSubmit");
-    
-            // Definir la dirección a buscar
-            let calle=document.getElementById("calle").value;
-            let numero=document.getElementById("numero").value;
-            let cp=document.getElementById("cp").value;
-            let ciudad=document.getElementById("ciudad").value;
-            let direccion=calle+", "+numero+", "+cp+", "+ciudad;
-    
-            // Configurar la URL de la API de geocodificación de Mapbox
-            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${direccion}.json?access_token=pk.eyJ1Ijoib2FycmlhemEiLCJhIjoiY2x1cG9nc2hrMDZibzJqcGIzOGYzN3N3aiJ9.R8CTcgwHzP-_Isspx2S8lw`;
-    
-            // Función para obtener las coordenadas GPS
-            async function obtenerCoordenadas()
-            {
-                const respuesta = await fetch(url);
-                const datos = await respuesta.json();
-                return datos.features[0].center;
-            }
-    
-            // Obtener las coordenadas GPS
-            obtenerCoordenadas(direccion).then
-            (
-                (coordenadas) =>
-                {
-                    //Añadir las coordenadas al formulario
-                    inputLatitud.setAttribute("value",coordenadas[1]);
-                    inputLongitud.setAttribute("value",coordenadas[0]);
-                    verdaderoBotonSubmit.click();
-                }
-            );
         }
     }
 );

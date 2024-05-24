@@ -54,13 +54,37 @@ hr {
     background-color: #000000;
 }
 
+DIV.containerInfo {
+    height: 80%;
+    width: 100%;
+    display: flex;
+}
+
+div.col1 {
+    height: 100%;
+    width: 30%;
+}
+
+div.col2 {
+    height: 100%;
+    width: 70%;
+}
+
 div.row1,
+div.row2,
+div.row3 {
+    height: calc(100% / 3);
+    width: 100%;
+    display: flex;
+}
+
+/* div.row1,
 div.row2,
 div.row3 {
     height: calc(80% / 3);
     width: 100%;
     display: flex;
-}
+} */
 
 div.nombre,
 div.calle,
@@ -129,7 +153,13 @@ div.mostrarRanking {
 }
 
 div.ranking {
+    height: auto;
     width: 90%;
+    border: solid black 1px;
+}
+
+table.table{
+    margin: 0px;
 }
 
 div.menus {
@@ -220,7 +250,7 @@ div.selectRider {
     justify-content: center;
 }
 
-label.opciones{
+label.opciones {
     margin: 10px;
 }
 

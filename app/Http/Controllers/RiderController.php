@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rider;
-use App\Models\Entrega;
-use App\Models\Reserva;
-use App\Models\Pua;
+use App\Models\Administrador;
 use App\Clases\Utilidad;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class RiderController extends Controller
 {
@@ -90,19 +89,15 @@ class RiderController extends Controller
     }
 
     public function edit(Rider $rider)
-    {
-        $usuarios = Usuario::all();
-        $riders = Rider::all();
-
-        
-        return view("administradores.updateRIDER", compact("usuarios", "riders"));
+    {   
+        //
     }
 
     public function update(Request $request, Rider $rider)
     {
         //Recuperar los datos del formulario
         $tipo=$request->tipo;
-        $id=$request->input("Id");
+        $id = $rider->id;
         $apellidos=$request->input("Apellidos");
         $nickname=$request->input("Nickname");
         $avatar=$request->input("Avatar");
@@ -117,14 +112,32 @@ class RiderController extends Controller
             //Hacer el insert en la tabla
             $rider->save();
             $request->session()->flash("mensaje","Rider modificado correctamente.");
-            $response=redirect("/administradores/gestionRaider");
+
+            if(Auth::user()->tipo==="administrador")
+            {
+                $response=redirect("/administradores/gestionRaider");
+            }
+            else
+            {
+                $response=redirect("/home");
+            }
         }
         catch(QueryException $ex)
         {
             $usuario=Usuario::where("id", "=", $id)->first();
             $mensaje=Utilidad::errorMessage($ex);
             $request->session()->flash("error",$mensaje);
-            $response = redirect()->route("usuarios.edit", compact("tipo","usuario"))->withInput();
+
+            if(Auth::user()->tipo==="administrador")
+            {
+                $administrador=Administrador::where("id","=",Auth::user()->id)->first();
+                $idAdministrador=$administrador->id;
+                $response=redirect()->route("usuarios.edit",compact("tipo","usuario","idAdministrador"))->withInput();
+            }
+            else
+            {
+                $response=redirect("/home");
+            }
         }
         return $response;
     }

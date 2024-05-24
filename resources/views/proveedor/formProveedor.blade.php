@@ -27,9 +27,9 @@
                 <div class="card" id="contenedorPrincipal">
                     <div class="card-body">
                         <div class="text-center">
-                            <p id="mensajeValidacionFormularioCrearProveedor"></p>
+                            <p id="mensajeValidacionFormularioActualizarProveedor"></p>
                         </div>
-                        <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $usuario->id, 'tipo' => $usuario->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor'=>'proveedor']) }}" id="formularioinscripcion" method="POST" enctype="multipart/form-data">
+                        <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'update'], ['usuario' => $usuario->id, 'tipo' => $usuario->tipo,'tipoDeUsuarioQueEstaRealizandoLaEdicionDeProveedor'=>'proveedor'])}}" id="formularioinscripcion" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
         
